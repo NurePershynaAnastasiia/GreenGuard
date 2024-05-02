@@ -3,8 +3,36 @@
   "WorkspaceRootPath": "D:\\apz-pzpi-21-1-pershyna-anastasiia\\Task2\\apz-pzpi-21-1-pershyna-anastasiia-task2\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{4FFCD9FE-9615-4A27-B06D-9A047179B551}|apz-pzpi-21-1-pershyna-anastasiia-task2\\apz-pzpi-21-1-pershyna-anastasiia-task2.csproj|d:\\apz-pzpi-21-1-pershyna-anastasiia\\task2\\apz-pzpi-21-1-pershyna-anastasiia-task2\\apz-pzpi-21-1-pershyna-anastasiia-task2\\models\\addworker.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4FFCD9FE-9615-4A27-B06D-9A047179B551}|apz-pzpi-21-1-pershyna-anastasiia-task2\\apz-pzpi-21-1-pershyna-anastasiia-task2.csproj|solutionrelative:apz-pzpi-21-1-pershyna-anastasiia-task2\\models\\addworker.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4FFCD9FE-9615-4A27-B06D-9A047179B551}|apz-pzpi-21-1-pershyna-anastasiia-task2\\apz-pzpi-21-1-pershyna-anastasiia-task2.csproj|d:\\apz-pzpi-21-1-pershyna-anastasiia\\task2\\apz-pzpi-21-1-pershyna-anastasiia-task2\\apz-pzpi-21-1-pershyna-anastasiia-task2\\models\\addtask.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4FFCD9FE-9615-4A27-B06D-9A047179B551}|apz-pzpi-21-1-pershyna-anastasiia-task2\\apz-pzpi-21-1-pershyna-anastasiia-task2.csproj|solutionrelative:apz-pzpi-21-1-pershyna-anastasiia-task2\\models\\addtask.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{4FFCD9FE-9615-4A27-B06D-9A047179B551}|apz-pzpi-21-1-pershyna-anastasiia-task2\\apz-pzpi-21-1-pershyna-anastasiia-task2.csproj|d:\\apz-pzpi-21-1-pershyna-anastasiia\\task2\\apz-pzpi-21-1-pershyna-anastasiia-task2\\apz-pzpi-21-1-pershyna-anastasiia-task2\\models\\database\\worker.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{4FFCD9FE-9615-4A27-B06D-9A047179B551}|apz-pzpi-21-1-pershyna-anastasiia-task2\\apz-pzpi-21-1-pershyna-anastasiia-task2.csproj|solutionrelative:apz-pzpi-21-1-pershyna-anastasiia-task2\\models\\database\\worker.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4FFCD9FE-9615-4A27-B06D-9A047179B551}|apz-pzpi-21-1-pershyna-anastasiia-task2\\apz-pzpi-21-1-pershyna-anastasiia-task2.csproj|d:\\apz-pzpi-21-1-pershyna-anastasiia\\task2\\apz-pzpi-21-1-pershyna-anastasiia-task2\\apz-pzpi-21-1-pershyna-anastasiia-task2\\dto\\workerdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4FFCD9FE-9615-4A27-B06D-9A047179B551}|apz-pzpi-21-1-pershyna-anastasiia-task2\\apz-pzpi-21-1-pershyna-anastasiia-task2.csproj|solutionrelative:apz-pzpi-21-1-pershyna-anastasiia-task2\\dto\\workerdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4FFCD9FE-9615-4A27-B06D-9A047179B551}|apz-pzpi-21-1-pershyna-anastasiia-task2\\apz-pzpi-21-1-pershyna-anastasiia-task2.csproj|d:\\apz-pzpi-21-1-pershyna-anastasiia\\task2\\apz-pzpi-21-1-pershyna-anastasiia-task2\\apz-pzpi-21-1-pershyna-anastasiia-task2\\models\\addplanttype.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4FFCD9FE-9615-4A27-B06D-9A047179B551}|apz-pzpi-21-1-pershyna-anastasiia-task2\\apz-pzpi-21-1-pershyna-anastasiia-task2.csproj|solutionrelative:apz-pzpi-21-1-pershyna-anastasiia-task2\\models\\addplanttype.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4FFCD9FE-9615-4A27-B06D-9A047179B551}|apz-pzpi-21-1-pershyna-anastasiia-task2\\apz-pzpi-21-1-pershyna-anastasiia-task2.csproj|d:\\apz-pzpi-21-1-pershyna-anastasiia\\task2\\apz-pzpi-21-1-pershyna-anastasiia-task2\\apz-pzpi-21-1-pershyna-anastasiia-task2\\models\\addpest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4FFCD9FE-9615-4A27-B06D-9A047179B551}|apz-pzpi-21-1-pershyna-anastasiia-task2\\apz-pzpi-21-1-pershyna-anastasiia-task2.csproj|solutionrelative:apz-pzpi-21-1-pershyna-anastasiia-task2\\models\\addpest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4FFCD9FE-9615-4A27-B06D-9A047179B551}|apz-pzpi-21-1-pershyna-anastasiia-task2\\apz-pzpi-21-1-pershyna-anastasiia-task2.csproj|d:\\apz-pzpi-21-1-pershyna-anastasiia\\task2\\apz-pzpi-21-1-pershyna-anastasiia-task2\\apz-pzpi-21-1-pershyna-anastasiia-task2\\models\\addplant.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4FFCD9FE-9615-4A27-B06D-9A047179B551}|apz-pzpi-21-1-pershyna-anastasiia-task2\\apz-pzpi-21-1-pershyna-anastasiia-task2.csproj|solutionrelative:apz-pzpi-21-1-pershyna-anastasiia-task2\\models\\addplant.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4FFCD9FE-9615-4A27-B06D-9A047179B551}|apz-pzpi-21-1-pershyna-anastasiia-task2\\apz-pzpi-21-1-pershyna-anastasiia-task2.csproj|d:\\apz-pzpi-21-1-pershyna-anastasiia\\task2\\apz-pzpi-21-1-pershyna-anastasiia-task2\\apz-pzpi-21-1-pershyna-anastasiia-task2\\models\\addfertilizer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4FFCD9FE-9615-4A27-B06D-9A047179B551}|apz-pzpi-21-1-pershyna-anastasiia-task2\\apz-pzpi-21-1-pershyna-anastasiia-task2.csproj|solutionrelative:apz-pzpi-21-1-pershyna-anastasiia-task2\\models\\addfertilizer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{4FFCD9FE-9615-4A27-B06D-9A047179B551}|apz-pzpi-21-1-pershyna-anastasiia-task2\\apz-pzpi-21-1-pershyna-anastasiia-task2.csproj|d:\\apz-pzpi-21-1-pershyna-anastasiia\\task2\\apz-pzpi-21-1-pershyna-anastasiia-task2\\apz-pzpi-21-1-pershyna-anastasiia-task2\\models\\database\\task.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -29,10 +57,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{4FFCD9FE-9615-4A27-B06D-9A047179B551}|apz-pzpi-21-1-pershyna-anastasiia-task2\\apz-pzpi-21-1-pershyna-anastasiia-task2.csproj|d:\\apz-pzpi-21-1-pershyna-anastasiia\\task2\\apz-pzpi-21-1-pershyna-anastasiia-task2\\apz-pzpi-21-1-pershyna-anastasiia-task2\\models\\database\\fertilizer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{4FFCD9FE-9615-4A27-B06D-9A047179B551}|apz-pzpi-21-1-pershyna-anastasiia-task2\\apz-pzpi-21-1-pershyna-anastasiia-task2.csproj|solutionrelative:apz-pzpi-21-1-pershyna-anastasiia-task2\\models\\database\\fertilizer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{4FFCD9FE-9615-4A27-B06D-9A047179B551}|apz-pzpi-21-1-pershyna-anastasiia-task2\\apz-pzpi-21-1-pershyna-anastasiia-task2.csproj|d:\\apz-pzpi-21-1-pershyna-anastasiia\\task2\\apz-pzpi-21-1-pershyna-anastasiia-task2\\apz-pzpi-21-1-pershyna-anastasiia-task2\\dto\\workerdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{4FFCD9FE-9615-4A27-B06D-9A047179B551}|apz-pzpi-21-1-pershyna-anastasiia-task2\\apz-pzpi-21-1-pershyna-anastasiia-task2.csproj|solutionrelative:apz-pzpi-21-1-pershyna-anastasiia-task2\\dto\\workerdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{4FFCD9FE-9615-4A27-B06D-9A047179B551}|apz-pzpi-21-1-pershyna-anastasiia-task2\\apz-pzpi-21-1-pershyna-anastasiia-task2.csproj|d:\\apz-pzpi-21-1-pershyna-anastasiia\\task2\\apz-pzpi-21-1-pershyna-anastasiia-task2\\apz-pzpi-21-1-pershyna-anastasiia-task2\\dto\\taskdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -131,32 +155,97 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "AddWorker.cs",
+              "DocumentMoniker": "D:\\apz-pzpi-21-1-pershyna-anastasiia\\Task2\\apz-pzpi-21-1-pershyna-anastasiia-task2\\apz-pzpi-21-1-pershyna-anastasiia-task2\\Models\\AddWorker.cs",
+              "RelativeDocumentMoniker": "apz-pzpi-21-1-pershyna-anastasiia-task2\\Models\\AddWorker.cs",
+              "ToolTip": "D:\\apz-pzpi-21-1-pershyna-anastasiia\\Task2\\apz-pzpi-21-1-pershyna-anastasiia-task2\\apz-pzpi-21-1-pershyna-anastasiia-task2\\Models\\AddWorker.cs",
+              "RelativeToolTip": "apz-pzpi-21-1-pershyna-anastasiia-task2\\Models\\AddWorker.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABkAAAASAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-02T10:59:23.833Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "AddTask.cs",
+              "DocumentMoniker": "D:\\apz-pzpi-21-1-pershyna-anastasiia\\Task2\\apz-pzpi-21-1-pershyna-anastasiia-task2\\apz-pzpi-21-1-pershyna-anastasiia-task2\\Models\\AddTask.cs",
+              "RelativeDocumentMoniker": "apz-pzpi-21-1-pershyna-anastasiia-task2\\Models\\AddTask.cs",
+              "ToolTip": "D:\\apz-pzpi-21-1-pershyna-anastasiia\\Task2\\apz-pzpi-21-1-pershyna-anastasiia-task2\\apz-pzpi-21-1-pershyna-anastasiia-task2\\Models\\AddTask.cs",
+              "RelativeToolTip": "apz-pzpi-21-1-pershyna-anastasiia-task2\\Models\\AddTask.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAYAAAAIAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-02T10:59:08.197Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "AddPlantType.cs",
+              "DocumentMoniker": "D:\\apz-pzpi-21-1-pershyna-anastasiia\\Task2\\apz-pzpi-21-1-pershyna-anastasiia-task2\\apz-pzpi-21-1-pershyna-anastasiia-task2\\Models\\AddPlantType.cs",
+              "RelativeDocumentMoniker": "apz-pzpi-21-1-pershyna-anastasiia-task2\\Models\\AddPlantType.cs",
+              "ToolTip": "D:\\apz-pzpi-21-1-pershyna-anastasiia\\Task2\\apz-pzpi-21-1-pershyna-anastasiia-task2\\apz-pzpi-21-1-pershyna-anastasiia-task2\\Models\\AddPlantType.cs",
+              "RelativeToolTip": "apz-pzpi-21-1-pershyna-anastasiia-task2\\Models\\AddPlantType.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABUAAAA5AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-02T10:58:55.263Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "AddPlant.cs",
+              "DocumentMoniker": "D:\\apz-pzpi-21-1-pershyna-anastasiia\\Task2\\apz-pzpi-21-1-pershyna-anastasiia-task2\\apz-pzpi-21-1-pershyna-anastasiia-task2\\Models\\AddPlant.cs",
+              "RelativeDocumentMoniker": "apz-pzpi-21-1-pershyna-anastasiia-task2\\Models\\AddPlant.cs",
+              "ToolTip": "D:\\apz-pzpi-21-1-pershyna-anastasiia\\Task2\\apz-pzpi-21-1-pershyna-anastasiia-task2\\apz-pzpi-21-1-pershyna-anastasiia-task2\\Models\\AddPlant.cs",
+              "RelativeToolTip": "apz-pzpi-21-1-pershyna-anastasiia-task2\\Models\\AddPlant.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABcAAAA3AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-02T10:58:40.64Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "AddPest.cs",
+              "DocumentMoniker": "D:\\apz-pzpi-21-1-pershyna-anastasiia\\Task2\\apz-pzpi-21-1-pershyna-anastasiia-task2\\apz-pzpi-21-1-pershyna-anastasiia-task2\\Models\\AddPest.cs",
+              "RelativeDocumentMoniker": "apz-pzpi-21-1-pershyna-anastasiia-task2\\Models\\AddPest.cs",
+              "ToolTip": "D:\\apz-pzpi-21-1-pershyna-anastasiia\\Task2\\apz-pzpi-21-1-pershyna-anastasiia-task2\\apz-pzpi-21-1-pershyna-anastasiia-task2\\Models\\AddPest.cs",
+              "RelativeToolTip": "apz-pzpi-21-1-pershyna-anastasiia-task2\\Models\\AddPest.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAsAAAA0AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-02T10:58:29.789Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "AddFertilizer.cs",
+              "DocumentMoniker": "D:\\apz-pzpi-21-1-pershyna-anastasiia\\Task2\\apz-pzpi-21-1-pershyna-anastasiia-task2\\apz-pzpi-21-1-pershyna-anastasiia-task2\\Models\\AddFertilizer.cs",
+              "RelativeDocumentMoniker": "apz-pzpi-21-1-pershyna-anastasiia-task2\\Models\\AddFertilizer.cs",
+              "ToolTip": "D:\\apz-pzpi-21-1-pershyna-anastasiia\\Task2\\apz-pzpi-21-1-pershyna-anastasiia-task2\\apz-pzpi-21-1-pershyna-anastasiia-task2\\Models\\AddFertilizer.cs",
+              "RelativeToolTip": "apz-pzpi-21-1-pershyna-anastasiia-task2\\Models\\AddFertilizer.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAUAAAAFAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-02T10:58:17.093Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
               "Title": "Worker.cs",
               "DocumentMoniker": "D:\\apz-pzpi-21-1-pershyna-anastasiia\\Task2\\apz-pzpi-21-1-pershyna-anastasiia-task2\\apz-pzpi-21-1-pershyna-anastasiia-task2\\Models\\Database\\Worker.cs",
               "RelativeDocumentMoniker": "apz-pzpi-21-1-pershyna-anastasiia-task2\\Models\\Database\\Worker.cs",
               "ToolTip": "D:\\apz-pzpi-21-1-pershyna-anastasiia\\Task2\\apz-pzpi-21-1-pershyna-anastasiia-task2\\apz-pzpi-21-1-pershyna-anastasiia-task2\\Models\\Database\\Worker.cs",
               "RelativeToolTip": "apz-pzpi-21-1-pershyna-anastasiia-task2\\Models\\Database\\Worker.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA8AAAAwAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABEAAAAIAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-05-02T10:50:11.904Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "Task.cs",
-              "DocumentMoniker": "D:\\apz-pzpi-21-1-pershyna-anastasiia\\Task2\\apz-pzpi-21-1-pershyna-anastasiia-task2\\apz-pzpi-21-1-pershyna-anastasiia-task2\\Models\\Database\\Task.cs",
-              "RelativeDocumentMoniker": "apz-pzpi-21-1-pershyna-anastasiia-task2\\Models\\Database\\Task.cs",
-              "ToolTip": "D:\\apz-pzpi-21-1-pershyna-anastasiia\\Task2\\apz-pzpi-21-1-pershyna-anastasiia-task2\\apz-pzpi-21-1-pershyna-anastasiia-task2\\Models\\Database\\Task.cs",
-              "RelativeToolTip": "apz-pzpi-21-1-pershyna-anastasiia-task2\\Models\\Database\\Task.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAABgAAAAuAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-02T10:49:54.859Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 9,
               "Title": "Reminder.cs",
               "DocumentMoniker": "D:\\apz-pzpi-21-1-pershyna-anastasiia\\Task2\\apz-pzpi-21-1-pershyna-anastasiia-task2\\apz-pzpi-21-1-pershyna-anastasiia-task2\\Models\\Database\\Reminder.cs",
               "RelativeDocumentMoniker": "apz-pzpi-21-1-pershyna-anastasiia-task2\\Models\\Database\\Reminder.cs",
@@ -164,12 +253,11 @@
               "RelativeToolTip": "apz-pzpi-21-1-pershyna-anastasiia-task2\\Models\\Database\\Reminder.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAABIAAAAnAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-02T10:49:44.889Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-05-02T10:49:44.889Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 11,
               "Title": "PlantType.cs",
               "DocumentMoniker": "D:\\apz-pzpi-21-1-pershyna-anastasiia\\Task2\\apz-pzpi-21-1-pershyna-anastasiia-task2\\apz-pzpi-21-1-pershyna-anastasiia-task2\\Models\\Database\\PlantType.cs",
               "RelativeDocumentMoniker": "apz-pzpi-21-1-pershyna-anastasiia-task2\\Models\\Database\\PlantType.cs",
@@ -177,12 +265,11 @@
               "RelativeToolTip": "apz-pzpi-21-1-pershyna-anastasiia-task2\\Models\\Database\\PlantType.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAB4AAAA5AAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-02T10:48:50.126Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-05-02T10:48:50.126Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 10,
               "Title": "Plant.cs",
               "DocumentMoniker": "D:\\apz-pzpi-21-1-pershyna-anastasiia\\Task2\\apz-pzpi-21-1-pershyna-anastasiia-task2\\apz-pzpi-21-1-pershyna-anastasiia-task2\\Models\\Database\\Plant.cs",
               "RelativeDocumentMoniker": "apz-pzpi-21-1-pershyna-anastasiia-task2\\Models\\Database\\Plant.cs",
@@ -190,12 +277,11 @@
               "RelativeToolTip": "apz-pzpi-21-1-pershyna-anastasiia-task2\\Models\\Database\\Plant.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAB4AAAAvAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-02T10:48:38.106Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-05-02T10:48:38.106Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 12,
               "Title": "Pest.cs",
               "DocumentMoniker": "D:\\apz-pzpi-21-1-pershyna-anastasiia\\Task2\\apz-pzpi-21-1-pershyna-anastasiia-task2\\apz-pzpi-21-1-pershyna-anastasiia-task2\\Models\\Database\\Pest.cs",
               "RelativeDocumentMoniker": "apz-pzpi-21-1-pershyna-anastasiia-task2\\Models\\Database\\Pest.cs",
@@ -203,12 +289,11 @@
               "RelativeToolTip": "apz-pzpi-21-1-pershyna-anastasiia-task2\\Models\\Database\\Pest.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAA8AAAA0AAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-02T10:48:24.469Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-05-02T10:48:24.469Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 13,
               "Title": "Fertilizer.cs",
               "DocumentMoniker": "D:\\apz-pzpi-21-1-pershyna-anastasiia\\Task2\\apz-pzpi-21-1-pershyna-anastasiia-task2\\apz-pzpi-21-1-pershyna-anastasiia-task2\\Models\\Database\\Fertilizer.cs",
               "RelativeDocumentMoniker": "apz-pzpi-21-1-pershyna-anastasiia-task2\\Models\\Database\\Fertilizer.cs",
@@ -216,18 +301,17 @@
               "RelativeToolTip": "apz-pzpi-21-1-pershyna-anastasiia-task2\\Models\\Database\\Fertilizer.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAA8AAAA0AAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-02T10:48:14.401Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-05-02T10:48:14.401Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 3,
               "Title": "WorkerDto.cs",
               "DocumentMoniker": "D:\\apz-pzpi-21-1-pershyna-anastasiia\\Task2\\apz-pzpi-21-1-pershyna-anastasiia-task2\\apz-pzpi-21-1-pershyna-anastasiia-task2\\DTO\\WorkerDto.cs",
               "RelativeDocumentMoniker": "apz-pzpi-21-1-pershyna-anastasiia-task2\\DTO\\WorkerDto.cs",
               "ToolTip": "D:\\apz-pzpi-21-1-pershyna-anastasiia\\Task2\\apz-pzpi-21-1-pershyna-anastasiia-task2\\apz-pzpi-21-1-pershyna-anastasiia-task2\\DTO\\WorkerDto.cs",
               "RelativeToolTip": "apz-pzpi-21-1-pershyna-anastasiia-task2\\DTO\\WorkerDto.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA8AAAAuAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABUAAAAqAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-05-02T09:57:19.698Z",
               "EditorCaption": ""
@@ -235,6 +319,18 @@
             {
               "$type": "Document",
               "DocumentIndex": 8,
+              "Title": "Task.cs",
+              "DocumentMoniker": "D:\\apz-pzpi-21-1-pershyna-anastasiia\\Task2\\apz-pzpi-21-1-pershyna-anastasiia-task2\\apz-pzpi-21-1-pershyna-anastasiia-task2\\Models\\Database\\Task.cs",
+              "RelativeDocumentMoniker": "apz-pzpi-21-1-pershyna-anastasiia-task2\\Models\\Database\\Task.cs",
+              "ToolTip": "D:\\apz-pzpi-21-1-pershyna-anastasiia\\Task2\\apz-pzpi-21-1-pershyna-anastasiia-task2\\apz-pzpi-21-1-pershyna-anastasiia-task2\\Models\\Database\\Task.cs",
+              "RelativeToolTip": "apz-pzpi-21-1-pershyna-anastasiia-task2\\Models\\Database\\Task.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABgAAAAuAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-02T10:49:54.859Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
               "Title": "TaskDto.cs",
               "DocumentMoniker": "D:\\apz-pzpi-21-1-pershyna-anastasiia\\Task2\\apz-pzpi-21-1-pershyna-anastasiia-task2\\apz-pzpi-21-1-pershyna-anastasiia-task2\\DTO\\TaskDto.cs",
               "RelativeDocumentMoniker": "apz-pzpi-21-1-pershyna-anastasiia-task2\\DTO\\TaskDto.cs",
@@ -246,7 +342,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 15,
               "Title": "ReminderDto.cs",
               "DocumentMoniker": "D:\\apz-pzpi-21-1-pershyna-anastasiia\\Task2\\apz-pzpi-21-1-pershyna-anastasiia-task2\\apz-pzpi-21-1-pershyna-anastasiia-task2\\DTO\\ReminderDto.cs",
               "RelativeDocumentMoniker": "apz-pzpi-21-1-pershyna-anastasiia-task2\\DTO\\ReminderDto.cs",
@@ -258,7 +354,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 16,
               "Title": "PlantTypeDto.cs",
               "DocumentMoniker": "D:\\apz-pzpi-21-1-pershyna-anastasiia\\Task2\\apz-pzpi-21-1-pershyna-anastasiia-task2\\apz-pzpi-21-1-pershyna-anastasiia-task2\\DTO\\PlantTypeDto.cs",
               "RelativeDocumentMoniker": "apz-pzpi-21-1-pershyna-anastasiia-task2\\DTO\\PlantTypeDto.cs",
@@ -270,7 +366,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 17,
               "Title": "PlantDto.cs",
               "DocumentMoniker": "D:\\apz-pzpi-21-1-pershyna-anastasiia\\Task2\\apz-pzpi-21-1-pershyna-anastasiia-task2\\apz-pzpi-21-1-pershyna-anastasiia-task2\\DTO\\PlantDto.cs",
               "RelativeDocumentMoniker": "apz-pzpi-21-1-pershyna-anastasiia-task2\\DTO\\PlantDto.cs",
@@ -282,7 +378,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 18,
               "Title": "PestDto.cs",
               "DocumentMoniker": "D:\\apz-pzpi-21-1-pershyna-anastasiia\\Task2\\apz-pzpi-21-1-pershyna-anastasiia-task2\\apz-pzpi-21-1-pershyna-anastasiia-task2\\DTO\\PestDto.cs",
               "RelativeDocumentMoniker": "apz-pzpi-21-1-pershyna-anastasiia-task2\\DTO\\PestDto.cs",
@@ -294,7 +390,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 13,
+              "DocumentIndex": 19,
               "Title": "FertilizerDto.cs",
               "DocumentMoniker": "D:\\apz-pzpi-21-1-pershyna-anastasiia\\Task2\\apz-pzpi-21-1-pershyna-anastasiia-task2\\apz-pzpi-21-1-pershyna-anastasiia-task2\\DTO\\FertilizerDto.cs",
               "RelativeDocumentMoniker": "apz-pzpi-21-1-pershyna-anastasiia-task2\\DTO\\FertilizerDto.cs",
@@ -306,7 +402,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 14,
+              "DocumentIndex": 20,
               "Title": "Program.cs",
               "DocumentMoniker": "D:\\apz-pzpi-21-1-pershyna-anastasiia\\Task2\\apz-pzpi-21-1-pershyna-anastasiia-task2\\apz-pzpi-21-1-pershyna-anastasiia-task2\\Program.cs",
               "RelativeDocumentMoniker": "apz-pzpi-21-1-pershyna-anastasiia-task2\\Program.cs",

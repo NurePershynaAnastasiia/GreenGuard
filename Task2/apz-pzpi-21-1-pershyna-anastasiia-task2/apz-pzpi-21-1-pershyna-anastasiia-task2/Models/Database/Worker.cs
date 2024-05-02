@@ -15,6 +15,7 @@ namespace apz_pzpi_21_1_pershyna_anastasiia_task2.Models.Database
         [Column("Phone_number")]
         public string? PhoneNumber { get; set; }
 
+        [EmailAddress]
         [Column("Email")]
         public string? Email { get; set; }
 
