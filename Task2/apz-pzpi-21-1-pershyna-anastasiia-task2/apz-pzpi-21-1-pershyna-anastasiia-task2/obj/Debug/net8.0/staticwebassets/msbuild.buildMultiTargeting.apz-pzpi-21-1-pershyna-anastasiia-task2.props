@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\apz-pzpi-21-1-pershyna-anastasiia-task2.props" />
+</Project>

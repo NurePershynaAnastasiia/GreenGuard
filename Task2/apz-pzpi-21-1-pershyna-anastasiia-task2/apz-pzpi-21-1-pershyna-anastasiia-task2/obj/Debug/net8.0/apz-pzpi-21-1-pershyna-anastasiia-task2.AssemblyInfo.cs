@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("apz-pzpi-21-1-pershyna-anastasiia-task2")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c115ffb03d16d054b248dd08cebe76754eccf14d")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d0e2028fb5e3f76e75f6aa60f0157f65469ab585")]
 [assembly: System.Reflection.AssemblyProductAttribute("apz-pzpi-21-1-pershyna-anastasiia-task2")]
 [assembly: System.Reflection.AssemblyTitleAttribute("apz-pzpi-21-1-pershyna-anastasiia-task2")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

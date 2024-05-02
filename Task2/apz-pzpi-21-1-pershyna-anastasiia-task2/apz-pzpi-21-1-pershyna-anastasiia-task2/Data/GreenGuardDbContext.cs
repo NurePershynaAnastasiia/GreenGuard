@@ -22,3 +22,4 @@ namespace apz_pzpi_21_1_pershyna_anastasiia_task2.Data
 
         public DbSet<Task> Tasks { get; set; }
     }
+}
