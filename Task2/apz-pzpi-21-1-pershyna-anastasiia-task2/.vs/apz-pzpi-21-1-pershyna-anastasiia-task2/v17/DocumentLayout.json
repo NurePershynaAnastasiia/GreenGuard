@@ -3,6 +3,34 @@
   "WorkspaceRootPath": "D:\\apz-pzpi-21-1-pershyna-anastasiia\\Task2\\apz-pzpi-21-1-pershyna-anastasiia-task2\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{4FFCD9FE-9615-4A27-B06D-9A047179B551}|apz-pzpi-21-1-pershyna-anastasiia-task2\\apz-pzpi-21-1-pershyna-anastasiia-task2.csproj|d:\\apz-pzpi-21-1-pershyna-anastasiia\\task2\\apz-pzpi-21-1-pershyna-anastasiia-task2\\apz-pzpi-21-1-pershyna-anastasiia-task2\\dto\\workerdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4FFCD9FE-9615-4A27-B06D-9A047179B551}|apz-pzpi-21-1-pershyna-anastasiia-task2\\apz-pzpi-21-1-pershyna-anastasiia-task2.csproj|solutionrelative:apz-pzpi-21-1-pershyna-anastasiia-task2\\dto\\workerdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4FFCD9FE-9615-4A27-B06D-9A047179B551}|apz-pzpi-21-1-pershyna-anastasiia-task2\\apz-pzpi-21-1-pershyna-anastasiia-task2.csproj|d:\\apz-pzpi-21-1-pershyna-anastasiia\\task2\\apz-pzpi-21-1-pershyna-anastasiia-task2\\apz-pzpi-21-1-pershyna-anastasiia-task2\\dto\\taskdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4FFCD9FE-9615-4A27-B06D-9A047179B551}|apz-pzpi-21-1-pershyna-anastasiia-task2\\apz-pzpi-21-1-pershyna-anastasiia-task2.csproj|solutionrelative:apz-pzpi-21-1-pershyna-anastasiia-task2\\dto\\taskdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4FFCD9FE-9615-4A27-B06D-9A047179B551}|apz-pzpi-21-1-pershyna-anastasiia-task2\\apz-pzpi-21-1-pershyna-anastasiia-task2.csproj|d:\\apz-pzpi-21-1-pershyna-anastasiia\\task2\\apz-pzpi-21-1-pershyna-anastasiia-task2\\apz-pzpi-21-1-pershyna-anastasiia-task2\\dto\\reminderdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4FFCD9FE-9615-4A27-B06D-9A047179B551}|apz-pzpi-21-1-pershyna-anastasiia-task2\\apz-pzpi-21-1-pershyna-anastasiia-task2.csproj|solutionrelative:apz-pzpi-21-1-pershyna-anastasiia-task2\\dto\\reminderdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4FFCD9FE-9615-4A27-B06D-9A047179B551}|apz-pzpi-21-1-pershyna-anastasiia-task2\\apz-pzpi-21-1-pershyna-anastasiia-task2.csproj|d:\\apz-pzpi-21-1-pershyna-anastasiia\\task2\\apz-pzpi-21-1-pershyna-anastasiia-task2\\apz-pzpi-21-1-pershyna-anastasiia-task2\\dto\\planttypedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4FFCD9FE-9615-4A27-B06D-9A047179B551}|apz-pzpi-21-1-pershyna-anastasiia-task2\\apz-pzpi-21-1-pershyna-anastasiia-task2.csproj|solutionrelative:apz-pzpi-21-1-pershyna-anastasiia-task2\\dto\\planttypedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4FFCD9FE-9615-4A27-B06D-9A047179B551}|apz-pzpi-21-1-pershyna-anastasiia-task2\\apz-pzpi-21-1-pershyna-anastasiia-task2.csproj|d:\\apz-pzpi-21-1-pershyna-anastasiia\\task2\\apz-pzpi-21-1-pershyna-anastasiia-task2\\apz-pzpi-21-1-pershyna-anastasiia-task2\\dto\\plantdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4FFCD9FE-9615-4A27-B06D-9A047179B551}|apz-pzpi-21-1-pershyna-anastasiia-task2\\apz-pzpi-21-1-pershyna-anastasiia-task2.csproj|solutionrelative:apz-pzpi-21-1-pershyna-anastasiia-task2\\dto\\plantdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4FFCD9FE-9615-4A27-B06D-9A047179B551}|apz-pzpi-21-1-pershyna-anastasiia-task2\\apz-pzpi-21-1-pershyna-anastasiia-task2.csproj|d:\\apz-pzpi-21-1-pershyna-anastasiia\\task2\\apz-pzpi-21-1-pershyna-anastasiia-task2\\apz-pzpi-21-1-pershyna-anastasiia-task2\\dto\\pestdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4FFCD9FE-9615-4A27-B06D-9A047179B551}|apz-pzpi-21-1-pershyna-anastasiia-task2\\apz-pzpi-21-1-pershyna-anastasiia-task2.csproj|solutionrelative:apz-pzpi-21-1-pershyna-anastasiia-task2\\dto\\pestdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4FFCD9FE-9615-4A27-B06D-9A047179B551}|apz-pzpi-21-1-pershyna-anastasiia-task2\\apz-pzpi-21-1-pershyna-anastasiia-task2.csproj|d:\\apz-pzpi-21-1-pershyna-anastasiia\\task2\\apz-pzpi-21-1-pershyna-anastasiia-task2\\apz-pzpi-21-1-pershyna-anastasiia-task2\\dto\\fertilizerdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4FFCD9FE-9615-4A27-B06D-9A047179B551}|apz-pzpi-21-1-pershyna-anastasiia-task2\\apz-pzpi-21-1-pershyna-anastasiia-task2.csproj|solutionrelative:apz-pzpi-21-1-pershyna-anastasiia-task2\\dto\\fertilizerdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{4FFCD9FE-9615-4A27-B06D-9A047179B551}|apz-pzpi-21-1-pershyna-anastasiia-task2\\apz-pzpi-21-1-pershyna-anastasiia-task2.csproj|d:\\apz-pzpi-21-1-pershyna-anastasiia\\task2\\apz-pzpi-21-1-pershyna-anastasiia-task2\\apz-pzpi-21-1-pershyna-anastasiia-task2\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{4FFCD9FE-9615-4A27-B06D-9A047179B551}|apz-pzpi-21-1-pershyna-anastasiia-task2\\apz-pzpi-21-1-pershyna-anastasiia-task2.csproj|solutionrelative:apz-pzpi-21-1-pershyna-anastasiia-task2\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
@@ -75,6 +103,97 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "WorkerDto.cs",
+              "DocumentMoniker": "D:\\apz-pzpi-21-1-pershyna-anastasiia\\Task2\\apz-pzpi-21-1-pershyna-anastasiia-task2\\apz-pzpi-21-1-pershyna-anastasiia-task2\\DTO\\WorkerDto.cs",
+              "RelativeDocumentMoniker": "apz-pzpi-21-1-pershyna-anastasiia-task2\\DTO\\WorkerDto.cs",
+              "ToolTip": "D:\\apz-pzpi-21-1-pershyna-anastasiia\\Task2\\apz-pzpi-21-1-pershyna-anastasiia-task2\\apz-pzpi-21-1-pershyna-anastasiia-task2\\DTO\\WorkerDto.cs",
+              "RelativeToolTip": "apz-pzpi-21-1-pershyna-anastasiia-task2\\DTO\\WorkerDto.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAkAAAA3AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-02T09:57:19.698Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "TaskDto.cs",
+              "DocumentMoniker": "D:\\apz-pzpi-21-1-pershyna-anastasiia\\Task2\\apz-pzpi-21-1-pershyna-anastasiia-task2\\apz-pzpi-21-1-pershyna-anastasiia-task2\\DTO\\TaskDto.cs",
+              "RelativeDocumentMoniker": "apz-pzpi-21-1-pershyna-anastasiia-task2\\DTO\\TaskDto.cs",
+              "ToolTip": "D:\\apz-pzpi-21-1-pershyna-anastasiia\\Task2\\apz-pzpi-21-1-pershyna-anastasiia-task2\\apz-pzpi-21-1-pershyna-anastasiia-task2\\DTO\\TaskDto.cs",
+              "RelativeToolTip": "apz-pzpi-21-1-pershyna-anastasiia-task2\\DTO\\TaskDto.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAgAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-02T09:57:08.152Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "ReminderDto.cs",
+              "DocumentMoniker": "D:\\apz-pzpi-21-1-pershyna-anastasiia\\Task2\\apz-pzpi-21-1-pershyna-anastasiia-task2\\apz-pzpi-21-1-pershyna-anastasiia-task2\\DTO\\ReminderDto.cs",
+              "RelativeDocumentMoniker": "apz-pzpi-21-1-pershyna-anastasiia-task2\\DTO\\ReminderDto.cs",
+              "ToolTip": "D:\\apz-pzpi-21-1-pershyna-anastasiia\\Task2\\apz-pzpi-21-1-pershyna-anastasiia-task2\\apz-pzpi-21-1-pershyna-anastasiia-task2\\DTO\\ReminderDto.cs",
+              "RelativeToolTip": "apz-pzpi-21-1-pershyna-anastasiia-task2\\DTO\\ReminderDto.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAcAAAArAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-02T09:56:55.606Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "PlantTypeDto.cs",
+              "DocumentMoniker": "D:\\apz-pzpi-21-1-pershyna-anastasiia\\Task2\\apz-pzpi-21-1-pershyna-anastasiia-task2\\apz-pzpi-21-1-pershyna-anastasiia-task2\\DTO\\PlantTypeDto.cs",
+              "RelativeDocumentMoniker": "apz-pzpi-21-1-pershyna-anastasiia-task2\\DTO\\PlantTypeDto.cs",
+              "ToolTip": "D:\\apz-pzpi-21-1-pershyna-anastasiia\\Task2\\apz-pzpi-21-1-pershyna-anastasiia-task2\\apz-pzpi-21-1-pershyna-anastasiia-task2\\DTO\\PlantTypeDto.cs",
+              "RelativeToolTip": "apz-pzpi-21-1-pershyna-anastasiia-task2\\DTO\\PlantTypeDto.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAkAAAArAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-02T09:56:40.897Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "PlantDto.cs",
+              "DocumentMoniker": "D:\\apz-pzpi-21-1-pershyna-anastasiia\\Task2\\apz-pzpi-21-1-pershyna-anastasiia-task2\\apz-pzpi-21-1-pershyna-anastasiia-task2\\DTO\\PlantDto.cs",
+              "RelativeDocumentMoniker": "apz-pzpi-21-1-pershyna-anastasiia-task2\\DTO\\PlantDto.cs",
+              "ToolTip": "D:\\apz-pzpi-21-1-pershyna-anastasiia\\Task2\\apz-pzpi-21-1-pershyna-anastasiia-task2\\apz-pzpi-21-1-pershyna-anastasiia-task2\\DTO\\PlantDto.cs",
+              "RelativeToolTip": "apz-pzpi-21-1-pershyna-anastasiia-task2\\DTO\\PlantDto.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABUAAAA3AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-02T09:56:24.127Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "PestDto.cs",
+              "DocumentMoniker": "D:\\apz-pzpi-21-1-pershyna-anastasiia\\Task2\\apz-pzpi-21-1-pershyna-anastasiia-task2\\apz-pzpi-21-1-pershyna-anastasiia-task2\\DTO\\PestDto.cs",
+              "RelativeDocumentMoniker": "apz-pzpi-21-1-pershyna-anastasiia-task2\\DTO\\PestDto.cs",
+              "ToolTip": "D:\\apz-pzpi-21-1-pershyna-anastasiia\\Task2\\apz-pzpi-21-1-pershyna-anastasiia-task2\\apz-pzpi-21-1-pershyna-anastasiia-task2\\DTO\\PestDto.cs",
+              "RelativeToolTip": "apz-pzpi-21-1-pershyna-anastasiia-task2\\DTO\\PestDto.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAcAAAAnAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-02T09:56:00.72Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "FertilizerDto.cs",
+              "DocumentMoniker": "D:\\apz-pzpi-21-1-pershyna-anastasiia\\Task2\\apz-pzpi-21-1-pershyna-anastasiia-task2\\apz-pzpi-21-1-pershyna-anastasiia-task2\\DTO\\FertilizerDto.cs",
+              "RelativeDocumentMoniker": "apz-pzpi-21-1-pershyna-anastasiia-task2\\DTO\\FertilizerDto.cs",
+              "ToolTip": "D:\\apz-pzpi-21-1-pershyna-anastasiia\\Task2\\apz-pzpi-21-1-pershyna-anastasiia-task2\\apz-pzpi-21-1-pershyna-anastasiia-task2\\DTO\\FertilizerDto.cs",
+              "RelativeToolTip": "apz-pzpi-21-1-pershyna-anastasiia-task2\\DTO\\FertilizerDto.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAsAAAAyAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-02T09:55:18.995Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
               "Title": "Program.cs",
               "DocumentMoniker": "D:\\apz-pzpi-21-1-pershyna-anastasiia\\Task2\\apz-pzpi-21-1-pershyna-anastasiia-task2\\apz-pzpi-21-1-pershyna-anastasiia-task2\\Program.cs",
               "RelativeDocumentMoniker": "apz-pzpi-21-1-pershyna-anastasiia-task2\\Program.cs",
