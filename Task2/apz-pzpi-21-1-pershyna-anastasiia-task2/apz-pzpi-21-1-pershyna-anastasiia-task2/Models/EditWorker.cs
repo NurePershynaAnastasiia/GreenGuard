@@ -2,7 +2,7 @@
 
 namespace apz_pzpi_21_1_pershyna_anastasiia_task2.Models
 {
-    public class AddWorker
+    public class EditWorker
     {
         [Required]
         [StringLength(50)]
@@ -15,11 +15,12 @@ namespace apz_pzpi_21_1_pershyna_anastasiia_task2.Models
         [StringLength(300)]
         public required string Email { get; set; }
 
+        public string? WorkHours { get; set; }
+
+        public float? HourlyRate { get; set; }
+
         [Required]
         [StringLength(300)]
         public required string PasswordHash { get; set; }
-
-        [Required]
-        public required bool IsAdmin { get; set; }
     }
 }
