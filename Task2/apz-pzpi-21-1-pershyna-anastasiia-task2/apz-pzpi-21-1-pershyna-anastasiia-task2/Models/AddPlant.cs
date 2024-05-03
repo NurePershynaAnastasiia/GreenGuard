@@ -5,8 +5,8 @@ namespace apz_pzpi_21_1_pershyna_anastasiia_task2.Models
     public class AddPlant
     {
         [Required]
-        [StringLength(50, MinimumLength = 3)]
-        public required string PlantName { get; set; }
+        [StringLength(500, MinimumLength = 3)]
+        public required string PlantLocation { get; set; }
 
         public int PlantTypeId { get; set; }
 

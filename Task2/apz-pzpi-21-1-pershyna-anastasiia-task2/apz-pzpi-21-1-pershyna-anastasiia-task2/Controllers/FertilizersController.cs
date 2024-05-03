@@ -50,7 +50,7 @@ namespace apz_pzpi_21_1_pershyna_anastasiia_task2.Controllers
 
         // PUT: api/Fertilizers/update-fertilizer-quantity/3
         [HttpPut("update-fertilizer-quantity/{id}")]
-        public async Task<IActionResult> UpdateFertilizerQuantity(int id, EditFertilizerQuantity model)
+        public async Task<IActionResult> UpdateFertilizerQuantity(int id, UpdateFertilizerQuantity model)
         {
             try
             {

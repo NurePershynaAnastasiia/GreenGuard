@@ -1,14 +1,10 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
 
-namespace apz_pzpi_21_1_pershyna_anastasiia_task2.Models.Database
+namespace apz_pzpi_21_1_pershyna_anastasiia_task2.Models
 {
-    public class Plant
+    public class UpdatePlant
     {
-        [Key]
-        [Column("Plant_id")]
-        public int PlantId { get; set; }
-
         [Required]
         [Column("Plant_type_id")]
         public required int PlantTypeId { get; set; }

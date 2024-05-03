@@ -7,9 +7,9 @@ namespace apz_pzpi_21_1_pershyna_anastasiia_task2.DTO
     {
         public int PlantId { get; set; }
 
-        public required string PlantName { get; set; }
+        public required string PlantLocation { get; set; }
 
-        public int PlantTypeId { get; set; }
+        public required int PlantTypeId { get; set; }
 
         public float? Temp { get; set; }
 
