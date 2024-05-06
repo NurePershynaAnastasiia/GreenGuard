@@ -83,5 +83,31 @@ namespace GreenGuard.Controllers
                 return StatusCode(500, ex.Message);
             }
         }
+
+        // Delete: api/Tasks/delete-task/3
+        [HttpDelete("delete-task/{id}")]
+        public async Task<IActionResult> Deletetask(int id)
+        {
+            try
+            {
+                var task = await _context.Task.FindAsync(id);
+                if (task == null)
+                {
+                    return BadRequest(ModelState);
+                }
+                _context.Task.Remove(task);
+                await _context.SaveChangesAsync();
+
+                return Ok($"Task with description: {task.TaskDetails} was successfully deleted");
+
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "An error occurred during deleting task");
+                return StatusCode(500, ex.Message);
+
+            }
+
+        }
     }
 }
