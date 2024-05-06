@@ -19,5 +19,9 @@ namespace GreenGuard.Data
         public DbSet<PlantType> Plant_type { get; set; }
 
         public DbSet<Task> Task { get; set; }
+
+        public DbSet<WorkerInTask> Worker_in_Task { get; set; }
+
+        public DbSet<PlantInTask> Plant_in_Task { get; set; }
     }
 }

@@ -9,14 +9,15 @@ namespace GreenGuard.Models.Database
         [Column("Task_id")]
         public int TaskId { get; set; }
 
-        [Column("Task_date", TypeName = "date")]
+        [Column("Task_date")]
         public DateTime TaskDate { get; set; }
 
         [Column("Task_type")]
         public string? TaskType { get; set; }
 
-        [ForeignKey("Fertilizer_id")]
-        public int FertilizerId { get; set; }
+        [ForeignKey("Fertilizer")]
+        [Column("Fertilizer_id")]
+        public int? FertilizerId { get; set; }
 
         [Column("Task_details")]
         public string? TaskDetails { get; set; }

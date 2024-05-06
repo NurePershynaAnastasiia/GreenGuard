@@ -11,7 +11,7 @@ namespace GreenGuard.DTO
 
         public string? TaskType { get; set; }
 
-        public int FertilizerId { get; set; }
+        public int? FertilizerId { get; set; }
 
         public string? TaskDetails { get; set; }
 

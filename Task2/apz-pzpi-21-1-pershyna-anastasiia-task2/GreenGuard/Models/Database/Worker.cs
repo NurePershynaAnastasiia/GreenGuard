@@ -14,6 +14,7 @@ namespace GreenGuard.Models.Database
         [Column("Worker_name")]
         public string WorkerName { get; set; }
 
+        [Phone]
         [Column("Phone_number")]
         public string? PhoneNumber { get; set; }
 
