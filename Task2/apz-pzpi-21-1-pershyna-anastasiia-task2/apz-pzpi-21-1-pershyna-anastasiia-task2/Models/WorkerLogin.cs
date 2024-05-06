@@ -10,6 +10,6 @@ namespace apz_pzpi_21_1_pershyna_anastasiia_task2.Models
 
         [Required]
         [DataType(DataType.Password)]
-        public required string PasswordHash { get; set; }
+        public required string Password { get; set; }
     }
 }

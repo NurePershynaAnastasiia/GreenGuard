@@ -32,7 +32,7 @@ namespace apz_pzpi_21_1_pershyna_anastasiia_task2.Controllers
         {
             try
             {
-                var plantTypes = _context.PlantTypes.Select(data => new PlantType
+                var plantTypes = _context.Plant_type.Select(data => new PlantType
                 {
                     PlantTypeId = data.PlantTypeId,
                     PlantTypeName = data.PlantTypeName,
@@ -41,7 +41,6 @@ namespace apz_pzpi_21_1_pershyna_anastasiia_task2.Controllers
                     OptTemp = data.OptTemp,
                     OptLight = data.OptLight,
                     WaterFreq = data.WaterFreq,
-                    FertilizerId = data.FertilizerId
                 }).ToList();
                 return Ok(plantTypes);
             }
@@ -63,7 +62,7 @@ namespace apz_pzpi_21_1_pershyna_anastasiia_task2.Controllers
                     return BadRequest(ModelState);
                 }
 
-                if (await _context.PlantTypes.AnyAsync(data => data.PlantTypeName == model.PlantTypeName))
+                if (await _context.Plant_type.AnyAsync(data => data.PlantTypeName == model.PlantTypeName))
                 {
                     return BadRequest("Plant type with such name already exists");
                 }
@@ -76,10 +75,9 @@ namespace apz_pzpi_21_1_pershyna_anastasiia_task2.Controllers
                     OptTemp = model.OptTemp,
                     OptLight = model.OptLight,
                     WaterFreq = model.WaterFreq,
-                    FertilizerId = model.FertilizerId
                 };
 
-                await _context.PlantTypes.AddAsync(newPlantType);
+                await _context.Plant_type.AddAsync(newPlantType);
                 await _context.SaveChangesAsync();
 
                 return Ok($"{newPlantType.PlantTypeName} was added successfully");

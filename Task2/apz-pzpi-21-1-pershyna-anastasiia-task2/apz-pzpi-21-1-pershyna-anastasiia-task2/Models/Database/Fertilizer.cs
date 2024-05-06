@@ -12,7 +12,7 @@ namespace apz_pzpi_21_1_pershyna_anastasiia_task2.Models.Database
         [Column("Fertilizer_name")]
         public required string FertilizerName { get; set; }
 
-        [Column("Fertilizer_amount")]
+        [Column("Fertilizer_quantity")]
         public int? FertilizerQuantity { get; set; }
     }
 }

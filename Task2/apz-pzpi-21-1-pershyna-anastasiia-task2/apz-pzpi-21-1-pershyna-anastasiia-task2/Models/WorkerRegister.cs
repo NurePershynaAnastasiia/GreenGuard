@@ -2,10 +2,10 @@
 
 namespace apz_pzpi_21_1_pershyna_anastasiia_task2.Models
 {
-    public class AddWorker
+    public class WorkerRegister
     {
         [Required]
-        [StringLength(50)]
+        [StringLength(100)]
         public required string WorkerName { get; set; }
 
         public string? PhoneNumber { get; set; }
@@ -17,7 +17,7 @@ namespace apz_pzpi_21_1_pershyna_anastasiia_task2.Models
 
         [Required]
         [StringLength(300)]
-        public required string PasswordHash { get; set; }
+        public required string Password { get; set; }
 
         [Required]
         public required bool IsAdmin { get; set; }

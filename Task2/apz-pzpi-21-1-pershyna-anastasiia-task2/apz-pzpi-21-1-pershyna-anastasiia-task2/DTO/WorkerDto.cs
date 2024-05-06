@@ -13,9 +13,9 @@ namespace apz_pzpi_21_1_pershyna_anastasiia_task2.DTO
 
         public string? Email { get; set; }
 
-        public string? WorkHours { get; set; }
+        public DateTime? StartWorkTime { get; set; }
 
-        public float? HourlyRate { get; set; }
+        public DateTime? EndWorkTime { get; set; }
 
         public string? PasswordHash { get; set; }
 

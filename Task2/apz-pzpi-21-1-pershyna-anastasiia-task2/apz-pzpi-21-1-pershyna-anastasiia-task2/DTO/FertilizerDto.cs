@@ -9,6 +9,6 @@ namespace apz_pzpi_21_1_pershyna_anastasiia_task2.DTO
 
         public required string FertilizerName { get; set; }
 
-        public int? FertilizerAmount { get; set; }
+        public int? FertilizerQuantity { get; set; }
     }
 }

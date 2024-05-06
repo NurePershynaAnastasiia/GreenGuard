@@ -17,8 +17,6 @@ namespace apz_pzpi_21_1_pershyna_anastasiia_task2.DTO
 
         public float? OptLight { get; set; }
 
-        public int FertilizerId { get; set; }
-
         public string? PlantTypeDescription { get; set; }
     }
 }

@@ -8,18 +8,16 @@ namespace apz_pzpi_21_1_pershyna_anastasiia_task2.Data
     {
         public GreenGuardDbContext(DbContextOptions<GreenGuardDbContext> options) : base(options) { }
 
-        public DbSet<Plant> Plants { get; set; }
+        public DbSet<Plant> Plant { get; set; }
 
-        public DbSet<Worker> Workers { get; set; }
+        public DbSet<Worker> Worker { get; set; }
 
-        public DbSet<Fertilizer> Fertilizers { get; set; }
+        public DbSet<Fertilizer> Fertilizer { get; set; }
 
-        public DbSet<Pest> Pests { get; set; }
+        public DbSet<Pest> Pest { get; set; }
 
-        public DbSet<PlantType> PlantTypes { get; set; }
+        public DbSet<PlantType> Plant_type { get; set; }
 
-        public DbSet<Reminder> Reminders { get; set; }
-
-        public DbSet<Task> Tasks { get; set; }
+        public DbSet<Task> Task { get; set; }
     }
 }

@@ -33,11 +33,11 @@ namespace apz_pzpi_21_1_pershyna_anastasiia_task2.Controllers
         {
             try
             {
-                var fertilizers = _context.Fertilizers.Select(data => new FertilizerDto
+                var fertilizers = _context.Fertilizer.Select(data => new Fertilizer
                 {
                     FertilizerId = data.FertilizerId,
                     FertilizerName = data.FertilizerName,
-                    FertilizerAmount = data.FertilizerQuantity
+                    FertilizerQuantity = data.FertilizerQuantity
                 }).ToList();
                 return Ok(fertilizers);
             }
@@ -54,7 +54,7 @@ namespace apz_pzpi_21_1_pershyna_anastasiia_task2.Controllers
         {
             try
             {
-                var fertilizer = await _context.Fertilizers.FindAsync(id);
+                var fertilizer = await _context.Fertilizer.FindAsync(id);
                 if (fertilizer == null)
                 {
                     return NotFound("There is no fertilizer with the provided ID");
@@ -73,8 +73,8 @@ namespace apz_pzpi_21_1_pershyna_anastasiia_task2.Controllers
             }
         }
 
-        // POST: api/Fertilizers/add-new-fertilizer
-        [HttpPost("add-new-fertilizer")]
+        // POST: api/Fertilizers/add-fertilizer
+        [HttpPost("add-fertilizer")]
         public async Task<IActionResult> AddFertilizer(AddFertilizer model)
         {
             try
@@ -84,7 +84,7 @@ namespace apz_pzpi_21_1_pershyna_anastasiia_task2.Controllers
                     return BadRequest(ModelState);
                 }
 
-                if (await _context.Fertilizers.AnyAsync(data => data.FertilizerName == model.FertilizerName))
+                if (await _context.Fertilizer.AnyAsync(data => data.FertilizerName == model.FertilizerName))
                 {
                     return BadRequest("Fertilizer with such name already exists");
                 }
@@ -95,7 +95,7 @@ namespace apz_pzpi_21_1_pershyna_anastasiia_task2.Controllers
                     FertilizerQuantity = model.FertilizerQuantity
                 };
 
-                await _context.Fertilizers.AddAsync(newFertilizer);
+                await _context.Fertilizer.AddAsync(newFertilizer);
                 await _context.SaveChangesAsync();
 
                 return Ok($"{newFertilizer.FertilizerName} - {newFertilizer.FertilizerQuantity} was added successfully");
@@ -115,12 +115,12 @@ namespace apz_pzpi_21_1_pershyna_anastasiia_task2.Controllers
         {
             try
             {
-                var fertilizer = await _context.Fertilizers.FindAsync(id);
+                var fertilizer = await _context.Fertilizer.FindAsync(id);
                 if (fertilizer == null)
                 {
                     return BadRequest(ModelState);
                 }
-                _context.Fertilizers.Remove(fertilizer);
+                _context.Fertilizer.Remove(fertilizer);
                 await _context.SaveChangesAsync();
 
                 return Ok($"Fertilizer {fertilizer.FertilizerName} was successfully deleted");

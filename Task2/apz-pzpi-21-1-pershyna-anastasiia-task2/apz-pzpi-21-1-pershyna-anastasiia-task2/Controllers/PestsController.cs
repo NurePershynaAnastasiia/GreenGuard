@@ -33,7 +33,7 @@ namespace apz_pzpi_21_1_pershyna_anastasiia_task2.Controllers
         {
             try
             {
-                var pests = _context.Pests.Select(data => new PestDto
+                var pests = _context.Pest.Select(data => new Pest
                 {
                     PestId = data.PestId,
                     PestName = data.PestName,
@@ -48,8 +48,8 @@ namespace apz_pzpi_21_1_pershyna_anastasiia_task2.Controllers
             }
         }
 
-        // POST: api/Pests/add-new-pest
-        [HttpPost("add-new-pest")]
+        // POST: api/Pests/add-pest
+        [HttpPost("add-pest")]
         public async Task<IActionResult> AddPest(AddPest model)
         {
             try
@@ -59,7 +59,7 @@ namespace apz_pzpi_21_1_pershyna_anastasiia_task2.Controllers
                     return BadRequest(ModelState);
                 }
 
-                if (await _context.Pests.AnyAsync(data => data.PestName == model.PestName))
+                if (await _context.Pest.AnyAsync(data => data.PestName == model.PestName))
                 {
                     return BadRequest("Pest with such name already exists");
                 }
@@ -70,7 +70,7 @@ namespace apz_pzpi_21_1_pershyna_anastasiia_task2.Controllers
                     PestDescription = model.PestDescription
                 };
 
-                await _context.Pests.AddAsync(newPest);
+                await _context.Pest.AddAsync(newPest);
                 await _context.SaveChangesAsync();
 
                 return Ok($"{newPest.PestName} - {newPest.PestDescription} was added successfully");

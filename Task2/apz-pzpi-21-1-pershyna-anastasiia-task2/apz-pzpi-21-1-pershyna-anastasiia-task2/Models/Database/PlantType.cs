@@ -24,9 +24,6 @@ namespace apz_pzpi_21_1_pershyna_anastasiia_task2.Models.Database
         [Column("Opt_light")]
         public float? OptLight { get; set; }
 
-        [ForeignKey("Fertilizer_id")]
-        public int FertilizerId { get; set; }
-
         [Column("Plant_type_description")]
         public string? PlantTypeDescription { get; set; }
     }

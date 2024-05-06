@@ -29,7 +29,7 @@ namespace apz_pzpi_21_1_pershyna_anastasiia_task2.Controllers
         {
             try
             {
-                var plants = _context.Plants.Select(data => new Plant
+                var plants = _context.Plant.Select(data => new Plant
                 {
                     PlantId = data.PlantId,
                     PlantTypeId = data.PlantTypeId,
@@ -86,12 +86,12 @@ namespace apz_pzpi_21_1_pershyna_anastasiia_task2.Controllers
         {
             try
             {
-                var plant = await _context.Plants.FindAsync(id);
+                var plant = await _context.Plant.FindAsync(id);
                 if (plant == null)
                 {
                     return BadRequest(ModelState);
                 }
-                _context.Plants.Remove(plant);
+                _context.Plant.Remove(plant);
                 await _context.SaveChangesAsync();
 
                 return Ok($"Plant with location: {plant.PlantLocation} was successfully deleted");
@@ -112,7 +112,7 @@ namespace apz_pzpi_21_1_pershyna_anastasiia_task2.Controllers
         {
             try
             {
-                var plant = await _context.Plants.FindAsync(id);
+                var plant = await _context.Plant.FindAsync(id);
                 if (plant == null)
                 {
                     return NotFound("There is no plant with the provided ID.");
@@ -143,7 +143,7 @@ namespace apz_pzpi_21_1_pershyna_anastasiia_task2.Controllers
         {
             try
             {
-                var plant = await _context.Plants.FindAsync(id);
+                var plant = await _context.Plant.FindAsync(id);
                 if (plant == null)
                 {
                     return NotFound("There is no pant with the provided ID");

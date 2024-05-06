@@ -1,4 +1,5 @@
 using apz_pzpi_21_1_pershyna_anastasiia_task2.Data;
+using apz_pzpi_21_1_pershyna_anastasiia_task2.Models.Database;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.EntityFrameworkCore;
@@ -15,10 +16,12 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<GreenGuardDbContext>(options =>
     options.UseSqlServer("Server=DESKTOP-D0GBIS9;Database=GreenGuard;Trusted_Connection=True;TrustServerCertificate=True;"));
 
+/*
 builder.Services.AddDbContext<GreenGuardDbContext>(options =>
     options.UseSqlServer("Server=DESKTOP-D0GBIS9;Database=GreenGuard;Trusted_Connection=True;TrustServerCertificate=True;")
-           .LogTo(Console.WriteLine, LogLevel.Information));
+           .LogTo(Console.WriteLine, LogLevel.Information));*/
 
+builder.Services.AddScoped<IPasswordHasher<Worker>, PasswordHasher<Worker>>();
 
 builder.Services.AddCors(options =>
 {

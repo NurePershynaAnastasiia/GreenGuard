@@ -300,3 +300,4 @@ D:\apz-pzpi-21-1-pershyna-anastasiia\Task2\apz-pzpi-21-1-pershyna-anastasiia-tas
 D:\apz-pzpi-21-1-pershyna-anastasiia\Task2\apz-pzpi-21-1-pershyna-anastasiia-task2\apz-pzpi-21-1-pershyna-anastasiia-task2\obj\Debug\net8.0\apz-pzpi-21-1-pershyna-anastasiia-task2.pdb
 D:\apz-pzpi-21-1-pershyna-anastasiia\Task2\apz-pzpi-21-1-pershyna-anastasiia-task2\apz-pzpi-21-1-pershyna-anastasiia-task2\obj\Debug\net8.0\apz-pzpi-21-1-pershyna-anastasiia-task2.genruntimeconfig.cache
 D:\apz-pzpi-21-1-pershyna-anastasiia\Task2\apz-pzpi-21-1-pershyna-anastasiia-task2\apz-pzpi-21-1-pershyna-anastasiia-task2\obj\Debug\net8.0\ref\apz-pzpi-21-1-pershyna-anastasiia-task2.dll
+D:\apz-pzpi-21-1-pershyna-anastasiia\Task2\apz-pzpi-21-1-pershyna-anastasiia-task2\apz-pzpi-21-1-pershyna-anastasiia-task2\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
