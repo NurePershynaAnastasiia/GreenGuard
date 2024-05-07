@@ -11,11 +11,11 @@ namespace GreenGuard.DTO
 
         public int WaterFreq { get; set; }
 
-        public float? OptTemp { get; set; }
+        public double? OptTemp { get; set; }
 
-        public float? OptHumidity { get; set; }
+        public double? OptHumidity { get; set; }
 
-        public float? OptLight { get; set; }
+        public double? OptLight { get; set; }
 
         public string? PlantTypeDescription { get; set; }
     }

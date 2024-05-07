@@ -16,13 +16,13 @@ namespace GreenGuard.Models.Database
         public int WaterFreq { get; set; }
 
         [Column("Opt_temp")]
-        public float? OptTemp { get; set; }
+        public double? OptTemp { get; set; }
 
         [Column("Opt_humidity")]
-        public float? OptHumidity { get; set; }
+        public double? OptHumidity { get; set; }
 
         [Column("Opt_light")]
-        public float? OptLight { get; set; }
+        public double? OptLight { get; set; }
 
         [Column("Plant_type_description")]
         public string? PlantTypeDescription { get; set; }

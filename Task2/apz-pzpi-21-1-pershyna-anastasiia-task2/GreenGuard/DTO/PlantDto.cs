@@ -11,11 +11,11 @@ namespace GreenGuard.DTO
 
         public required int PlantTypeId { get; set; }
 
-        public float? Temp { get; set; }
+        public double? Temp { get; set; }
 
-        public float? Humidity { get; set; }
+        public double? Humidity { get; set; }
 
-        public float? Light { get; set; }
+        public double? Light { get; set; }
 
         public string? AdditionalInfo { get; set; }
 
