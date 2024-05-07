@@ -28,21 +28,50 @@ namespace GreenGuard.Controllers
             _logger = logger;
         }
 
-        // GET: api/Tasks/all-tasks
+        // GET: api/Tasks/all-task
         [HttpGet("all-task")]
         public async Task<IActionResult> GetTasks()
         {
             try
             {
-                var tasks = _context.Task.Select(data => new Task
+                var tasks = await _context.Task
+                    .Select(data => new TaskFull
+                    {
+                        TaskId = data.TaskId,
+                        TaskDate = data.TaskDate,
+                        TaskDetails = data.TaskDetails,
+                        TaskType = data.TaskType,
+                        TaskState = data.TaskState,
+                        FertilizerId = data.FertilizerId
+                    })
+                    .ToListAsync();
+
+                foreach (var task in tasks)
                 {
-                    TaskId = data.TaskId,
-                    TaskDate = data.TaskDate,
-                    TaskDetails = data.TaskDetails,
-                    TaskType = data.TaskType,
-                    TaskState = data.TaskState,
-                    FertilizerId = data.FertilizerId
-                }).ToList();
+                    var plantIds = await _context.Plant_in_Task
+                        .Where(pit => pit.TaskId == task.TaskId)
+                        .Select(pit => pit.PlantId)
+                        .ToListAsync();
+
+                    var workerIds = await _context.Worker_in_Task
+                        .Where(wit => wit.TaskId == task.TaskId)
+                        .Select(wit => wit.WorkerId)
+                        .ToListAsync();
+
+                    var plants = await _context.Plant
+                        .Where(plant => plantIds.Contains(plant.PlantId))
+                        .Select(plant => plant.PlantLocation)
+                        .ToListAsync();
+
+                    var workers = await _context.Worker
+                        .Where(worker => workerIds.Contains(worker.WorkerId))
+                        .Select(worker => worker.WorkerName)
+                        .ToListAsync();
+
+                    task.Plants = plants;
+                    task.Workers = workers;
+                }
+
                 return Ok(tasks);
             }
             catch (Exception ex)
@@ -51,6 +80,8 @@ namespace GreenGuard.Controllers
                 return StatusCode(500, ex.Message);
             }
         }
+
+
 
         // POST: api/Tasks/add-task
         [HttpPost("add-task")]
@@ -256,5 +287,149 @@ namespace GreenGuard.Controllers
                 return StatusCode(500, ex.Message);
             }
         }
+
+        // GET: api/Tasks/task-status/{taskId}
+        [HttpGet("task-status/{taskId}")]
+        public async Task<IActionResult> GetTaskStatus(int taskId)
+        {
+            try
+            {
+                var taskWorkers = await _context.Worker_in_Task
+                    .Where(wt => wt.TaskId == taskId)
+                    .ToListAsync();
+
+                var workerStatuses = new List<object>();
+
+                foreach (var taskWorker in taskWorkers)
+                {
+                    var worker = await _context.Worker.FindAsync(taskWorker.WorkerId);
+                    if (worker != null)
+                    {
+                        workerStatuses.Add(new { WorkerName = worker.WorkerName, TaskStatus = taskWorker.TaskStatus });
+                    }
+                }
+
+                return Ok(workerStatuses);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "An error occurred while fetching task statuses");
+                return StatusCode(500, ex.Message);
+            }
+        }
+
+        // PUT: api/Tasks/update-task/3
+        [HttpPut("update-task/{id}")]
+        public async Task<IActionResult> UpdateTask(int id, Task updatedTask)
+        {
+            try
+            {
+                if (id != updatedTask.TaskId)
+                {
+                    return BadRequest("Task ID mismatch");
+                }
+
+                var existingTask = await _context.Task.FindAsync(id);
+                if (existingTask == null)
+                {
+                    return NotFound("Task not found");
+                }
+
+                existingTask.TaskDate = updatedTask.TaskDate;
+                existingTask.TaskDetails = updatedTask.TaskDetails;
+                existingTask.TaskType = updatedTask.TaskType;
+                existingTask.TaskState = updatedTask.TaskState;
+                existingTask.FertilizerId = updatedTask.FertilizerId;
+
+                _context.Entry(existingTask).State = EntityState.Modified;
+                await _context.SaveChangesAsync();
+
+                return Ok("Task updated successfully");
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "An error occurred while updating task");
+                return StatusCode(500, ex.Message);
+            }
+        }
+
+        // DELETE: api/Tasks/delete-worker-from-task/3
+        [HttpDelete("delete-worker-from-task/{taskId}/{workerId}")]
+        public async Task<IActionResult> DeleteWorkerFromTask(int taskId, int workerId)
+        {
+            try
+            {
+                var existingLink = await _context.Worker_in_Task
+                    .FirstOrDefaultAsync(wt => wt.TaskId == taskId && wt.WorkerId == workerId);
+
+                if (existingLink == null)
+                {
+                    return NotFound("Worker-task link not found");
+                }
+
+                _context.Worker_in_Task.Remove(existingLink);
+                await _context.SaveChangesAsync();
+
+                return Ok("Worker successfully removed from task");
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "An error occurred while deleting worker from task");
+                return StatusCode(500, ex.Message);
+            }
+        }
+
+        // DELETE: api/Tasks/delete-plant-from-task/3
+        [HttpDelete("delete-plant-from-task/{taskId}/{plantId}")]
+        public async Task<IActionResult> DeletePlantFromTask(int taskId, int plantId)
+        {
+            try
+            {
+                var existingLink = await _context.Plant_in_Task
+                    .FirstOrDefaultAsync(wt => wt.TaskId == taskId && wt.PlantId == plantId);
+
+                if (existingLink == null)
+                {
+                    return NotFound("Plant-task link not found");
+                }
+
+                _context.Plant_in_Task.Remove(existingLink);
+                await _context.SaveChangesAsync();
+
+                return Ok("Plant successfully removed from task");
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "An error occurred while deleting plant from task");
+                return StatusCode(500, ex.Message);
+            }
+        }
+
+        // PUT: api/Tasks/update-task-status/3/4
+        [HttpPut("update-task-status/{taskId}/{workerId}")]
+        public async Task<IActionResult> UpdateTaskStatus(int taskId, int workerId, string taskStatus)
+        {
+            try
+            {
+                var workerInTask = await _context.Worker_in_Task
+                    .FirstOrDefaultAsync(wt => wt.TaskId == taskId && wt.WorkerId == workerId);
+
+                if (workerInTask == null)
+                {
+                    return NotFound("Worker-task relationship not found");
+                }
+
+                workerInTask.TaskStatus = taskStatus;
+                await _context.SaveChangesAsync();
+
+                return Ok("Task status updated successfully");
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "An error occurred while updating task status");
+                return StatusCode(500, ex.Message);
+            }
+        }
+
     }
 }
