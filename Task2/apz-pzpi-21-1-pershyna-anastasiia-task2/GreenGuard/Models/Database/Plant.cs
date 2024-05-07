@@ -7,6 +7,7 @@ namespace GreenGuard.Models.Database
     {
         [Key]
         [Column("Plant_id")]
+        [StringLength(500, MinimumLength = 3)]
         public int PlantId { get; set; }
 
         [Required]
@@ -27,9 +28,11 @@ namespace GreenGuard.Models.Database
         public double? Light { get; set; }
 
         [Column("Additional_info")]
+        [StringLength(300)]
         public string? AdditionalInfo { get; set; }
 
         [Column("Plant_state")]
+        [StringLength(50)]
         public string? PlantState { get; set; }
     }
 }

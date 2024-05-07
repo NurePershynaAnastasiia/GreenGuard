@@ -22,11 +22,11 @@ namespace GreenGuard.Controllers
         private readonly GreenGuardDbContext _context;
         private readonly ILogger<WorkersController> _logger;
         private readonly IPasswordHasher<Worker> _passwordHasher;
-        private readonly JwtService _jwtService;
+        private readonly JwtTokenService _jwtService;
 
         public WorkersController(GreenGuardDbContext context, ILogger<WorkersController> logger, IConfiguration config, IPasswordHasher<Worker> passwordHasher)
         {
-            _jwtService = new JwtService(config);
+            _jwtService = new JwtTokenService(config);
             _context = context;
             _logger = logger;
             _passwordHasher = passwordHasher;
