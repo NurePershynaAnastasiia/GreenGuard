@@ -195,12 +195,64 @@ namespace GreenGuard.Controllers
 
                 await _context.SaveChangesAsync();
 
-                return Ok("Workers successfully added to task");
+                return Ok("Plants successfully added to task");
 
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex, "An error occurred while adding workers to task");
+                return StatusCode(500, ex.Message);
+            }
+        }
+
+        // GET: api/Tasks/worker-tasks/3
+        [HttpGet("worker-tasks/{workerId}")]
+        public async Task<IActionResult> GetWorkerTasks(int workerId)
+        {
+            try
+            {
+                var workerTasks = await _context.Worker_in_Task
+                    .Where(wt => wt.WorkerId == workerId)
+                    .ToListAsync();
+
+                var taskIds = workerTasks.Select(wt => wt.TaskId).ToList();
+
+                var tasks = await _context.Task
+                    .Where(t => taskIds.Contains(t.TaskId))
+                    .ToListAsync();
+
+                return Ok(tasks);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "An error occurred while fetching worker tasks");
+                return StatusCode(500, ex.Message);
+            }
+        }
+
+        // GET: api/Tasks/worker-tasks-today/3
+        [HttpGet("worker-tasks-today/{workerId}")]
+        public async Task<IActionResult> GetWorkerTasksToday(int workerId)
+        {
+            try
+            {
+                DateTime today = DateTime.Today;
+
+                var workerTasks = await _context.Worker_in_Task
+                    .Where(wt => wt.WorkerId == workerId)
+                    .ToListAsync();
+
+                var taskIds = workerTasks.Select(wt => wt.TaskId).ToList();
+
+                var tasks = await _context.Task
+                    .Where(t => taskIds.Contains(t.TaskId) && t.TaskDate.Date == today)
+                    .ToListAsync();
+
+                return Ok(tasks);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "An error occurred while fetching worker tasks for today");
                 return StatusCode(500, ex.Message);
             }
         }
