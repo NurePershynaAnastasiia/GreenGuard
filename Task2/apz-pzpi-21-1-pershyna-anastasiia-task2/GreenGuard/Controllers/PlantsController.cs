@@ -1,14 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Mvc;
 using GreenGuard.Data;
-using GreenGuard.DTO;
-using GreenGuard.Models;
-using GreenGuard.Models.Database;
+using GreenGuard.Dto;
+using GreenGuard.Models.Plant;
 
 namespace GreenGuard.Controllers
 {
@@ -29,7 +22,7 @@ namespace GreenGuard.Controllers
         {
             try
             {
-                var plants = _context.Plant.Select(data => new Plant
+                var plants = _context.Plant.Select(data => new PlantDto
                 {
                     PlantId = data.PlantId,
                     PlantTypeId = data.PlantTypeId,
@@ -61,7 +54,7 @@ namespace GreenGuard.Controllers
 
                 }
 
-                var newPlant = new Plant
+                var newPlant = new PlantDto
                 {
                     PlantTypeId = newPlantTypeId,
                     PlantLocation = newPlantLocation

@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 
-namespace GreenGuard.Models
+namespace GreenGuard.Models.Plant
 {
     public class UpdatePlant
     {

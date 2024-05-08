@@ -1,5 +1,5 @@
 using GreenGuard.Data;
-using GreenGuard.Models.Database;
+using GreenGuard.Dto;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.EntityFrameworkCore;
@@ -21,7 +21,7 @@ builder.Services.AddDbContext<GreenGuardDbContext>(options =>
     options.UseSqlServer("Server=DESKTOP-D0GBIS9;Database=GreenGuard;Trusted_Connection=True;TrustServerCertificate=True;")
            .LogTo(Console.WriteLine, LogLevel.Information));*/
 
-builder.Services.AddScoped<IPasswordHasher<Worker>, PasswordHasher<Worker>>();
+builder.Services.AddScoped<IPasswordHasher<WorkerDto>, PasswordHasher<WorkerDto>>();
 
 builder.Services.AddCors(options =>
 {

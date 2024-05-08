@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using GreenGuard.Data;
-using GreenGuard.DTO;
-using GreenGuard.Models;
-using GreenGuard.Models.Database;
+using GreenGuard.Dto;
+using GreenGuard.Models.Fertilizer;
 
 namespace GreenGuard.Controllers
 {
@@ -33,7 +27,7 @@ namespace GreenGuard.Controllers
         {
             try
             {
-                var fertilizers = _context.Fertilizer.Select(data => new Fertilizer
+                var fertilizers = _context.Fertilizer.Select(data => new FertilizerDto
                 {
                     FertilizerId = data.FertilizerId,
                     FertilizerName = data.FertilizerName,
@@ -89,7 +83,7 @@ namespace GreenGuard.Controllers
                     return BadRequest("Fertilizer with such name already exists");
                 }
 
-                var newFertilizer = new Fertilizer
+                var newFertilizer = new FertilizerDto
                 {
                     FertilizerName = model.FertilizerName,
                     FertilizerQuantity = model.FertilizerQuantity

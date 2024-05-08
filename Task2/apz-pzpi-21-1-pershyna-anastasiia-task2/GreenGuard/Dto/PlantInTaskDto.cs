@@ -1,9 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 
-namespace GreenGuard.Models.Database
+namespace GreenGuard.Dto
 {
-    public class PlantInTask
+    public class PlantInTaskDto
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]

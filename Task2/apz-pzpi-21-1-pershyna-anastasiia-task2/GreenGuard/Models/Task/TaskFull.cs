@@ -1,4 +1,4 @@
-﻿namespace GreenGuard.Models
+﻿namespace GreenGuard.Models.Task
 {
     public class TaskFull
     {

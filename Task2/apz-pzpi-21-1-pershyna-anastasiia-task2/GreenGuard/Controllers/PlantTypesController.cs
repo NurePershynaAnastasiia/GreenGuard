@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using GreenGuard.Data;
-using GreenGuard.DTO;
-using GreenGuard.Models;
-using GreenGuard.Models.Database;
+using GreenGuard.Dto;
+using GreenGuard.Models.PlantType;
 
 namespace GreenGuard.Controllers
 {
@@ -32,7 +26,7 @@ namespace GreenGuard.Controllers
         {
             try
             {
-                var plantTypes = _context.Plant_type.Select(data => new PlantType
+                var plantTypes = _context.Plant_type.Select(data => new PlantTypeDto
                 {
                     PlantTypeId = data.PlantTypeId,
                     PlantTypeName = data.PlantTypeName,
@@ -67,7 +61,7 @@ namespace GreenGuard.Controllers
                     return BadRequest("Plant type with such name already exists");
                 }
 
-                var newPlantType = new PlantType
+                var newPlantType = new PlantTypeDto
                 {
                     PlantTypeName = model.PlantTypeName,
                     PlantTypeDescription = model.PlantTypeDescription,

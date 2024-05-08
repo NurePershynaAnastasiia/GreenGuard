@@ -1,16 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using GreenGuard.Data;
-using GreenGuard.DTO;
-using GreenGuard.Models;
-using GreenGuard.Models.Database;
+using GreenGuard.Dto;
 using Microsoft.AspNetCore.Identity;
 using GreenGuard.Services;
+using GreenGuard.Models.Worker;
 
 namespace GreenGuard.Controllers
 {
@@ -21,10 +15,10 @@ namespace GreenGuard.Controllers
     {
         private readonly GreenGuardDbContext _context;
         private readonly ILogger<WorkersController> _logger;
-        private readonly IPasswordHasher<Worker> _passwordHasher;
+        private readonly IPasswordHasher<WorkerDto> _passwordHasher;
         private readonly JwtTokenService _jwtService;
 
-        public WorkersController(GreenGuardDbContext context, ILogger<WorkersController> logger, IConfiguration config, IPasswordHasher<Worker> passwordHasher)
+        public WorkersController(GreenGuardDbContext context, ILogger<WorkersController> logger, IConfiguration config, IPasswordHasher<WorkerDto> passwordHasher)
         {
             _jwtService = new JwtTokenService(config);
             _context = context;
@@ -38,7 +32,7 @@ namespace GreenGuard.Controllers
         {
             try
             {
-                var workers = _context.Worker.Select(data => new Worker
+                var workers = _context.Worker.Select(data => new WorkerDto
                 {
                     WorkerId = data.WorkerId,
                     WorkerName = data.WorkerName,
@@ -56,8 +50,6 @@ namespace GreenGuard.Controllers
                 return StatusCode(500, ex.Message);
             }
         }
-
-
 
         [HttpPost("login")]
         public async Task<IActionResult> WorkerLogin(WorkerLogin model)
@@ -83,7 +75,7 @@ namespace GreenGuard.Controllers
                     return BadRequest("Invalid email or password");
                 }
 
-                var token = _jwtService.GenerateToken(worker.WorkerId);
+                var token = _jwtService.GenerateToken(worker);
                 return Ok(new { Token = token });
             }
             catch (Exception ex)
@@ -92,7 +84,6 @@ namespace GreenGuard.Controllers
                 return StatusCode(500, "Internal server error");
             }
         }
-
 
         [HttpPost("register")]
         public async Task<IActionResult> AddWorker(WorkerRegister model)
@@ -109,7 +100,7 @@ namespace GreenGuard.Controllers
                     return BadRequest("Worker with such email already exists");
                 }
 
-                var newWorker = new Worker
+                var newWorker = new WorkerDto
                 {
                     WorkerName = model.WorkerName,
                     Email = model.Email,
@@ -117,12 +108,12 @@ namespace GreenGuard.Controllers
                     IsAdmin = model.IsAdmin, 
                 };
 
-                newWorker.PasswordHash = _passwordHasher.HashPassword(null, model.Password);
+                newWorker.PasswordHash = _passwordHasher.HashPassword(newWorker, model.Password);
 
                 await _context.Worker.AddAsync(newWorker);
                 await _context.SaveChangesAsync();
 
-                var token = _jwtService.GenerateToken(newWorker.WorkerId);
+                var token = _jwtService.GenerateToken(newWorker);
                 return Ok(new { Token = token });
             }
             catch (Exception ex)
@@ -131,6 +122,66 @@ namespace GreenGuard.Controllers
                 return StatusCode(500, ex.Message);
             }
         }
-        
+
+        // DELETE: api/Workers/delete-worker/3
+        [HttpDelete("delete-worker/{id}")]
+        public async Task<IActionResult> DeleteWorker(int id)
+        {
+            try
+            {
+                var worker = await _context.Worker.FindAsync(id);
+                if (worker == null)
+                {
+                    return NotFound("Worker not found");
+                }
+
+                _context.Worker.Remove(worker);
+                await _context.SaveChangesAsync();
+
+                return Ok($"Worker with ID {id} successfully deleted");
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "An error occurred while deleting worker");
+                return StatusCode(500, ex.Message);
+            }
+        }
+
+        // PUT: api/Workers/update-worker/3
+        [HttpPut("update-worker/{id}")]
+        public async Task<IActionResult> UpdateWorker(int id, WorkerDto updatedWorker)
+        {
+            try
+            {
+                if (id != updatedWorker.WorkerId)
+                {
+                    return BadRequest("Worker ID mismatch");
+                }
+
+                var existingWorker = await _context.Worker.FindAsync(id);
+                if (existingWorker == null)
+                {
+                    return NotFound("Worker not found");
+                }
+
+                existingWorker.WorkerName = updatedWorker.WorkerName;
+                existingWorker.Email = updatedWorker.Email;
+                existingWorker.PhoneNumber = updatedWorker.PhoneNumber;
+                existingWorker.IsAdmin = updatedWorker.IsAdmin;
+                existingWorker.StartWorkTime = updatedWorker.StartWorkTime;
+                existingWorker.EndWorkTime = updatedWorker.EndWorkTime;
+
+                _context.Entry(existingWorker).State = EntityState.Modified;
+                await _context.SaveChangesAsync();
+
+                return Ok("Worker information updated successfully");
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "An error occurred while updating worker information");
+                return StatusCode(500, ex.Message);
+            }
+        }
+
     }
 }

@@ -2,6 +2,7 @@
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using GreenGuard.Dto;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 
@@ -16,7 +17,7 @@ namespace GreenGuard.Services
             _key = config["Jwt:Key"];
         }
 
-        public string GenerateToken(int userId)
+        public string GenerateToken(WorkerDto worker)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(_key);
@@ -24,7 +25,9 @@ namespace GreenGuard.Services
             {
                 Subject = new ClaimsIdentity(new Claim[]
                 {
-                new Claim(ClaimTypes.Name, userId.ToString())
+                new Claim(ClaimTypes.Name, worker.WorkerName),
+                new Claim(ClaimTypes.Email, worker.Email),
+                new Claim(ClaimTypes.NameIdentifier, worker.WorkerId.ToString())
                 }),
                 Expires = DateTime.UtcNow.AddDays(7), 
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
@@ -50,7 +53,7 @@ namespace GreenGuard.Services
                 }, out SecurityToken validatedToken);
 
                 var jwtToken = (JwtSecurityToken)validatedToken;
-                var userId = int.Parse(jwtToken.Claims.First(x => x.Type == ClaimTypes.Name).Value);
+                var userId = int.Parse(jwtToken.Claims.First(x => x.Type == ClaimTypes.NameIdentifier).Value);
                 return userId;
             }
             catch

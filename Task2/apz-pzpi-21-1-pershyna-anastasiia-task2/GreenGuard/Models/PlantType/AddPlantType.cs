@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace GreenGuard.Models
+namespace GreenGuard.Models.PlantType
 {
     public class AddPlantType
     {

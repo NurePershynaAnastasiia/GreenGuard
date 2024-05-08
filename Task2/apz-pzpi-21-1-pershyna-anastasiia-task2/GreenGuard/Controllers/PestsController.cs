@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using GreenGuard.Data;
-using GreenGuard.DTO;
-using GreenGuard.Models;
-using GreenGuard.Models.Database;
+using GreenGuard.Dto;
+using GreenGuard.Models.Pest;
 
 namespace GreenGuard.Controllers
 {
@@ -33,7 +27,7 @@ namespace GreenGuard.Controllers
         {
             try
             {
-                var pests = _context.Pest.Select(data => new Pest
+                var pests = _context.Pest.Select(data => new PestDto
                 {
                     PestId = data.PestId,
                     PestName = data.PestName,
@@ -64,7 +58,7 @@ namespace GreenGuard.Controllers
                     return BadRequest("Pest with such name already exists");
                 }
 
-                var newPest = new Pest
+                var newPest = new PestDto
                 {
                     PestName = model.PestName,
                     PestDescription = model.PestDescription

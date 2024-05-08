@@ -1,16 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using GreenGuard.Data;
-using GreenGuard.DTO;
-using GreenGuard.Models;
-using GreenGuard.Models.Database;
-using Task = GreenGuard.Models.Database.Task;
-using static System.Runtime.InteropServices.JavaScript.JSType;
+using GreenGuard.Dto;
+using GreenGuard.Models.Task;
+using TaskDto = GreenGuard.Dto.TaskDto;
 
 namespace GreenGuard.Controllers
 {
@@ -95,7 +88,7 @@ namespace GreenGuard.Controllers
 
                 }
 
-                var newTask = new Task
+                var newTask = new TaskDto
                 {
                     TaskDate = taskDate,
                     TaskState = taskState,
@@ -167,7 +160,7 @@ namespace GreenGuard.Controllers
 
                     if (existingLink == null)
                     {
-                        var workerInTask = new WorkerInTask
+                        var workerInTask = new WorkerInTaskDto
                         {
                             TaskId = taskId,
                             WorkerId = workerId
@@ -214,7 +207,7 @@ namespace GreenGuard.Controllers
 
                     if (existingLink == null)
                     {
-                        var plantInTask = new PlantInTask
+                        var plantInTask = new PlantInTaskDto
                         {
                             TaskId = taskId,
                             PlantId = plantId
@@ -320,7 +313,7 @@ namespace GreenGuard.Controllers
 
         // PUT: api/Tasks/update-task/3
         [HttpPut("update-task/{id}")]
-        public async Task<IActionResult> UpdateTask(int id, Task updatedTask)
+        public async Task<IActionResult> UpdateTask(int id, TaskDto updatedTask)
         {
             try
             {
