@@ -183,5 +183,35 @@ namespace GreenGuard.Controllers
             }
         }
 
+        [HttpGet("working-at/{date}")]
+        public async Task<IActionResult> GetWorkersWorkingAtDate(DateTime date)
+        {
+            try
+            {
+                var workers = await _context.Working_Schedule
+                    .Where(ws =>
+                        (ws.Monday == true && date.DayOfWeek == DayOfWeek.Monday) ||
+                        (ws.Tuesday == true && date.DayOfWeek == DayOfWeek.Tuesday) ||
+                        (ws.Wednesday == true && date.DayOfWeek == DayOfWeek.Wednesday) ||
+                        (ws.Thursday == true && date.DayOfWeek == DayOfWeek.Thursday) ||
+                        (ws.Friday == true && date.DayOfWeek == DayOfWeek.Friday) ||
+                        (ws.Saturday == true && date.DayOfWeek == DayOfWeek.Saturday) ||
+                        (ws.Sunday == true && date.DayOfWeek == DayOfWeek.Sunday)
+                    )
+                    .Select(ws => ws.WorkerId)
+                    .ToListAsync();
+
+                var workersInfo = await _context.Worker
+                    .Where(w => workers.Contains(w.WorkerId))
+                    .ToListAsync();
+
+                return Ok(workersInfo);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "An error occurred while fetching workers working at the specified date");
+                return StatusCode(500, "Internal server error");
+            }
+        }
     }
 }

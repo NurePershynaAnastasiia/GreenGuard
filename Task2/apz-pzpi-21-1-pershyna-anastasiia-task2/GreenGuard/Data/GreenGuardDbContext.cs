@@ -23,5 +23,7 @@ namespace GreenGuard.Data
         public DbSet<WorkerInTaskDto> Worker_in_Task { get; set; }
 
         public DbSet<PlantInTaskDto> Plant_in_Task { get; set; }
+
+        public DbSet<WorkingScheduleDto> Working_Schedule { get; set; }
     }
 }

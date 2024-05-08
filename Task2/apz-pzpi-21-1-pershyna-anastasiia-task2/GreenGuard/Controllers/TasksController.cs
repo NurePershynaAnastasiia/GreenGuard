@@ -87,7 +87,6 @@ namespace GreenGuard.Controllers
                     return BadRequest(ModelState);
 
                 }
-
                 var newTask = new TaskDto
                 {
                     TaskDate = taskDate,

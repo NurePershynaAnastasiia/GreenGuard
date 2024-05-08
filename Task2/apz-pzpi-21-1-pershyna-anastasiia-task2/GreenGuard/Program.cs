@@ -1,3 +1,4 @@
+using GreenGuard.BuildInjections;
 using GreenGuard.Data;
 using GreenGuard.Dto;
 using Microsoft.AspNetCore.Identity;
@@ -45,6 +46,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddLogging();
+builder.Services.AddSetSecurity(builder.Configuration);
 
 var app = builder.Build();
 
