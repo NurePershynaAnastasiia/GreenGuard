@@ -6,6 +6,9 @@ using Microsoft.AspNetCore.Localization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using System.Globalization;
+using GreenGuard.BuildInjections;
+using GreenGuard.Helpers;
+using Microsoft.SqlServer.Management.Smo.Wmi;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -47,6 +50,13 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddLogging();
 builder.Services.AddSetSecurity(builder.Configuration);
+
+builder.Services.AddServices();
+
+builder.Services.AddControllersWithViews().AddJsonOptions(options =>
+{
+    options.JsonSerializerOptions.Converters.Add(new JsonTimeOnlyConverter());
+});
 
 var app = builder.Build();
 

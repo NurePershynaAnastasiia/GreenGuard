@@ -4,6 +4,7 @@ using GreenGuard.Data;
 using GreenGuard.Dto;
 using GreenGuard.Models.Task;
 using TaskDto = GreenGuard.Dto.TaskDto;
+using GreenGuard.Services;
 
 namespace GreenGuard.Controllers.BaseControllers
 {
@@ -14,11 +15,13 @@ namespace GreenGuard.Controllers.BaseControllers
     {
         private readonly GreenGuardDbContext _context;
         private readonly ILogger<TasksController> _logger;
+        private readonly TaskService _taskService;
 
-        public TasksController(GreenGuardDbContext context, ILogger<TasksController> logger)
+        public TasksController(GreenGuardDbContext context, ILogger<TasksController> logger, TaskService taskService)
         {
             _context = context;
             _logger = logger;
+            _taskService = taskService;
         }
 
         /// <summary>
@@ -33,44 +36,7 @@ namespace GreenGuard.Controllers.BaseControllers
         {
             try
             {
-                var tasks = await _context.Task
-                    .Select(data => new TaskFull
-                    {
-                        TaskId = data.TaskId,
-                        TaskDate = data.TaskDate,
-                        TaskDetails = data.TaskDetails,
-                        TaskType = data.TaskType,
-                        TaskState = data.TaskState,
-                        FertilizerId = data.FertilizerId
-                    })
-                    .ToListAsync();
-
-                foreach (var task in tasks)
-                {
-                    var plantIds = await _context.Plant_in_Task
-                        .Where(pit => pit.TaskId == task.TaskId)
-                        .Select(pit => pit.PlantId)
-                        .ToListAsync();
-
-                    var workerIds = await _context.Worker_in_Task
-                        .Where(wit => wit.TaskId == task.TaskId)
-                        .Select(wit => wit.WorkerId)
-                        .ToListAsync();
-
-                    var plants = await _context.Plant
-                        .Where(plant => plantIds.Contains(plant.PlantId))
-                        .Select(plant => plant.PlantLocation)
-                        .ToListAsync();
-
-                    var workers = await _context.Worker
-                        .Where(worker => workerIds.Contains(worker.WorkerId))
-                        .Select(worker => worker.WorkerName)
-                        .ToListAsync();
-
-                    task.Plants = plants;
-                    task.Workers = workers;
-                }
-
+                var tasks = await _taskService.GetTasksWithDetails();
                 return Ok(tasks);
             }
             catch (Exception ex)
@@ -143,7 +109,6 @@ namespace GreenGuard.Controllers.BaseControllers
                 await _context.SaveChangesAsync();
 
                 return Ok($"Task with description: {task.TaskDetails} was successfully deleted");
-
             }
             catch (Exception ex)
             {
@@ -169,38 +134,8 @@ namespace GreenGuard.Controllers.BaseControllers
         {
             try
             {
-                var task = await _context.Task.FindAsync(taskId);
-                if (task == null)
-                {
-                    return BadRequest("Task not found");
-                }
-
-                foreach (var workerId in workerIds)
-                {
-                    var worker = await _context.Worker.FindAsync(workerId);
-                    if (worker == null)
-                    {
-                        return BadRequest($"Worker with id {workerId} not found");
-                    }
-
-                    var existingLink = await _context.Worker_in_Task
-                        .FirstOrDefaultAsync(wt => wt.TaskId == taskId && wt.WorkerId == workerId);
-
-                    if (existingLink == null)
-                    {
-                        var workerInTask = new WorkerInTaskDto
-                        {
-                            TaskId = taskId,
-                            WorkerId = workerId
-                        };
-
-                        _context.Worker_in_Task.Add(workerInTask);
-                    }
-                }
-
-                await _context.SaveChangesAsync();
-
-                return Ok("Workers successfully added to task");
+                var result = await _taskService.AddWorkersToTask(taskId, workerIds);
+                return Ok(result);
 
             }
             catch (Exception ex)
@@ -225,38 +160,8 @@ namespace GreenGuard.Controllers.BaseControllers
         {
             try
             {
-                var task = await _context.Task.FindAsync(taskId);
-                if (task == null)
-                {
-                    return BadRequest("Task not found");
-                }
-
-                foreach (var plantId in plantIds)
-                {
-                    var plant = await _context.Plant.FindAsync(plantId);
-                    if (plant == null)
-                    {
-                        return BadRequest($"Plant with id {plantId} not found");
-                    }
-
-                    var existingLink = await _context.Worker_in_Task
-                        .FirstOrDefaultAsync(wt => wt.TaskId == taskId && wt.WorkerId == plantId);
-
-                    if (existingLink == null)
-                    {
-                        var plantInTask = new PlantInTaskDto
-                        {
-                            TaskId = taskId,
-                            PlantId = plantId
-                        };
-
-                        _context.Plant_in_Task.Add(plantInTask);
-                    }
-                }
-
-                await _context.SaveChangesAsync();
-
-                return Ok("Plants successfully added to task");
+                var result = await _taskService.AddPlantToTask(taskId, plantIds);
+                return Ok(result);
 
             }
             catch (Exception ex)

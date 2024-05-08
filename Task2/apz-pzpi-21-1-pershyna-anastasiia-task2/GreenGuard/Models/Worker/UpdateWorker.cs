@@ -1,17 +1,12 @@
-﻿using GreenGuard.Helpers;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+using GreenGuard.Helpers;
 using System.Text.Json.Serialization;
 
-namespace GreenGuard.Dto
+namespace GreenGuard.Models.Worker
 {
-    public class WorkerDto
+    public class UpdateWorker
     {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        [Column("Worker_id")]
-        public int WorkerId { get; set; }
-
         [Required]
         [Column("Worker_name")]
         public string WorkerName { get; set; }
@@ -24,18 +19,12 @@ namespace GreenGuard.Dto
         [Column("Email")]
         public string? Email { get; set; }
 
-        [Column("Start_work_time", TypeName = "time(7)")]
+        [Column("Start_work_time")]
         [JsonConverter(typeof(JsonTimeOnlyConverter))]
         public TimeOnly? StartWorkTime { get; set; }
 
-        [Column("End_work_time", TypeName = "time(7)")]
+        [Column("End_work_time")]
         [JsonConverter(typeof(JsonTimeOnlyConverter))]
         public TimeOnly? EndWorkTime { get; set; }
-
-        [Column("Password_hash")]
-        public string? PasswordHash { get; set; }
-
-        [Column("Is_Admin")]
-        public bool? IsAdmin { get; set; }
     }
 }

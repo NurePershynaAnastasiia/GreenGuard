@@ -1,18 +1,10 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
 
-namespace GreenGuard.Dto
+namespace GreenGuard.Models.WorkingSchedule
 {
-    public class WorkingScheduleDto
+    public class UpdateWorkingSchedule
     {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        [Column("Working_Schedule_id")]
-        public int WorkingScheduleId { get; set; }
-
-        [Column("Worker_id")]
-        public int? WorkerId { get; set; }
-
         [Column("Monday")]
         public bool? Monday { get; set; }
 

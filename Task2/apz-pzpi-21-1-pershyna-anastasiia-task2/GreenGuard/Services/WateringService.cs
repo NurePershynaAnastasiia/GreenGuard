@@ -36,6 +36,9 @@ public class WateringService
                 .FirstOrDefault())
             .FirstOrDefault();
 
+            if (lastWateringTask == null) {
+                return (new WateringSchedule { Date = DateTime.Now, PlantId = plantId });
+            }
 
             var humidityDifference = recommendedData.OptHumidity - plant.Humidity;
             var tempDifference = plant.Temp - recommendedData.OptTemp;

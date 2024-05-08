@@ -13,7 +13,6 @@ namespace GreenGuard.Controllers.BaseControllers
     // api/Workers
     [ApiController]
     [Route("api/[controller]")]
-    [Authorize]
     public class WorkersController : ControllerBase
     {
         private readonly GreenGuardDbContext _context;
@@ -36,7 +35,7 @@ namespace GreenGuard.Controllers.BaseControllers
         /// If the operation is successful, it will return an ICollection of WorkerDto.
         /// If there is an error during retrieval, it will return a 500 Internal Server Error response.
         /// </returns>
-        [Authorize(Roles = Roles.Administrator)]
+        //[Authorize(Roles = Roles.Administrator)]
         [HttpGet("all-workers")]
         public async Task<IActionResult> GetWorkers()
         {
@@ -195,7 +194,7 @@ namespace GreenGuard.Controllers.BaseControllers
         /// If an error occurs, it returns a 500 Internal Server Error response.
         /// </returns>
         [HttpPut("update-worker/{id}")]
-        public async Task<IActionResult> UpdateWorker(int id, WorkerDto updatedWorker)
+        public async Task<IActionResult> UpdateWorker(int id, UpdateWorker updatedWorker)
         {
             try
             {
@@ -211,7 +210,7 @@ namespace GreenGuard.Controllers.BaseControllers
                 existingWorker.StartWorkTime = updatedWorker.StartWorkTime;
                 existingWorker.EndWorkTime = updatedWorker.EndWorkTime;
 
-                _context.Entry(existingWorker).State = EntityState.Modified;
+                _context.Update(existingWorker);
                 await _context.SaveChangesAsync();
 
                 return Ok("Worker information updated successfully");

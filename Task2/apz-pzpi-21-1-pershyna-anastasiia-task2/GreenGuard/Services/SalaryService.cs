@@ -19,6 +19,10 @@ public class SalaryService
 
             var workingSchedule = await _context.Working_Schedule.FirstOrDefaultAsync(ws => ws.WorkerId == workerId);
 
+            if (worker == null || workingSchedule == null) {
+                return 0;
+            }
+
             var tasks = await _context.Worker_in_Task.Where(wt => wt.WorkerId == workerId && wt.TaskStatus == "finished").ToListAsync();
 
             int workingDaysPerWeek = new bool[] { CheckNulls(workingSchedule.Monday), CheckNulls(workingSchedule.Tuesday), CheckNulls(workingSchedule.Wednesday),

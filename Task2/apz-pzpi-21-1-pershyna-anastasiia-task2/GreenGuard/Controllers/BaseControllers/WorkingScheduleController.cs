@@ -1,5 +1,6 @@
 ﻿using GreenGuard.Data;
 using GreenGuard.Dto;
+using GreenGuard.Models.WorkingSchedule;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GreenGuard.Controllers.BaseControllers
@@ -31,7 +32,16 @@ namespace GreenGuard.Controllers.BaseControllers
         {
             try
             {
-                var workingSchedule = await _context.Working_Schedule.FindAsync(workerId);
+                var workingSchedule = _context.Working_Schedule.Select(data => new UpdateWorkingSchedule
+                {
+                    Monday = data.Monday,
+                    Tuesday = data.Tuesday,
+                    Wednesday = data.Wednesday,
+                    Thursday = data.Thursday,
+                    Friday = data.Friday,
+                    Saturday = data.Saturday,
+                    Sunday = data.Sunday,
+                }).ToList();
 
                 if (workingSchedule == null)
                 {
@@ -58,7 +68,7 @@ namespace GreenGuard.Controllers.BaseControllers
         /// If an error occurs, it will return a 500 Internal Server Error response.
         /// </returns>
         [HttpPut("worker/{workerId}")]
-        public async Task<IActionResult> UpdateWorkingScheduleByWorkerId(int workerId, WorkingScheduleDto updatedSchedule)
+        public async Task<IActionResult> UpdateWorkingScheduleByWorkerId(int workerId, UpdateWorkingSchedule updatedSchedule)
         {
             try
             {
@@ -66,16 +76,32 @@ namespace GreenGuard.Controllers.BaseControllers
 
                 if (existingSchedule == null)
                 {
-                    return NotFound($"Working schedule not found for worker with ID {workerId}");
-                }
+                    // Create a new working schedule if it doesn't exist for the worker
+                    existingSchedule = new WorkingScheduleDto
+                    {
+                        WorkerId = workerId,
+                        Monday = updatedSchedule.Monday,
+                        Tuesday = updatedSchedule.Tuesday,
+                        Wednesday = updatedSchedule.Wednesday,
+                        Thursday = updatedSchedule.Thursday,
+                        Friday = updatedSchedule.Friday,
+                        Saturday = updatedSchedule.Saturday,
+                        Sunday = updatedSchedule.Sunday
+                    };
 
-                existingSchedule.Monday = updatedSchedule.Monday;
-                existingSchedule.Tuesday = updatedSchedule.Tuesday;
-                existingSchedule.Wednesday = updatedSchedule.Wednesday;
-                existingSchedule.Thursday = updatedSchedule.Thursday;
-                existingSchedule.Friday = updatedSchedule.Friday;
-                existingSchedule.Saturday = updatedSchedule.Saturday;
-                existingSchedule.Sunday = updatedSchedule.Sunday;
+                    _context.Working_Schedule.Add(existingSchedule);
+                }
+                else
+                {
+                    // Update the existing working schedule
+                    existingSchedule.Monday = updatedSchedule.Monday;
+                    existingSchedule.Tuesday = updatedSchedule.Tuesday;
+                    existingSchedule.Wednesday = updatedSchedule.Wednesday;
+                    existingSchedule.Thursday = updatedSchedule.Thursday;
+                    existingSchedule.Friday = updatedSchedule.Friday;
+                    existingSchedule.Saturday = updatedSchedule.Saturday;
+                    existingSchedule.Sunday = updatedSchedule.Sunday;
+                }
 
                 await _context.SaveChangesAsync();
 
@@ -87,5 +113,6 @@ namespace GreenGuard.Controllers.BaseControllers
                 return StatusCode(500, "Internal server error");
             }
         }
+
     }
 }
