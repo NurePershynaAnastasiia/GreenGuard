@@ -10,12 +10,12 @@ namespace GreenGuard.Controllers.FeaturesControllers
 
     public class SalaryController : ControllerBase
     {
-        private readonly GreenGuardDbContext _context;
+        private readonly SalaryService _salaryService;
         private readonly ILogger<SalaryController> _logger;
 
-        public SalaryController(GreenGuardDbContext context, ILogger<SalaryController> logger)
+        public SalaryController(SalaryService salaryService, ILogger<SalaryController> logger)
         {
-            _context = context;
+            _salaryService = salaryService;
             _logger = logger;
         }
 
@@ -30,25 +30,7 @@ namespace GreenGuard.Controllers.FeaturesControllers
         {
             try
             {
-                var worker = _context.Worker.FirstOrDefault(w => w.WorkerId == workerId);
-
-                var workingSchedule = _context.Working_Schedule.FirstOrDefault(ws => ws.WorkerId == workerId);
-
-                var tasks = _context.Worker_in_Task.Where(wt => wt.WorkerId == workerId && wt.TaskStatus == "finished").ToList();
-
-                int workingDaysPerWeek = new bool[] { CheckNulls(workingSchedule.Monday), CheckNulls(workingSchedule.Tuesday), CheckNulls(workingSchedule.Wednesday),
-                                               CheckNulls(workingSchedule.Thursday), CheckNulls(workingSchedule.Friday), CheckNulls(workingSchedule.Saturday),
-                                               CheckNulls(workingSchedule.Sunday) }.Count(d => d == true);
-
-                double hoursPerDay = (worker.EndWorkTime - worker.StartWorkTime).Value.TotalHours;
-
-                double hourlyRate = 150;
-                double weeklySalary = workingDaysPerWeek * hoursPerDay * hourlyRate;
-
-                double bonusPerTask = hourlyRate * 0.3;
-                double totalBonus = tasks.Count * bonusPerTask;
-                weeklySalary += totalBonus;
-
+                var weeklySalary = await _salaryService.CalculateWeeklySalary(workerId);
                 return Ok(weeklySalary);
 
             }

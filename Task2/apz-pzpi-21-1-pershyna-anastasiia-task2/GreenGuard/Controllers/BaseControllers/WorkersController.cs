@@ -5,28 +5,32 @@ using GreenGuard.Dto;
 using Microsoft.AspNetCore.Identity;
 using GreenGuard.Services;
 using GreenGuard.Models.Worker;
+using Microsoft.AspNetCore.Authorization;
+using GreenGuard.Helpers;
 
 namespace GreenGuard.Controllers.BaseControllers
 {
     // api/Workers
     [ApiController]
     [Route("api/[controller]")]
+    [Authorize]
     public class WorkersController : ControllerBase
     {
         private readonly GreenGuardDbContext _context;
         private readonly ILogger<WorkersController> _logger;
         private readonly IPasswordHasher<WorkerDto> _passwordHasher;
-        private readonly JwtTokenService _jwtService;
+        private readonly JwtTokenGenerator _jwtService;
 
         public WorkersController(GreenGuardDbContext context, ILogger<WorkersController> logger, IConfiguration config, IPasswordHasher<WorkerDto> passwordHasher)
         {
-            _jwtService = new JwtTokenService(config);
+            _jwtService = new JwtTokenGenerator(config);
             _context = context;
             _logger = logger;
             _passwordHasher = passwordHasher;
         }
 
         // GET: api/Workers/all-workers
+        [Authorize(Roles = Roles.Administrator)]
         [HttpGet("all-workers")]
         public async Task<IActionResult> GetWorkers()
         {
@@ -86,7 +90,7 @@ namespace GreenGuard.Controllers.BaseControllers
         }
 
         [HttpPost("register")]
-        public async Task<IActionResult> AddWorker(WorkerRegister model)
+        public async Task<IActionResult> WorkerRegister(WorkerRegister model)
         {
             try
             {
@@ -124,6 +128,7 @@ namespace GreenGuard.Controllers.BaseControllers
         }
 
         // DELETE: api/Workers/delete-worker/3
+        [Authorize(Roles = Roles.Administrator)]
         [HttpDelete("delete-worker/{id}")]
         public async Task<IActionResult> DeleteWorker(int id)
         {
@@ -153,11 +158,6 @@ namespace GreenGuard.Controllers.BaseControllers
         {
             try
             {
-                if (id != updatedWorker.WorkerId)
-                {
-                    return BadRequest("Worker ID mismatch");
-                }
-
                 var existingWorker = await _context.Worker.FindAsync(id);
                 if (existingWorker == null)
                 {
@@ -167,7 +167,6 @@ namespace GreenGuard.Controllers.BaseControllers
                 existingWorker.WorkerName = updatedWorker.WorkerName;
                 existingWorker.Email = updatedWorker.Email;
                 existingWorker.PhoneNumber = updatedWorker.PhoneNumber;
-                existingWorker.IsAdmin = updatedWorker.IsAdmin;
                 existingWorker.StartWorkTime = updatedWorker.StartWorkTime;
                 existingWorker.EndWorkTime = updatedWorker.EndWorkTime;
 
@@ -183,7 +182,36 @@ namespace GreenGuard.Controllers.BaseControllers
             }
         }
 
+        // PUT: api/Workers/update-worker-role/3
+        [Authorize(Roles = Roles.Administrator)]
+        [HttpPut("update-worker-role/{id}")]
+        public async Task<IActionResult> UpdateWorkerRole(int id, bool isAdmin)
+        {
+            try
+            {
+
+                var existingWorker = await _context.Worker.FindAsync(id);
+                if (existingWorker == null)
+                {
+                    return NotFound("Worker not found");
+                }
+
+                existingWorker.IsAdmin = isAdmin;
+
+                _context.Entry(existingWorker).State = EntityState.Modified;
+                await _context.SaveChangesAsync();
+
+                return Ok("Worker role updated successfully");
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "An error occurred while updating worker role");
+                return StatusCode(500, ex.Message);
+            }
+        }
+
         [HttpGet("working-at/{date}")]
+        [Authorize(Roles = Roles.Administrator)]
         public async Task<IActionResult> GetWorkersWorkingAtDate(DateTime date)
         {
             try

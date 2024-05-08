@@ -8,7 +8,7 @@ namespace GreenGuard.BuildInjections
     {
         internal static void AddSetSecurity(this IServiceCollection services, IConfiguration config)
         {
-            var securityKey = config.GetRequiredSection("SecurityKey").Value;
+            var securityKey = config["Jwt:Key"];
             var key = Encoding.ASCII.GetBytes(securityKey);
 
             services.AddAuthentication(options =>
