@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
 
-namespace GreenGuard.Controllers
+namespace GreenGuard.Controllers.FeaturesControllers
 {
     // api/Backups
     [ApiController]

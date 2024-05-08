@@ -2,7 +2,7 @@
 using GreenGuard.Dto;
 using Microsoft.AspNetCore.Mvc;
 
-namespace GreenGuard.Controllers
+namespace GreenGuard.Controllers.BaseControllers
 {
     [ApiController]
     [Route("api/[controller]")]

@@ -4,7 +4,7 @@ using GreenGuard.Data;
 using GreenGuard.Dto;
 using GreenGuard.Models.Fertilizer;
 
-namespace GreenGuard.Controllers
+namespace GreenGuard.Controllers.BaseControllers
 {
     // api/Fertilizers
     [ApiController]

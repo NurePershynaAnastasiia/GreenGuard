@@ -3,7 +3,7 @@ using GreenGuard.Data;
 using GreenGuard.Dto;
 using GreenGuard.Models.Watering;
 
-namespace GreenGuard.Controllers
+namespace GreenGuard.Controllers.FeaturesControllers
 {
     // api/Fertilizers
     [ApiController]
@@ -38,13 +38,13 @@ namespace GreenGuard.Controllers
 
                 var lastWateringTask = _context.Plant_in_Task
                 .Where(pit => pit.PlantId == plantId)
-                .Select(pit => pit.TaskId) 
+                .Select(pit => pit.TaskId)
                 .Distinct()
                 .Select(taskId => _context.Task
-                    .Where(t => t.TaskId == taskId && t.TaskType == "watering") 
-                    .OrderByDescending(t => t.TaskDate) 
-                    .FirstOrDefault()) 
-                .FirstOrDefault(); 
+                    .Where(t => t.TaskId == taskId && t.TaskType == "watering")
+                    .OrderByDescending(t => t.TaskDate)
+                    .FirstOrDefault())
+                .FirstOrDefault();
 
 
                 var humidityDifference = recommendedData.OptHumidity - plant.Humidity;
@@ -55,8 +55,8 @@ namespace GreenGuard.Controllers
 
                 if (lastWateringTask == null || daysSinceLastWatering >= recommendedData.WaterFreq || humidityDifference > 0)
                 {
-                    var humidityCoefficient = humidityDifference / recommendedData.OptHumidity * (-1);
-                    var tempCoefficient = tempDifference / recommendedData.OptTemp * (-1);
+                    var humidityCoefficient = humidityDifference / recommendedData.OptHumidity * -1;
+                    var tempCoefficient = tempDifference / recommendedData.OptTemp * -1;
 
                     var interval = (int)Math.Round((decimal)(humidityCoefficient + tempCoefficient) * recommendedData.WaterFreq);
 

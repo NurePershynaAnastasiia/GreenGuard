@@ -4,7 +4,7 @@ using GreenGuard.Data;
 using GreenGuard.Dto;
 using GreenGuard.Models.PlantType;
 
-namespace GreenGuard.Controllers
+namespace GreenGuard.Controllers.BaseControllers
 {
     // api/PlantTypes
     [ApiController]

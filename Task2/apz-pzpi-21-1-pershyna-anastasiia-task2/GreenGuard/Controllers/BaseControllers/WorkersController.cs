@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Identity;
 using GreenGuard.Services;
 using GreenGuard.Models.Worker;
 
-namespace GreenGuard.Controllers
+namespace GreenGuard.Controllers.BaseControllers
 {
     // api/Workers
     [ApiController]
@@ -105,7 +105,7 @@ namespace GreenGuard.Controllers
                     WorkerName = model.WorkerName,
                     Email = model.Email,
                     PhoneNumber = model.PhoneNumber,
-                    IsAdmin = model.IsAdmin, 
+                    IsAdmin = model.IsAdmin,
                 };
 
                 newWorker.PasswordHash = _passwordHasher.HashPassword(newWorker, model.Password);
@@ -190,13 +190,13 @@ namespace GreenGuard.Controllers
             {
                 var workers = await _context.Working_Schedule
                     .Where(ws =>
-                        (ws.Monday == true && date.DayOfWeek == DayOfWeek.Monday) ||
-                        (ws.Tuesday == true && date.DayOfWeek == DayOfWeek.Tuesday) ||
-                        (ws.Wednesday == true && date.DayOfWeek == DayOfWeek.Wednesday) ||
-                        (ws.Thursday == true && date.DayOfWeek == DayOfWeek.Thursday) ||
-                        (ws.Friday == true && date.DayOfWeek == DayOfWeek.Friday) ||
-                        (ws.Saturday == true && date.DayOfWeek == DayOfWeek.Saturday) ||
-                        (ws.Sunday == true && date.DayOfWeek == DayOfWeek.Sunday)
+                        ws.Monday == true && date.DayOfWeek == DayOfWeek.Monday ||
+                        ws.Tuesday == true && date.DayOfWeek == DayOfWeek.Tuesday ||
+                        ws.Wednesday == true && date.DayOfWeek == DayOfWeek.Wednesday ||
+                        ws.Thursday == true && date.DayOfWeek == DayOfWeek.Thursday ||
+                        ws.Friday == true && date.DayOfWeek == DayOfWeek.Friday ||
+                        ws.Saturday == true && date.DayOfWeek == DayOfWeek.Saturday ||
+                        ws.Sunday == true && date.DayOfWeek == DayOfWeek.Sunday
                     )
                     .Select(ws => ws.WorkerId)
                     .ToListAsync();

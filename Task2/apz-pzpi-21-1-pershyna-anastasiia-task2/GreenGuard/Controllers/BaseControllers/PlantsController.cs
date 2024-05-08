@@ -3,7 +3,7 @@ using GreenGuard.Data;
 using GreenGuard.Dto;
 using GreenGuard.Models.Plant;
 
-namespace GreenGuard.Controllers
+namespace GreenGuard.Controllers.BaseControllers
 {
     public class PlantsController : ControllerBase
     {
@@ -132,7 +132,7 @@ namespace GreenGuard.Controllers
 
         // PUT: api/Plants/update-plant-state/3
         [HttpPut("update-plant-state/{id}")]
-        public async Task<IActionResult> UpdatePlantState (int id, UpdatePlantState model)
+        public async Task<IActionResult> UpdatePlantState(int id, UpdatePlantState model)
         {
             try
             {

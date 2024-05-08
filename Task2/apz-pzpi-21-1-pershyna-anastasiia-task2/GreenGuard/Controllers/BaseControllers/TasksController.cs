@@ -5,7 +5,7 @@ using GreenGuard.Dto;
 using GreenGuard.Models.Task;
 using TaskDto = GreenGuard.Dto.TaskDto;
 
-namespace GreenGuard.Controllers
+namespace GreenGuard.Controllers.BaseControllers
 {
     // api/Tasks
     [ApiController]
@@ -73,8 +73,6 @@ namespace GreenGuard.Controllers
                 return StatusCode(500, ex.Message);
             }
         }
-
-
 
         // POST: api/Tasks/add-task
         [HttpPost("add-task")]
@@ -297,7 +295,7 @@ namespace GreenGuard.Controllers
                     var worker = await _context.Worker.FindAsync(taskWorker.WorkerId);
                     if (worker != null)
                     {
-                        workerStatuses.Add(new { WorkerName = worker.WorkerName, TaskStatus = taskWorker.TaskStatus });
+                        workerStatuses.Add(new { worker.WorkerName, taskWorker.TaskStatus });
                     }
                 }
 
