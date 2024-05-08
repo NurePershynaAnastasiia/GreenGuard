@@ -16,7 +16,13 @@ namespace GreenGuard.Controllers.BaseControllers
             _logger = logger;
         }
 
-        // GET: api/Plants/all-plants
+        /// <summary>
+        /// Retrieves a list of all plant types.
+        /// </summary>
+        /// <returns>
+        /// If the operation is successful, it will return a list of PlantTypeDto.
+        /// If there is a bad request, it will return an ErrorDto.
+        /// </returns>
         [HttpGet("all-plants")]
         public async Task<IActionResult> GetPlants()
         {
@@ -42,9 +48,18 @@ namespace GreenGuard.Controllers.BaseControllers
             }
         }
 
-        // POST: api/Plants/add-plant
+        /// <summary>
+        /// Adds a new plant.
+        /// </summary>
+        /// <param name="newPlantTypeId">The ID of the new plant type.</param>
+        /// <param name="newPlantLocation">The location of the new plant.</param>
+        /// <returns>
+        /// If the operation is successful, it will return a success message.
+        /// If the provided model is invalid, it will return a 400 Bad Request response.
+        /// If an error occurs, it will return a 500 Internal Server Error response.
+        /// </returns>
         [HttpPost("add-plant")]
-        public async Task<ActionResult> AddNewPlant(int newPlantTypeId, string newPlantLocation)
+        public async Task<ActionResult> AddNewPlant(AddPlant model)
         {
             try
             {
@@ -56,9 +71,13 @@ namespace GreenGuard.Controllers.BaseControllers
 
                 var newPlant = new PlantDto
                 {
-                    PlantTypeId = newPlantTypeId,
-                    PlantLocation = newPlantLocation
-
+                    PlantTypeId = model.PlantTypeId,
+                    PlantLocation = model.PlantLocation,
+                    Humidity = model.Humidity,
+                    Light = model.Light,
+                    Temp = model.Temp,
+                    AdditionalInfo = model.AdditionalInfo,
+                    PlantState = model.PlantState
                 };
 
                 _context.Add(newPlant);
@@ -73,7 +92,15 @@ namespace GreenGuard.Controllers.BaseControllers
             }
         }
 
-        // Delete: api/Plants/delete-plant/3
+        /// <summary>
+        /// Deletes a plant by its ID.
+        /// </summary>
+        /// <param name="id">The ID of the plant to delete.</param>
+        /// <returns>
+        /// If the operation is successful, it will return a success message.
+        /// If there is no plant with the provided ID, it will return a 400 Bad Request response.
+        /// If an error occurs, it will return a 500 Internal Server Error response.
+        /// </returns>
         [HttpDelete("delete-plant/{id}")]
         public async Task<IActionResult> DeletePlant(int id)
         {
@@ -99,7 +126,16 @@ namespace GreenGuard.Controllers.BaseControllers
 
         }
 
-        // PUT: api/Plants/update-plant/5
+        /// <summary>
+        /// Updates the details of a plant.
+        /// </summary>
+        /// <param name="id">The ID of the plant to update.</param>
+        /// <param name="model">The updated details of the plant.</param>
+        /// <returns>
+        /// If the operation is successful, it will return a success message.
+        /// If there is no plant with the provided ID, it will return a 404 Not Found response.
+        /// If an error occurs, it will return a 500 Internal Server Error response.
+        /// </returns>
         [HttpPut("update-plant/{id}")]
         public async Task<IActionResult> UpdatePlant(int id, UpdatePlant model)
         {
@@ -130,7 +166,16 @@ namespace GreenGuard.Controllers.BaseControllers
             }
         }
 
-        // PUT: api/Plants/update-plant-state/3
+        /// <summary>
+        /// Updates the state of a plant by its ID.
+        /// </summary>
+        /// <param name="id">The ID of the plant to update.</param>
+        /// <param name="model">The updated state of the plant.</param>
+        /// <returns>
+        /// If the operation is successful, it will return a success message.
+        /// If there is no plant with the provided ID, it will return a 404 Not Found response.
+        /// If an error occurs, it will return a 500 Internal Server Error response.
+        /// </returns>
         [HttpPut("update-plant-state/{id}")]
         public async Task<IActionResult> UpdatePlantState(int id, UpdatePlantState model)
         {

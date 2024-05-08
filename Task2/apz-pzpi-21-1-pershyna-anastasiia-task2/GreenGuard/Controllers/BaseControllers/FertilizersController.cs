@@ -21,7 +21,13 @@ namespace GreenGuard.Controllers.BaseControllers
             _logger = logger;
         }
 
-        // GET: api/Fertilizers/all-fertilizers
+        /// <summary>
+        /// Get a list of all fertilizers.
+        /// </summary>
+        /// <returns>
+        /// If the operation is successful, it will return an ICollection of FertilizerDto.
+        /// If there is a bad request, it will return an ErrorDto.
+        /// </returns>
         [HttpGet("all-fertilizers")]
         public async Task<IActionResult> GetFertilizers()
         {
@@ -42,7 +48,15 @@ namespace GreenGuard.Controllers.BaseControllers
             }
         }
 
-        // PUT: api/Fertilizers/update-fertilizer-quantity/3
+        /// <summary>
+        /// Update the quantity of a fertilizer.
+        /// </summary>
+        /// <param name="id">The ID of the fertilizer to update.</param>
+        /// <param name="model">The data to update the fertilizer quantity.</param>
+        /// <returns>
+        /// If the operation is successful, it will return a message confirming the update.
+        /// If there is a bad request, it will return an ErrorDto.
+        /// </returns>
         [HttpPut("update-fertilizer-quantity/{id}")]
         public async Task<IActionResult> UpdateFertilizerQuantity(int id, UpdateFertilizerQuantity model)
         {
@@ -67,7 +81,14 @@ namespace GreenGuard.Controllers.BaseControllers
             }
         }
 
-        // POST: api/Fertilizers/add-fertilizer
+        /// <summary>
+        /// Add a new fertilizer.
+        /// </summary>
+        /// <param name="model">The data to add a new fertilizer.</param>
+        /// <returns>
+        /// If the operation is successful, it will return a message confirming the addition.
+        /// If there is a bad request, it will return an ErrorDto.
+        /// </returns>
         [HttpPost("add-fertilizer")]
         public async Task<IActionResult> AddFertilizer(AddFertilizer model)
         {
@@ -103,7 +124,14 @@ namespace GreenGuard.Controllers.BaseControllers
             }
         }
 
-        // Delete: api/Fertilizers/delete-fertilizer/3
+        /// <summary>
+        /// Delete a fertilizer.
+        /// </summary>
+        /// <param name="id">The ID of the fertilizer to delete.</param>
+        /// <returns>
+        /// If the operation is successful, it will return a message confirming the deletion.
+        /// If there is a bad request, it will return an ErrorDto.
+        /// </returns>
         [HttpDelete("delete-fertilizer/{id}")]
         public async Task<IActionResult> DeleteFertilizer(int id)
         {

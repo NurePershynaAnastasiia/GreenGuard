@@ -21,7 +21,13 @@ namespace GreenGuard.Controllers.BaseControllers
             _logger = logger;
         }
 
-        // GET: api/Pests/all-pests
+        /// <summary>
+        /// Get a list of all pests.
+        /// </summary>
+        /// <returns>
+        /// If the operation is successful, it will return an ICollection of PestDto.
+        /// If there is a bad request, it will return an ErrorDto.
+        /// </returns>
         [HttpGet("all-pests")]
         public async Task<IActionResult> GetPests()
         {
@@ -29,7 +35,6 @@ namespace GreenGuard.Controllers.BaseControllers
             {
                 var pests = _context.Pest.Select(data => new PestDto
                 {
-                    PestId = data.PestId,
                     PestName = data.PestName,
                     PestDescription = data.PestDescription
                 }).ToList();
@@ -42,7 +47,14 @@ namespace GreenGuard.Controllers.BaseControllers
             }
         }
 
-        // POST: api/Pests/add-pest
+        /// <summary>
+        /// Add a new pest.
+        /// </summary>
+        /// <param name="model">The data to add a new pest.</param>
+        /// <returns>
+        /// If the operation is successful, it will return a message confirming the addition.
+        /// If there is a bad request, it will return an ErrorDto.
+        /// </returns>
         [HttpPost("add-pest")]
         public async Task<IActionResult> AddPest(AddPest model)
         {

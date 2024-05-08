@@ -21,8 +21,14 @@ namespace GreenGuard.Controllers.BaseControllers
             _logger = logger;
         }
 
-        // GET: api/Tasks/all-task
-        [HttpGet("all-task")]
+        /// <summary>
+        /// Retrieves a list of all tasks along with associated plants and workers.
+        /// </summary>
+        /// <returns>
+        /// If retrieval is successful, it returns a list of TaskFull objects containing task details, associated plants, and workers.
+        /// If an error occurs, it returns a 500 Internal Server Error response.
+        /// </returns>
+        [HttpGet("all-tasks")]
         public async Task<IActionResult> GetTasks()
         {
             try
@@ -74,9 +80,17 @@ namespace GreenGuard.Controllers.BaseControllers
             }
         }
 
-        // POST: api/Tasks/add-task
+        /// <summary>
+        /// Adds a new task.
+        /// </summary>
+        /// <param name="model">The AddTask model containing task details.</param>
+        /// <returns>
+        /// If addition is successful, it returns a success message.
+        /// If the model is invalid, it returns a 400 Bad Request response.
+        /// If an error occurs, it returns a 500 Internal Server Error response.
+        /// </returns>
         [HttpPost("add-task")]
-        public async Task<ActionResult> AddTask(DateTime taskDate, string taskDetails, string taskType, string taskState, int? fertilizerId)
+        public async Task<ActionResult> AddTask(AddTask model)
         {
             try
             {
@@ -87,11 +101,11 @@ namespace GreenGuard.Controllers.BaseControllers
                 }
                 var newTask = new TaskDto
                 {
-                    TaskDate = taskDate,
-                    TaskState = taskState,
-                    TaskDetails = taskDetails,
-                    TaskType = taskType,
-                    FertilizerId = fertilizerId
+                    TaskDate = model.TaskDate,
+                    TaskState = model.TaskState,
+                    TaskDetails = model.TaskDetails,
+                    TaskType = model.TaskType,
+                    FertilizerId = model.FertilizerId
                 };
 
                 _context.Add(newTask);
@@ -106,9 +120,17 @@ namespace GreenGuard.Controllers.BaseControllers
             }
         }
 
-        // Delete: api/Tasks/delete-task/3
+        /// <summary>
+        /// Deletes a task by ID.
+        /// </summary>
+        /// <param name="id">The ID of the task to delete.</param>
+        /// <returns>
+        /// If deletion is successful, it returns a success message.
+        /// If the task with the provided ID does not exist, it returns a 400 Bad Request response.
+        /// If an error occurs, it returns a 500 Internal Server Error response.
+        /// </returns>
         [HttpDelete("delete-task/{id}")]
-        public async Task<IActionResult> Deletetask(int id)
+        public async Task<IActionResult> DeleteTask(int id)
         {
             try
             {
@@ -132,7 +154,16 @@ namespace GreenGuard.Controllers.BaseControllers
 
         }
 
-        // POST: api/Tasks/add-worker-to-task/3
+        /// <summary>
+        /// Adds workers to a task.
+        /// </summary>
+        /// <param name="taskId">The ID of the task.</param>
+        /// <param name="workerIds">The IDs of the workers to add.</param>
+        /// <returns>
+        /// If addition is successful, it returns a success message.
+        /// If the task with the provided ID does not exist, it returns a 400 Bad Request response.
+        /// If an error occurs, it returns a 500 Internal Server Error response.
+        /// </returns>
         [HttpPost("add-worker-to-task/{taskId}")]
         public async Task<IActionResult> AddWorkerToTask(int taskId, List<int> workerIds)
         {
@@ -179,7 +210,16 @@ namespace GreenGuard.Controllers.BaseControllers
             }
         }
 
-        // POST: api/Tasks/add-plant-to-task/3
+        /// <summary>
+        /// Adds plants to a task.
+        /// </summary>
+        /// <param name="taskId">The ID of the task.</param>
+        /// <param name="plantIds">The IDs of the plants to add.</param>
+        /// <returns>
+        /// If addition is successful, it returns a success message.
+        /// If the task with the provided ID does not exist, it returns a 400 Bad Request response.
+        /// If an error occurs, it returns a 500 Internal Server Error response.
+        /// </returns>
         [HttpPost("add-plant-to-task/{taskId}")]
         public async Task<IActionResult> AddPlantToTask(int taskId, List<int> plantIds)
         {
@@ -226,7 +266,14 @@ namespace GreenGuard.Controllers.BaseControllers
             }
         }
 
-        // GET: api/Tasks/worker-tasks/3
+        /// <summary>
+        /// Retrieves tasks assigned to a specific worker.
+        /// </summary>
+        /// <param name="workerId">The ID of the worker.</param>
+        /// <returns>
+        /// If retrieval is successful, it returns a list of tasks assigned to the worker.
+        /// If an error occurs, it returns a 500 Internal Server Error response.
+        /// </returns>
         [HttpGet("worker-tasks/{workerId}")]
         public async Task<IActionResult> GetWorkerTasks(int workerId)
         {
@@ -251,7 +298,14 @@ namespace GreenGuard.Controllers.BaseControllers
             }
         }
 
-        // GET: api/Tasks/worker-tasks-today/3
+        /// <summary>
+        /// Retrieves tasks assigned to a specific worker for today's date.
+        /// </summary>
+        /// <param name="workerId">The ID of the worker.</param>
+        /// <returns>
+        /// If retrieval is successful, it returns a list of tasks assigned to the worker for today.
+        /// If an error occurs, it returns a 500 Internal Server Error response.
+        /// </returns>
         [HttpGet("worker-tasks-today/{workerId}")]
         public async Task<IActionResult> GetWorkerTasksToday(int workerId)
         {
@@ -278,9 +332,16 @@ namespace GreenGuard.Controllers.BaseControllers
             }
         }
 
-        // GET: api/Tasks/task-status/{taskId}
-        [HttpGet("task-status/{taskId}")]
-        public async Task<IActionResult> GetTaskStatus(int taskId)
+        /// <summary>
+        /// Retrieves the statuses of workers associated with a specific task.
+        /// </summary>
+        /// <param name="taskId">The ID of the task.</param>
+        /// <returns>
+        /// If retrieval is successful, it returns a list of objects containing worker names and their task statuses.
+        /// If an error occurs, it returns a 500 Internal Server Error response.
+        /// </returns>
+        [HttpGet("task-statuses/{taskId}")]
+        public async Task<IActionResult> GetTaskStatuses(int taskId)
         {
             try
             {
@@ -308,7 +369,16 @@ namespace GreenGuard.Controllers.BaseControllers
             }
         }
 
-        // PUT: api/Tasks/update-task/3
+        /// <summary>
+        /// Updates a task by ID.
+        /// </summary>
+        /// <param name="id">The ID of the task to update.</param>
+        /// <param name="updatedTask">The updated TaskDto object.</param>
+        /// <returns>
+        /// If update is successful, it returns a success message.
+        /// If the task with the provided ID does not exist, it returns a 404 Not Found response.
+        /// If an error occurs, it returns a 500 Internal Server Error response.
+        /// </returns>
         [HttpPut("update-task/{id}")]
         public async Task<IActionResult> UpdateTask(int id, TaskDto updatedTask)
         {
@@ -343,7 +413,16 @@ namespace GreenGuard.Controllers.BaseControllers
             }
         }
 
-        // DELETE: api/Tasks/delete-worker-from-task/3
+        /// <summary>
+        /// Deletes a worker from a task.
+        /// </summary>
+        /// <param name="taskId">The ID of the task.</param>
+        /// <param name="workerId">The ID of the worker to delete from the task.</param>
+        /// <returns>
+        /// If deletion is successful, it returns a success message.
+        /// If the worker-task link does not exist, it returns a 404 Not Found response.
+        /// If an error occurs, it returns a 500 Internal Server Error response.
+        /// </returns>
         [HttpDelete("delete-worker-from-task/{taskId}/{workerId}")]
         public async Task<IActionResult> DeleteWorkerFromTask(int taskId, int workerId)
         {
@@ -369,7 +448,16 @@ namespace GreenGuard.Controllers.BaseControllers
             }
         }
 
-        // DELETE: api/Tasks/delete-plant-from-task/3
+        /// <summary>
+        /// Deletes a plant from a task.
+        /// </summary>
+        /// <param name="taskId">The ID of the task.</param>
+        /// <param name="plantId">The ID of the plant to delete from the task.</param>
+        /// <returns>
+        /// If deletion is successful, it returns a success message.
+        /// If the plant-task link does not exist, it returns a 404 Not Found response.
+        /// If an error occurs, it returns a 500 Internal Server Error response.
+        /// </returns>
         [HttpDelete("delete-plant-from-task/{taskId}/{plantId}")]
         public async Task<IActionResult> DeletePlantFromTask(int taskId, int plantId)
         {
@@ -395,7 +483,17 @@ namespace GreenGuard.Controllers.BaseControllers
             }
         }
 
-        // PUT: api/Tasks/update-task-status/3/4
+        /// <summary>
+        /// Updates the status of a worker associated with a task.
+        /// </summary>
+        /// <param name="taskId">The ID of the task.</param>
+        /// <param name="workerId">The ID of the worker.</param>
+        /// <param name="taskStatus">The new task status for the worker.</param>
+        /// <returns>
+        /// If update is successful, it returns a success message.
+        /// If the worker-task relationship does not exist, it returns a 404 Not Found response.
+        /// If an error occurs, it returns a 500 Internal Server Error response.
+        /// </returns>
         [HttpPut("update-task-status/{taskId}/{workerId}")]
         public async Task<IActionResult> UpdateTaskStatus(int taskId, int workerId, string taskStatus)
         {

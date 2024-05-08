@@ -29,7 +29,13 @@ namespace GreenGuard.Controllers.BaseControllers
             _passwordHasher = passwordHasher;
         }
 
-        // GET: api/Workers/all-workers
+        /// <summary>
+        /// Retrieves a list of all workers.
+        /// </summary>
+        /// <returns>
+        /// If the operation is successful, it will return an ICollection of WorkerDto.
+        /// If there is an error during retrieval, it will return a 500 Internal Server Error response.
+        /// </returns>
         [Authorize(Roles = Roles.Administrator)]
         [HttpGet("all-workers")]
         public async Task<IActionResult> GetWorkers()
@@ -55,6 +61,15 @@ namespace GreenGuard.Controllers.BaseControllers
             }
         }
 
+        /// <summary>
+        /// Authenticates a worker using email and password.
+        /// </summary>
+        /// <param name="model">The WorkerLogin model containing email and password.</param>
+        /// <returns>
+        /// If authentication is successful, it returns a JWT token.
+        /// If the email or password is invalid, it returns a 400 Bad Request response.
+        /// If an error occurs, it returns a 500 Internal Server Error response.
+        /// </returns>
         [HttpPost("login")]
         public async Task<IActionResult> WorkerLogin(WorkerLogin model)
         {
@@ -89,6 +104,15 @@ namespace GreenGuard.Controllers.BaseControllers
             }
         }
 
+        /// <summary>
+        /// Registers a new worker.
+        /// </summary>
+        /// <param name="model">The WorkerRegister model containing worker information.</param>
+        /// <returns>
+        /// If registration is successful, it returns a JWT token.
+        /// If the email is already in use, it returns a 400 Bad Request response.
+        /// If an error occurs, it returns a 500 Internal Server Error response.
+        /// </returns>
         [HttpPost("register")]
         public async Task<IActionResult> WorkerRegister(WorkerRegister model)
         {
@@ -127,7 +151,15 @@ namespace GreenGuard.Controllers.BaseControllers
             }
         }
 
-        // DELETE: api/Workers/delete-worker/3
+        /// <summary>
+        /// Deletes a worker by ID.
+        /// </summary>
+        /// <param name="id">The ID of the worker to delete.</param>
+        /// <returns>
+        /// If deletion is successful, it returns a success message.
+        /// If the worker with the provided ID does not exist, it returns a 404 Not Found response.
+        /// If an error occurs, it returns a 500 Internal Server Error response.
+        /// </returns>
         [Authorize(Roles = Roles.Administrator)]
         [HttpDelete("delete-worker/{id}")]
         public async Task<IActionResult> DeleteWorker(int id)
@@ -152,7 +184,16 @@ namespace GreenGuard.Controllers.BaseControllers
             }
         }
 
-        // PUT: api/Workers/update-worker/3
+        /// <summary>
+        /// Updates worker information by ID.
+        /// </summary>
+        /// <param name="id">The ID of the worker to update.</param>
+        /// <param name="updatedWorker">The updated worker information.</param>
+        /// <returns>
+        /// If update is successful, it returns a success message.
+        /// If the worker with the provided ID does not exist, it returns a 404 Not Found response.
+        /// If an error occurs, it returns a 500 Internal Server Error response.
+        /// </returns>
         [HttpPut("update-worker/{id}")]
         public async Task<IActionResult> UpdateWorker(int id, WorkerDto updatedWorker)
         {
@@ -182,7 +223,16 @@ namespace GreenGuard.Controllers.BaseControllers
             }
         }
 
-        // PUT: api/Workers/update-worker-role/3
+        /// <summary>
+        /// Updates the role of a worker by ID.
+        /// </summary>
+        /// <param name="id">The ID of the worker to update.</param>
+        /// <param name="isAdmin">Boolean value indicating whether the worker is an administrator.</param>
+        /// <returns>
+        /// If update is successful, it returns a success message.
+        /// If the worker with the provided ID does not exist, it returns a 404 Not Found response.
+        /// If an error occurs, it returns a 500 Internal Server Error response.
+        /// </returns>
         [Authorize(Roles = Roles.Administrator)]
         [HttpPut("update-worker-role/{id}")]
         public async Task<IActionResult> UpdateWorkerRole(int id, bool isAdmin)
@@ -210,6 +260,14 @@ namespace GreenGuard.Controllers.BaseControllers
             }
         }
 
+        /// <summary>
+        /// Retrieves workers who are scheduled to work on a specific date.
+        /// </summary>
+        /// <param name="date">The date to retrieve workers for.</param>
+        /// <returns>
+        /// If retrieval is successful, it returns a list of workers scheduled to work on the specified date.
+        /// If an error occurs, it returns a 500 Internal Server Error response.
+        /// </returns>
         [HttpGet("working-at/{date}")]
         [Authorize(Roles = Roles.Administrator)]
         public async Task<IActionResult> GetWorkersWorkingAtDate(DateTime date)

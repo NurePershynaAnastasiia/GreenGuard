@@ -17,6 +17,15 @@ namespace GreenGuard.Controllers.BaseControllers
             _logger = logger;
         }
 
+        /// <summary>
+        /// Retrieves the working schedule for a specific worker.
+        /// </summary>
+        /// <param name="workerId">The ID of the worker.</param>
+        /// <returns>
+        /// If the operation is successful, it will return the working schedule.
+        /// If the working schedule is not found, it will return a 404 Not Found response.
+        /// If an error occurs, it will return a 500 Internal Server Error response.
+        /// </returns>
         [HttpGet("worker/{workerId}")]
         public async Task<IActionResult> GetWorkingScheduleByWorkerId(int workerId)
         {
@@ -38,6 +47,16 @@ namespace GreenGuard.Controllers.BaseControllers
             }
         }
 
+        /// <summary>
+        /// Updates the working schedule for a specific worker.
+        /// </summary>
+        /// <param name="workerId">The ID of the worker.</param>
+        /// <param name="updatedSchedule">The updated working schedule.</param>
+        /// <returns>
+        /// If the operation is successful, it will return a success message.
+        /// If the working schedule for the specified worker is not found, it will return a 404 Not Found response.
+        /// If an error occurs, it will return a 500 Internal Server Error response.
+        /// </returns>
         [HttpPut("worker/{workerId}")]
         public async Task<IActionResult> UpdateWorkingScheduleByWorkerId(int workerId, WorkingScheduleDto updatedSchedule)
         {

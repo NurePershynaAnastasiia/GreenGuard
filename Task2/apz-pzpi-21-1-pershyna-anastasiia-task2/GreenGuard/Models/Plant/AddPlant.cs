@@ -3,8 +3,12 @@ using System.ComponentModel.DataAnnotations;
 
 namespace GreenGuard.Models.Plant
 {
-    public class UpdatePlant
+    public class AddPlant
     {
+        [Required]
+        [Column("Plant_type_id")]
+        public required int PlantTypeId { get; set; }
+
         [Required]
         [Column("Plant_location")]
         public required string PlantLocation { get; set; }

@@ -6,8 +6,8 @@ namespace GreenGuard.Dto
     public class PlantDto
     {
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Column("Plant_id")]
-        [StringLength(500, MinimumLength = 3)]
         public int PlantId { get; set; }
 
         [Required]
@@ -16,6 +16,7 @@ namespace GreenGuard.Dto
 
         [Required]
         [Column("Plant_location")]
+        [StringLength(500, MinimumLength = 3)]
         public required string PlantLocation { get; set; }
 
         [Column("Temp")]
