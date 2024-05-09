@@ -6,11 +6,11 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace GreenGuard.Services
 {
-    public class JwtTokenGenerator
+    public class JwtTokenService
     {
         private readonly string _key;
 
-        public JwtTokenGenerator(IConfiguration config)
+        public JwtTokenService(IConfiguration config)
         {
             _key = config["Jwt:Key"];
         }

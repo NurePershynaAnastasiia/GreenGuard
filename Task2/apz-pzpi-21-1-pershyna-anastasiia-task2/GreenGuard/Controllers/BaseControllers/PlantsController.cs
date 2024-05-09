@@ -19,7 +19,7 @@ namespace GreenGuard.Controllers.BaseControllers
         }
 
         /// <summary>
-        /// Retrieves a list of all plant types.
+        /// Retrieves a list of all plants.
         /// </summary>
         /// <returns>
         /// If the operation is successful, it will return a list of PlantTypeDto.

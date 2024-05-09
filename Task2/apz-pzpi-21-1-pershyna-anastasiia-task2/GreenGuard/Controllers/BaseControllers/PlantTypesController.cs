@@ -25,11 +25,10 @@ namespace GreenGuard.Controllers.BaseControllers
         /// <summary>
         /// Get a list of all plant types.
         /// </summary>
-        /// <remarks>
+        /// <returns>
         /// If the operation is successful, it will return an ICollection of PlantTypeDto.
         /// If there is a bad request, it will return an ErrorDto.
-        /// </remarks>
-        /// <returns>An IActionResult representing the result of the operation.</returns>
+        /// </returns>
         [Authorize(Roles = Roles.Administrator + "," + Roles.User)]
         [HttpGet("plantTypes")]
         public async Task<IActionResult> GetPlantTypes()
@@ -58,12 +57,11 @@ namespace GreenGuard.Controllers.BaseControllers
         /// <summary>
         /// Add a new plant type.
         /// </summary>
-        /// <remarks>
+        /// <param name="model">The data to add a new plant type.</param>
+        /// <returns>
         /// If the operation is successful, it will return a message confirming the addition.
         /// If there is a bad request, it will return an ErrorDto.
-        /// </remarks>
-        /// <param name="model">The data to add a new plant type.</param>
-        /// <returns>An IActionResult representing the result of the operation.</returns>
+        /// </returns>
         [Authorize(Roles = Roles.Administrator)]
         [HttpPost("add")]
         public async Task<IActionResult> AddPlantType(AddPlantType model)

@@ -4,7 +4,6 @@ namespace GreenGuard.Models.Pest
 {
     public class AddPest
     {
-        [Required]
         [StringLength(50, MinimumLength = 2)]
         public required string PestName { get; set; }
 

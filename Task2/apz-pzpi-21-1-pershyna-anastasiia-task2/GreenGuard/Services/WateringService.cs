@@ -55,6 +55,7 @@ public class WateringService
 
                 interval = Math.Max(1, interval);
                 nextWateringDate = lastWateringTask == null ? DateTime.Now : lastWateringTask.TaskDate.AddDays(interval);
+                nextWateringDate = (nextWateringDate < DateTime.Now)? DateTime.Now : nextWateringDate;
             }
             return (new WateringSchedule { Date = nextWateringDate, PlantId = plantId });
         }

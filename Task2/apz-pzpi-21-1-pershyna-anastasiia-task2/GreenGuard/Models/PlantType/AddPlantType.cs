@@ -4,7 +4,6 @@ namespace GreenGuard.Models.PlantType
 {
     public class AddPlantType
     {
-        [Required]
         [StringLength(50, MinimumLength = 3)]
         public required string PlantTypeName { get; set; }
 

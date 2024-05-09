@@ -52,6 +52,42 @@ namespace GreenGuard.Controllers.BaseControllers
         }
 
         /// <summary>
+        /// Get a fertilizer by its ID.
+        /// </summary>
+        /// <param name="id">The ID of the fertilizer to retrieve.</param>
+        /// <returns>
+        /// If the fertilizer with the specified ID is found, it will return the FertilizerDto.
+        /// If the fertilizer with the specified ID is not found, it will return a NotFound response.
+        /// If an error occurs during the operation, it will return a 500 Internal Server Error response.
+        /// </returns>
+        [Authorize(Roles = Roles.Administrator + "," + Roles.User)]
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetFertilizerById(int id)
+        {
+            try
+            {
+                var fertilizer = await _context.Fertilizer.FindAsync(id);
+                if (fertilizer == null)
+                {
+                    return NotFound($"Fertilizer with ID {id} not found");
+                }
+
+                var fertilizerDto = new AddFertilizer
+                {
+                    FertilizerName = fertilizer.FertilizerName,
+                    FertilizerQuantity = fertilizer.FertilizerQuantity
+                };
+
+                return Ok(fertilizerDto);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "An error occurred while retrieving fertilizer by ID");
+                return StatusCode(500, ex.Message);
+            }
+        }
+
+        /// <summary>
         /// Add a new fertilizer.
         /// </summary>
         /// <param name="model">The data to add a new fertilizer.</param>

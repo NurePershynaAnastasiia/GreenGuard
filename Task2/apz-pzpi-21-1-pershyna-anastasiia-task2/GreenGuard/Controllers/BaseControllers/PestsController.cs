@@ -30,8 +30,8 @@ namespace GreenGuard.Controllers.BaseControllers
         /// If the operation is successful, it will return an ICollection of PestDto.
         /// If there is a bad request, it will return an ErrorDto.
         /// </returns>
-        [HttpGet("pests")]
         [Authorize(Roles = Roles.Administrator + "," + Roles.User)]
+        [HttpGet("pests")]
         public async Task<IActionResult> GetPests()
         {
             try
@@ -47,6 +47,42 @@ namespace GreenGuard.Controllers.BaseControllers
             catch (Exception ex)
             {
                 _logger.LogError(ex, "An error occurred during all pests loading");
+                return StatusCode(500, ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// Get a pest by its ID.
+        /// </summary>
+        /// <param name="pestId">The ID of the pest to retrieve.</param>
+        /// <returns>
+        /// If the pest with the specified ID is found, it will return the PestDto.
+        /// If the pest with the specified ID is not found, it will return a NotFound response.
+        /// If an error occurs during the operation, it will return a 500 Internal Server Error response.
+        /// </returns>
+        [Authorize(Roles = Roles.Administrator + "," + Roles.User)]
+        [HttpGet("{pestId}")]
+        public async Task<IActionResult> GetPestById(int pestId)
+        {
+            try
+            {
+                var pest = await _context.Pest.FindAsync(pestId);
+                if (pest == null)
+                {
+                    return NotFound($"Pest with ID {pestId} not found");
+                }
+
+                var pestDto = new AddPest
+                {
+                    PestName = pest.PestName,
+                    PestDescription = pest.PestDescription
+                };
+
+                return Ok(pestDto);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "An error occurred while retrieving pest by ID");
                 return StatusCode(500, ex.Message);
             }
         }
@@ -107,7 +143,7 @@ namespace GreenGuard.Controllers.BaseControllers
         /// If an error occurs during the operation, it will return a 500 Internal Server Error response.
         /// </returns>
         [Authorize(Roles = Roles.Administrator + "," + Roles.User)]
-        [HttpPost("AddPestToPlant")]
+        [HttpPost("add-to-plant")]
         public async Task<IActionResult> AddPestToPlant(int plantId, int pestId)
         {
             try
@@ -154,7 +190,7 @@ namespace GreenGuard.Controllers.BaseControllers
         /// If an error occurs during the operation, it will return a 500 Internal Server Error response.
         /// </returns>
         [Authorize(Roles = Roles.Administrator + "," + Roles.User)]
-        [HttpPost("DeletePestFromPlant")]
+        [HttpDelete("delete-from-plant")]
         public async Task<IActionResult> DeletePestFromPlant(int plantId, int pestId)
         {
             try

@@ -181,7 +181,7 @@ namespace GreenGuard.Controllers.BaseControllers
                     TaskState = model.TaskState,
                     TaskDetails = model.TaskDetails,
                     TaskType = model.TaskType,
-                    FertilizerId = model.FertilizerId
+                    FertilizerId = (model.FertilizerId == 0)? null : model.FertilizerId
                 };
 
                 _context.Add(newTask);

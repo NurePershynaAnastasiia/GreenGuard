@@ -18,11 +18,11 @@ namespace GreenGuard.Controllers.BaseControllers
         private readonly GreenGuardDbContext _context;
         private readonly ILogger<WorkersController> _logger;
         private readonly IPasswordHasher<WorkerDto> _passwordHasher;
-        private readonly JwtTokenGenerator _jwtService;
+        private readonly JwtTokenService _jwtService;
 
         public WorkersController(GreenGuardDbContext context, ILogger<WorkersController> logger, IConfiguration config, IPasswordHasher<WorkerDto> passwordHasher)
         {
-            _jwtService = new JwtTokenGenerator(config);
+            _jwtService = new JwtTokenService(config);
             _context = context;
             _logger = logger;
             _passwordHasher = passwordHasher;
@@ -41,7 +41,7 @@ namespace GreenGuard.Controllers.BaseControllers
         {
             try
             {
-                var workers = _context.Worker.Select(data => new WorkerDto
+                var workers = _context.Worker.Select(data => new GetWorker
                 {
                     WorkerId = data.WorkerId,
                     WorkerName = data.WorkerName,

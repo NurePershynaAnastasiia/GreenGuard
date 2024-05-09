@@ -13,6 +13,6 @@ namespace GreenGuard.Dto
         public required string FertilizerName { get; set; }
 
         [Column("Fertilizer_quantity")]
-        public int? FertilizerQuantity { get; set; }
+        public int FertilizerQuantity { get; set; }
     }
 }
