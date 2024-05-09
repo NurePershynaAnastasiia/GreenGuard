@@ -12,9 +12,6 @@ using Microsoft.SqlServer.Management.Smo.Wmi;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-builder.Services.AddControllersWithViews();
-
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddDbContext<GreenGuardDbContext>(options =>
@@ -78,7 +75,6 @@ if (app.Environment.IsDevelopment())
     app.UseDeveloperExceptionPage();
 }
 
-
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
@@ -87,8 +83,6 @@ app.UseRouting();
 app.UseCors("AllowSpecificOrigin");
 
 app.UseAuthorization();
-
-app.UseErrorResponseInjection();
 
 app.MapControllerRoute(
     name: "default",

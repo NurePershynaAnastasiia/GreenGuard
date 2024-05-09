@@ -22,11 +22,11 @@ namespace GreenGuard.Controllers.FeaturesControllers
         }
 
         /// <summary>
-        /// Calculate the weekly salary for a worker.
+        /// Calculate the monthly salary for a worker.
         /// </summary>
         /// <param name="workerId">The ID of the worker for whom to calculate the salary.</param>
         /// <returns>
-        /// If the calculation is successful, it will return the weekly salary amount.
+        /// If the calculation is successful, it will return the monthly salary amount.
         /// If there is an error during calculation, it will return an error message.
         /// </returns>
         [Authorize(Roles = Roles.Administrator)]

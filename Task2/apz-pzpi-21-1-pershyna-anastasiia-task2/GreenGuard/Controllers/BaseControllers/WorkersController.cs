@@ -49,7 +49,7 @@ namespace GreenGuard.Controllers.BaseControllers
                     StartWorkTime = data.StartWorkTime,
                     EndWorkTime = data.EndWorkTime,
                     Email = data.Email,
-                    PasswordHash = data.PasswordHash,
+                    IsAdmin = data.IsAdmin,
                 }).ToList();
                 return Ok(workers);
             }

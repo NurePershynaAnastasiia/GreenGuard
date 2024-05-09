@@ -262,15 +262,10 @@ namespace GreenGuard.Controllers.BaseControllers
         /// </returns>
         [Authorize(Roles = Roles.Administrator)]
         [HttpPut("update/{id}")]
-        public async Task<IActionResult> UpdateTask(int id, TaskDto updatedTask)
+        public async Task<IActionResult> UpdateTask(int id, AddTask updatedTask)
         {
             try
             {
-                if (id != updatedTask.TaskId)
-                {
-                    return BadRequest("Task ID mismatch");
-                }
-
                 var existingTask = await _context.Task.FindAsync(id);
                 if (existingTask == null)
                 {

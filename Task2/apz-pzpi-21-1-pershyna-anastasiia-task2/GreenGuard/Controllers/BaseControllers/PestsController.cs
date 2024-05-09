@@ -38,6 +38,7 @@ namespace GreenGuard.Controllers.BaseControllers
             {
                 var pests = _context.Pest.Select(data => new PestDto
                 {
+                    PestId = data.PestId,
                     PestName = data.PestName,
                     PestDescription = data.PestDescription
                 }).ToList();
@@ -83,7 +84,7 @@ namespace GreenGuard.Controllers.BaseControllers
                 await _context.Pest.AddAsync(newPest);
                 await _context.SaveChangesAsync();
 
-                return Ok($"{newPest.PestName} - {newPest.PestDescription} was added successfully");
+                return Ok($"{newPest.PestName} was added successfully");
 
             }
             catch (Exception ex)

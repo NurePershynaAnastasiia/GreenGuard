@@ -16,8 +16,6 @@ namespace GreenGuard.Models.PlantType
 
         public float? OptLight { get; set; }
 
-        public int FertilizerId { get; set; }
-
         [StringLength(300)]
         public string? PlantTypeDescription { get; set; }
     }

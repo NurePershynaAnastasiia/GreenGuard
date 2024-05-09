@@ -4,6 +4,7 @@ using GreenGuard.Helpers;
 using GreenGuard.Models.WorkingSchedule;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace GreenGuard.Controllers.BaseControllers
 {
@@ -35,23 +36,26 @@ namespace GreenGuard.Controllers.BaseControllers
         {
             try
             {
-                var workingSchedule = _context.Working_Schedule.Select(data => new UpdateWorkingSchedule
-                {
-                    Monday = data.Monday,
-                    Tuesday = data.Tuesday,
-                    Wednesday = data.Wednesday,
-                    Thursday = data.Thursday,
-                    Friday = data.Friday,
-                    Saturday = data.Saturday,
-                    Sunday = data.Sunday,
-                }).ToList();
+                var workingSchedule = await _context.Working_Schedule
+                    .FirstOrDefaultAsync(ws => ws.WorkerId == workerId);
 
                 if (workingSchedule == null)
                 {
                     return NotFound($"Working schedule not found for worker with ID {workerId}");
                 }
 
-                return Ok(workingSchedule);
+                var updateWorkingSchedule = new UpdateWorkingSchedule
+                {
+                    Monday = workingSchedule.Monday,
+                    Tuesday = workingSchedule.Tuesday,
+                    Wednesday = workingSchedule.Wednesday,
+                    Thursday = workingSchedule.Thursday,
+                    Friday = workingSchedule.Friday,
+                    Saturday = workingSchedule.Saturday,
+                    Sunday = workingSchedule.Sunday,
+                };
+
+                return Ok(updateWorkingSchedule);
             }
             catch (Exception ex)
             {

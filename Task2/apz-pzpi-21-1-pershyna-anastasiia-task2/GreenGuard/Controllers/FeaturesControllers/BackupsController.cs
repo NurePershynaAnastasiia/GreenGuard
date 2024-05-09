@@ -13,7 +13,7 @@ namespace GreenGuard.Controllers.FeaturesControllers
     {
         private readonly ILogger<BackupsController> _logger;
         private readonly string _connectionString;
-        private readonly string _backupDirectory = "B:\\";
+        private readonly string _backupDirectory = "D:\\";
 
         public BackupsController(ILogger<BackupsController> logger)
         {
@@ -109,6 +109,8 @@ namespace GreenGuard.Controllers.FeaturesControllers
             {
                 using (var sqlConnection = CreateAndOpenConnection())
                 {
+                    sqlConnection.ChangeDatabase("master");
+
                     string backupFilePath = Path.Combine(_backupDirectory, backupFileName);
 
                     if (!System.IO.File.Exists(backupFilePath))
@@ -116,15 +118,14 @@ namespace GreenGuard.Controllers.FeaturesControllers
                         return NotFound("Backup file not found");
                     }
 
-                    string restoreQuery = $"USE master; RESTORE DATABASE VetCare_db FROM DISK = '{backupFilePath}' WITH REPLACE;";
-
+                    string restoreQuery = $"RESTORE DATABASE GreenGuard FROM DISK = '{backupFilePath}' WITH REPLACE;";
                     using (SqlCommand sqlCommand = new SqlCommand(restoreQuery, sqlConnection))
                     {
                         sqlCommand.ExecuteNonQuery();
                     }
-
-                    return Ok($"Database restored successfully from {backupFilePath}");
                 }
+
+                return Ok($"Database restored successfully");
             }
             catch (Exception ex)
             {
@@ -132,5 +133,6 @@ namespace GreenGuard.Controllers.FeaturesControllers
                 return StatusCode(500, ex.Message);
             }
         }
+
     }
 }
