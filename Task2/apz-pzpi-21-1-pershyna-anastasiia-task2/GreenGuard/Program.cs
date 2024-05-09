@@ -20,11 +20,6 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<GreenGuardDbContext>(options =>
     options.UseSqlServer("Server=DESKTOP-D0GBIS9;Database=GreenGuard;Trusted_Connection=True;TrustServerCertificate=True;"));
 
-/*
-builder.Services.AddDbContext<GreenGuardDbContext>(options =>
-    options.UseSqlServer("Server=DESKTOP-D0GBIS9;Database=GreenGuard;Trusted_Connection=True;TrustServerCertificate=True;")
-           .LogTo(Console.WriteLine, LogLevel.Information));*/
-
 builder.Services.AddScoped<IPasswordHasher<WorkerDto>, PasswordHasher<WorkerDto>>();
 
 builder.Services.AddCors(options =>
@@ -47,7 +42,10 @@ builder.Services.Configure<RequestLocalizationOptions>(options =>
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
+
 builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerWithJwtAuthorization();
+
 builder.Services.AddLogging();
 builder.Services.AddSetSecurity(builder.Configuration);
 
@@ -69,8 +67,14 @@ if (!app.Environment.IsDevelopment())
 
 if (app.Environment.IsDevelopment())
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwagger(); 
+    app.UseSwaggerUI(c =>
+    {
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "GreenGuard V1");
+        c.RoutePrefix = "";
+        c.OAuthClientId("swagger");
+        c.OAuthAppName("Swagger UI");
+    });
     app.UseDeveloperExceptionPage();
 }
 
@@ -84,8 +88,5 @@ app.UseCors("AllowSpecificOrigin");
 
 app.UseAuthorization();
 
-app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.Run();

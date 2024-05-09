@@ -28,7 +28,7 @@ namespace GreenGuard.Controllers.BaseControllers
         /// If there is a bad request, it will return an ErrorDto.
         /// </remarks>
         /// <returns>An IActionResult representing the result of the operation.</returns>
-        [HttpGet("all-plantTypes")]
+        [HttpGet("plantTypes")]
         public async Task<IActionResult> GetPlantTypes()
         {
             try
@@ -61,7 +61,7 @@ namespace GreenGuard.Controllers.BaseControllers
         /// </remarks>
         /// <param name="model">The data to add a new plant type.</param>
         /// <returns>An IActionResult representing the result of the operation.</returns>
-        [HttpPost("add-new-plantType")]
+        [HttpPost("add")]
         public async Task<IActionResult> AddPlantType(AddPlantType model)
         {
             try

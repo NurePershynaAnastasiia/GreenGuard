@@ -301,3 +301,6 @@ D:\apz-pzpi-21-1-pershyna-anastasiia\Task2\apz-pzpi-21-1-pershyna-anastasiia-tas
 D:\apz-pzpi-21-1-pershyna-anastasiia\Task2\apz-pzpi-21-1-pershyna-anastasiia-task2\GreenGuard\obj\Debug\net8.0\GreenGuard.pdb
 D:\apz-pzpi-21-1-pershyna-anastasiia\Task2\apz-pzpi-21-1-pershyna-anastasiia-task2\GreenGuard\obj\Debug\net8.0\GreenGuard.genruntimeconfig.cache
 D:\apz-pzpi-21-1-pershyna-anastasiia\Task2\apz-pzpi-21-1-pershyna-anastasiia-task2\GreenGuard\obj\Debug\net8.0\ref\GreenGuard.dll
+D:\apz-pzpi-21-1-pershyna-anastasiia\Task2\apz-pzpi-21-1-pershyna-anastasiia-task2\GreenGuard\bin\Debug\net8.0\GreenGuard.xml
+D:\apz-pzpi-21-1-pershyna-anastasiia\Task2\apz-pzpi-21-1-pershyna-anastasiia-task2\GreenGuard\bin\Debug\net8.0\Swashbuckle.AspNetCore.Annotations.dll
+D:\apz-pzpi-21-1-pershyna-anastasiia\Task2\apz-pzpi-21-1-pershyna-anastasiia-task2\GreenGuard\obj\Debug\net8.0\GreenGuard.xml

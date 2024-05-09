@@ -28,7 +28,7 @@ namespace GreenGuard.Controllers.BaseControllers
         /// If the operation is successful, it will return an ICollection of PestDto.
         /// If there is a bad request, it will return an ErrorDto.
         /// </returns>
-        [HttpGet("all-pests")]
+        [HttpGet("pests")]
         public async Task<IActionResult> GetPests()
         {
             try
@@ -55,7 +55,7 @@ namespace GreenGuard.Controllers.BaseControllers
         /// If the operation is successful, it will return a message confirming the addition.
         /// If there is a bad request, it will return an ErrorDto.
         /// </returns>
-        [HttpPost("add-pest")]
+        [HttpPost("add")]
         public async Task<IActionResult> AddPest(AddPest model)
         {
             try

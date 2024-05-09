@@ -31,7 +31,39 @@ namespace GreenGuard.Controllers.FeaturesControllers
             return Path.Combine(_backupDirectory, $"{databaseName}_Backup_{DateTime.Now:yyyyMMdd_HHmmss}.bak");
         }
 
-        [HttpPost("create-backup")]
+        /// <summary>
+        /// Get the list of available backup files.
+        /// </summary>
+        /// <returns>
+        /// If the retrieval of backup files is successful, it will return a list of backup file names.
+        /// If there is an error during the retrieval process, it will return a 500 Internal Server Error.
+        /// </returns>
+        [HttpGet("backups")]
+        public IActionResult GetBackups()
+        {
+            try
+            {
+                var backupFiles = Directory.GetFiles(_backupDirectory, "*.bak")
+                    .Select(Path.GetFileName)
+                    .ToList();
+
+                return Ok(backupFiles);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "An error occurred while fetching backup files");
+                return StatusCode(500, ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// Create a backup of the database.
+        /// </summary>
+        /// <returns>
+        /// If the backup is successful, it will return a message confirming the backup creation and the file path where the backup is saved.
+        /// If there is an error during the backup process, it will return a 500 Internal Server Error.
+        /// </returns>
+        [HttpPost("add")]
         public IActionResult CreateBackup()
         {
             try
@@ -56,25 +88,16 @@ namespace GreenGuard.Controllers.FeaturesControllers
             }
         }
 
-        [HttpGet("get-backups")]
-        public IActionResult GetBackups()
-        {
-            try
-            {
-                var backupFiles = Directory.GetFiles(_backupDirectory, "*.bak")
-                    .Select(Path.GetFileName)
-                    .ToList();
-
-                return Ok(backupFiles);
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "An error occurred while fetching backup files");
-                return StatusCode(500, ex.Message);
-            }
-        }
-
-        [HttpPost("restore-backup/{backupFileName}")]
+        /// <summary>
+        /// Restore the database from a specified backup file.
+        /// </summary>
+        /// <param name="backupFileName">The name of the backup file to restore.</param>
+        /// <returns>
+        /// If the restoration is successful, it will return a message confirming the database restoration from the specified backup file.
+        /// If the specified backup file is not found, it will return a 404 Not Found error.
+        /// If there is an error during the restoration process, it will return a 500 Internal Server Error.
+        /// </returns>
+        [HttpPost("restore/{backupFileName}")]
         public IActionResult RestoreBackup(string backupFileName)
         {
             try

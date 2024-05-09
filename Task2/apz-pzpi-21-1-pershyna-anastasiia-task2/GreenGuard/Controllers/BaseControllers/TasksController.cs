@@ -31,7 +31,7 @@ namespace GreenGuard.Controllers.BaseControllers
         /// If retrieval is successful, it returns a list of TaskFull objects containing task details, associated plants, and workers.
         /// If an error occurs, it returns a 500 Internal Server Error response.
         /// </returns>
-        [HttpGet("all-tasks")]
+        [HttpGet("tasks")]
         public async Task<IActionResult> GetTasks()
         {
             try
@@ -42,131 +42,6 @@ namespace GreenGuard.Controllers.BaseControllers
             catch (Exception ex)
             {
                 _logger.LogError(ex, "An error occurred during all tasks loading");
-                return StatusCode(500, ex.Message);
-            }
-        }
-
-        /// <summary>
-        /// Adds a new task.
-        /// </summary>
-        /// <param name="model">The AddTask model containing task details.</param>
-        /// <returns>
-        /// If addition is successful, it returns a success message.
-        /// If the model is invalid, it returns a 400 Bad Request response.
-        /// If an error occurs, it returns a 500 Internal Server Error response.
-        /// </returns>
-        [HttpPost("add-task")]
-        public async Task<ActionResult> AddTask(AddTask model)
-        {
-            try
-            {
-                if (!ModelState.IsValid)
-                {
-                    return BadRequest(ModelState);
-
-                }
-                var newTask = new TaskDto
-                {
-                    TaskDate = model.TaskDate,
-                    TaskState = model.TaskState,
-                    TaskDetails = model.TaskDetails,
-                    TaskType = model.TaskType,
-                    FertilizerId = model.FertilizerId
-                };
-
-                _context.Add(newTask);
-                await _context.SaveChangesAsync();
-                return Ok("Task was succesfully created");
-
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "An error occurred during adding new task");
-                return StatusCode(500, ex.Message);
-            }
-        }
-
-        /// <summary>
-        /// Deletes a task by ID.
-        /// </summary>
-        /// <param name="id">The ID of the task to delete.</param>
-        /// <returns>
-        /// If deletion is successful, it returns a success message.
-        /// If the task with the provided ID does not exist, it returns a 400 Bad Request response.
-        /// If an error occurs, it returns a 500 Internal Server Error response.
-        /// </returns>
-        [HttpDelete("delete-task/{id}")]
-        public async Task<IActionResult> DeleteTask(int id)
-        {
-            try
-            {
-                var task = await _context.Task.FindAsync(id);
-                if (task == null)
-                {
-                    return BadRequest(ModelState);
-                }
-                _context.Task.Remove(task);
-                await _context.SaveChangesAsync();
-
-                return Ok($"Task with description: {task.TaskDetails} was successfully deleted");
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "An error occurred during deleting task");
-                return StatusCode(500, ex.Message);
-
-            }
-
-        }
-
-        /// <summary>
-        /// Adds workers to a task.
-        /// </summary>
-        /// <param name="taskId">The ID of the task.</param>
-        /// <param name="workerIds">The IDs of the workers to add.</param>
-        /// <returns>
-        /// If addition is successful, it returns a success message.
-        /// If the task with the provided ID does not exist, it returns a 400 Bad Request response.
-        /// If an error occurs, it returns a 500 Internal Server Error response.
-        /// </returns>
-        [HttpPost("add-worker-to-task/{taskId}")]
-        public async Task<IActionResult> AddWorkerToTask(int taskId, List<int> workerIds)
-        {
-            try
-            {
-                var result = await _taskService.AddWorkersToTask(taskId, workerIds);
-                return Ok(result);
-
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "An error occurred while adding workers to task");
-                return StatusCode(500, ex.Message);
-            }
-        }
-
-        /// <summary>
-        /// Adds plants to a task.
-        /// </summary>
-        /// <param name="taskId">The ID of the task.</param>
-        /// <param name="plantIds">The IDs of the plants to add.</param>
-        /// <returns>
-        /// If addition is successful, it returns a success message.
-        /// If the task with the provided ID does not exist, it returns a 400 Bad Request response.
-        /// If an error occurs, it returns a 500 Internal Server Error response.
-        /// </returns>
-        [HttpPost("add-plant-to-task/{taskId}")]
-        public async Task<IActionResult> AddPlantToTask(int taskId, List<int> plantIds)
-        {
-            try
-            {
-                var result = await _taskService.AddPlantToTask(taskId, plantIds);
-                return Ok(result);
-
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "An error occurred while adding workers to task");
                 return StatusCode(500, ex.Message);
             }
         }
@@ -245,7 +120,7 @@ namespace GreenGuard.Controllers.BaseControllers
         /// If retrieval is successful, it returns a list of objects containing worker names and their task statuses.
         /// If an error occurs, it returns a 500 Internal Server Error response.
         /// </returns>
-        [HttpGet("task-statuses/{taskId}")]
+        [HttpGet("statuses/{taskId}")]
         public async Task<IActionResult> GetTaskStatuses(int taskId)
         {
             try
@@ -275,6 +150,98 @@ namespace GreenGuard.Controllers.BaseControllers
         }
 
         /// <summary>
+        /// Adds a new task.
+        /// </summary>
+        /// <param name="model">The AddTask model containing task details.</param>
+        /// <returns>
+        /// If addition is successful, it returns a success message.
+        /// If the model is invalid, it returns a 400 Bad Request response.
+        /// If an error occurs, it returns a 500 Internal Server Error response.
+        /// </returns>
+        [HttpPost("add")]
+        public async Task<ActionResult> AddTask(AddTask model)
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest(ModelState);
+
+                }
+                var newTask = new TaskDto
+                {
+                    TaskDate = model.TaskDate,
+                    TaskState = model.TaskState,
+                    TaskDetails = model.TaskDetails,
+                    TaskType = model.TaskType,
+                    FertilizerId = model.FertilizerId
+                };
+
+                _context.Add(newTask);
+                await _context.SaveChangesAsync();
+                return Ok("Task was succesfully created");
+
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "An error occurred during adding new task");
+                return StatusCode(500, ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// Adds workers to a task.
+        /// </summary>
+        /// <param name="taskId">The ID of the task.</param>
+        /// <param name="workerIds">The IDs of the workers to add.</param>
+        /// <returns>
+        /// If addition is successful, it returns a success message.
+        /// If the task with the provided ID does not exist, it returns a 400 Bad Request response.
+        /// If an error occurs, it returns a 500 Internal Server Error response.
+        /// </returns>
+        [HttpPost("add-worker/{taskId}")]
+        public async Task<IActionResult> AddWorkerToTask(int taskId, List<int> workerIds)
+        {
+            try
+            {
+                var result = await _taskService.AddWorkersToTask(taskId, workerIds);
+                return Ok(result);
+
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "An error occurred while adding workers to task");
+                return StatusCode(500, ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// Adds plants to a task.
+        /// </summary>
+        /// <param name="taskId">The ID of the task.</param>
+        /// <param name="plantIds">The IDs of the plants to add.</param>
+        /// <returns>
+        /// If addition is successful, it returns a success message.
+        /// If the task with the provided ID does not exist, it returns a 400 Bad Request response.
+        /// If an error occurs, it returns a 500 Internal Server Error response.
+        /// </returns>
+        [HttpPost("add-plant/{taskId}")]
+        public async Task<IActionResult> AddPlantToTask(int taskId, List<int> plantIds)
+        {
+            try
+            {
+                var result = await _taskService.AddPlantToTask(taskId, plantIds);
+                return Ok(result);
+
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "An error occurred while adding workers to task");
+                return StatusCode(500, ex.Message);
+            }
+        }
+
+        /// <summary>
         /// Updates a task by ID.
         /// </summary>
         /// <param name="id">The ID of the task to update.</param>
@@ -284,7 +251,7 @@ namespace GreenGuard.Controllers.BaseControllers
         /// If the task with the provided ID does not exist, it returns a 404 Not Found response.
         /// If an error occurs, it returns a 500 Internal Server Error response.
         /// </returns>
-        [HttpPut("update-task/{id}")]
+        [HttpPut("update/{id}")]
         public async Task<IActionResult> UpdateTask(int id, TaskDto updatedTask)
         {
             try
@@ -316,6 +283,75 @@ namespace GreenGuard.Controllers.BaseControllers
                 _logger.LogError(ex, "An error occurred while updating task");
                 return StatusCode(500, ex.Message);
             }
+        }
+
+        /// <summary>
+        /// Updates the status of a worker associated with a task.
+        /// </summary>
+        /// <param name="taskId">The ID of the task.</param>
+        /// <param name="workerId">The ID of the worker.</param>
+        /// <param name="taskStatus">The new task status for the worker.</param>
+        /// <returns>
+        /// If update is successful, it returns a success message.
+        /// If the worker-task relationship does not exist, it returns a 404 Not Found response.
+        /// If an error occurs, it returns a 500 Internal Server Error response.
+        /// </returns>
+        [HttpPut("update-status/{taskId}/{workerId}")]
+        public async Task<IActionResult> UpdateTaskStatus(int taskId, int workerId, string taskStatus)
+        {
+            try
+            {
+                var workerInTask = await _context.Worker_in_Task
+                    .FirstOrDefaultAsync(wt => wt.TaskId == taskId && wt.WorkerId == workerId);
+
+                if (workerInTask == null)
+                {
+                    return NotFound("Worker-task relationship not found");
+                }
+
+                workerInTask.TaskStatus = taskStatus;
+                await _context.SaveChangesAsync();
+
+                return Ok("Task status updated successfully");
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "An error occurred while updating task status");
+                return StatusCode(500, ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// Deletes a task by ID.
+        /// </summary>
+        /// <param name="id">The ID of the task to delete.</param>
+        /// <returns>
+        /// If deletion is successful, it returns a success message.
+        /// If the task with the provided ID does not exist, it returns a 400 Bad Request response.
+        /// If an error occurs, it returns a 500 Internal Server Error response.
+        /// </returns>
+        [HttpDelete("delete/{id}")]
+        public async Task<IActionResult> DeleteTask(int id)
+        {
+            try
+            {
+                var task = await _context.Task.FindAsync(id);
+                if (task == null)
+                {
+                    return BadRequest(ModelState);
+                }
+                _context.Task.Remove(task);
+                await _context.SaveChangesAsync();
+
+                return Ok($"Task with description: {task.TaskDetails} was successfully deleted");
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "An error occurred during deleting task");
+                return StatusCode(500, ex.Message);
+
+            }
+
         }
 
         /// <summary>
@@ -387,42 +423,5 @@ namespace GreenGuard.Controllers.BaseControllers
                 return StatusCode(500, ex.Message);
             }
         }
-
-        /// <summary>
-        /// Updates the status of a worker associated with a task.
-        /// </summary>
-        /// <param name="taskId">The ID of the task.</param>
-        /// <param name="workerId">The ID of the worker.</param>
-        /// <param name="taskStatus">The new task status for the worker.</param>
-        /// <returns>
-        /// If update is successful, it returns a success message.
-        /// If the worker-task relationship does not exist, it returns a 404 Not Found response.
-        /// If an error occurs, it returns a 500 Internal Server Error response.
-        /// </returns>
-        [HttpPut("update-task-status/{taskId}/{workerId}")]
-        public async Task<IActionResult> UpdateTaskStatus(int taskId, int workerId, string taskStatus)
-        {
-            try
-            {
-                var workerInTask = await _context.Worker_in_Task
-                    .FirstOrDefaultAsync(wt => wt.TaskId == taskId && wt.WorkerId == workerId);
-
-                if (workerInTask == null)
-                {
-                    return NotFound("Worker-task relationship not found");
-                }
-
-                workerInTask.TaskStatus = taskStatus;
-                await _context.SaveChangesAsync();
-
-                return Ok("Task status updated successfully");
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "An error occurred while updating task status");
-                return StatusCode(500, ex.Message);
-            }
-        }
-
     }
 }

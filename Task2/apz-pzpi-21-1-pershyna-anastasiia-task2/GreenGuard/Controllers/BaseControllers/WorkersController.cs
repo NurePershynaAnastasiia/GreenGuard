@@ -35,8 +35,8 @@ namespace GreenGuard.Controllers.BaseControllers
         /// If the operation is successful, it will return an ICollection of WorkerDto.
         /// If there is an error during retrieval, it will return a 500 Internal Server Error response.
         /// </returns>
-        //[Authorize(Roles = Roles.Administrator)]
-        [HttpGet("all-workers")]
+        [Authorize(Roles = Roles.Administrator)]
+        [HttpGet("workers")]
         public async Task<IActionResult> GetWorkers()
         {
             try
@@ -57,6 +57,46 @@ namespace GreenGuard.Controllers.BaseControllers
             {
                 _logger.LogError(ex, "An error occurred during all workers loading");
                 return StatusCode(500, ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// Retrieves workers who are scheduled to work on a specific date.
+        /// </summary>
+        /// <param name="date">The date to retrieve workers for.</param>
+        /// <returns>
+        /// If retrieval is successful, it returns a list of workers scheduled to work on the specified date.
+        /// If an error occurs, it returns a 500 Internal Server Error response.
+        /// </returns>
+        [HttpGet("working-date/{date}")]
+        [Authorize(Roles = Roles.Administrator)]
+        public async Task<IActionResult> GetWorkersWorkingAtDate(DateTime date)
+        {
+            try
+            {
+                var workers = await _context.Working_Schedule
+                    .Where(ws =>
+                        ws.Monday == true && date.DayOfWeek == DayOfWeek.Monday ||
+                        ws.Tuesday == true && date.DayOfWeek == DayOfWeek.Tuesday ||
+                        ws.Wednesday == true && date.DayOfWeek == DayOfWeek.Wednesday ||
+                        ws.Thursday == true && date.DayOfWeek == DayOfWeek.Thursday ||
+                        ws.Friday == true && date.DayOfWeek == DayOfWeek.Friday ||
+                        ws.Saturday == true && date.DayOfWeek == DayOfWeek.Saturday ||
+                        ws.Sunday == true && date.DayOfWeek == DayOfWeek.Sunday
+                    )
+                    .Select(ws => ws.WorkerId)
+                    .ToListAsync();
+
+                var workersInfo = await _context.Worker
+                    .Where(w => workers.Contains(w.WorkerId))
+                    .ToListAsync();
+
+                return Ok(workersInfo);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "An error occurred while fetching workers working at the specified date");
+                return StatusCode(500, "Internal server error");
             }
         }
 
@@ -151,39 +191,6 @@ namespace GreenGuard.Controllers.BaseControllers
         }
 
         /// <summary>
-        /// Deletes a worker by ID.
-        /// </summary>
-        /// <param name="id">The ID of the worker to delete.</param>
-        /// <returns>
-        /// If deletion is successful, it returns a success message.
-        /// If the worker with the provided ID does not exist, it returns a 404 Not Found response.
-        /// If an error occurs, it returns a 500 Internal Server Error response.
-        /// </returns>
-        [Authorize(Roles = Roles.Administrator)]
-        [HttpDelete("delete-worker/{id}")]
-        public async Task<IActionResult> DeleteWorker(int id)
-        {
-            try
-            {
-                var worker = await _context.Worker.FindAsync(id);
-                if (worker == null)
-                {
-                    return NotFound("Worker not found");
-                }
-
-                _context.Worker.Remove(worker);
-                await _context.SaveChangesAsync();
-
-                return Ok($"Worker with ID {id} successfully deleted");
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "An error occurred while deleting worker");
-                return StatusCode(500, ex.Message);
-            }
-        }
-
-        /// <summary>
         /// Updates worker information by ID.
         /// </summary>
         /// <param name="id">The ID of the worker to update.</param>
@@ -193,7 +200,7 @@ namespace GreenGuard.Controllers.BaseControllers
         /// If the worker with the provided ID does not exist, it returns a 404 Not Found response.
         /// If an error occurs, it returns a 500 Internal Server Error response.
         /// </returns>
-        [HttpPut("update-worker/{id}")]
+        [HttpPut("update/{id}")]
         public async Task<IActionResult> UpdateWorker(int id, UpdateWorker updatedWorker)
         {
             try
@@ -233,7 +240,7 @@ namespace GreenGuard.Controllers.BaseControllers
         /// If an error occurs, it returns a 500 Internal Server Error response.
         /// </returns>
         [Authorize(Roles = Roles.Administrator)]
-        [HttpPut("update-worker-role/{id}")]
+        [HttpPut("update-role/{id}")]
         public async Task<IActionResult> UpdateWorkerRole(int id, bool isAdmin)
         {
             try
@@ -260,42 +267,35 @@ namespace GreenGuard.Controllers.BaseControllers
         }
 
         /// <summary>
-        /// Retrieves workers who are scheduled to work on a specific date.
+        /// Deletes a worker by ID.
         /// </summary>
-        /// <param name="date">The date to retrieve workers for.</param>
+        /// <param name="id">The ID of the worker to delete.</param>
         /// <returns>
-        /// If retrieval is successful, it returns a list of workers scheduled to work on the specified date.
+        /// If deletion is successful, it returns a success message.
+        /// If the worker with the provided ID does not exist, it returns a 404 Not Found response.
         /// If an error occurs, it returns a 500 Internal Server Error response.
         /// </returns>
-        [HttpGet("working-at/{date}")]
         [Authorize(Roles = Roles.Administrator)]
-        public async Task<IActionResult> GetWorkersWorkingAtDate(DateTime date)
+        [HttpDelete("delete/{id}")]
+        public async Task<IActionResult> DeleteWorker(int id)
         {
             try
             {
-                var workers = await _context.Working_Schedule
-                    .Where(ws =>
-                        ws.Monday == true && date.DayOfWeek == DayOfWeek.Monday ||
-                        ws.Tuesday == true && date.DayOfWeek == DayOfWeek.Tuesday ||
-                        ws.Wednesday == true && date.DayOfWeek == DayOfWeek.Wednesday ||
-                        ws.Thursday == true && date.DayOfWeek == DayOfWeek.Thursday ||
-                        ws.Friday == true && date.DayOfWeek == DayOfWeek.Friday ||
-                        ws.Saturday == true && date.DayOfWeek == DayOfWeek.Saturday ||
-                        ws.Sunday == true && date.DayOfWeek == DayOfWeek.Sunday
-                    )
-                    .Select(ws => ws.WorkerId)
-                    .ToListAsync();
+                var worker = await _context.Worker.FindAsync(id);
+                if (worker == null)
+                {
+                    return NotFound("Worker not found");
+                }
 
-                var workersInfo = await _context.Worker
-                    .Where(w => workers.Contains(w.WorkerId))
-                    .ToListAsync();
+                _context.Worker.Remove(worker);
+                await _context.SaveChangesAsync();
 
-                return Ok(workersInfo);
+                return Ok($"Worker with ID {id} successfully deleted");
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "An error occurred while fetching workers working at the specified date");
-                return StatusCode(500, "Internal server error");
+                _logger.LogError(ex, "An error occurred while deleting worker");
+                return StatusCode(500, ex.Message);
             }
         }
     }

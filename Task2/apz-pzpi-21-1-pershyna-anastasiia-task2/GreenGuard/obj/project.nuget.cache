@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "FHKOFzJqrJG5PEHOFvQ05F+SmSPhOF3N/EAidrmHQo0UuqKxtCTtwiHc0eBVz/Q9nG8/IPnS/3JVJ4RKXMvZYA==",
+  "dgSpecHash": "SY+3u3nPp1AJUOo6LaCSnL/WAQ+rQXunf1emr3gZNuJHBh9F5fv87+4mflRS+73vQuqn+ex6XzwE1vtULG8Alg==",
   "success": true,
   "projectFilePath": "D:\\apz-pzpi-21-1-pershyna-anastasiia\\Task2\\apz-pzpi-21-1-pershyna-anastasiia-task2\\GreenGuard\\GreenGuard.csproj",
   "expectedPackageFiles": [
@@ -139,6 +139,7 @@
     "C:\\Users\\Anastasiia\\.nuget\\packages\\nuget.protocol\\6.9.1\\nuget.protocol.6.9.1.nupkg.sha512",
     "C:\\Users\\Anastasiia\\.nuget\\packages\\nuget.versioning\\6.9.1\\nuget.versioning.6.9.1.nupkg.sha512",
     "C:\\Users\\Anastasiia\\.nuget\\packages\\swashbuckle.aspnetcore\\6.5.0\\swashbuckle.aspnetcore.6.5.0.nupkg.sha512",
+    "C:\\Users\\Anastasiia\\.nuget\\packages\\swashbuckle.aspnetcore.annotations\\6.5.0\\swashbuckle.aspnetcore.annotations.6.5.0.nupkg.sha512",
     "C:\\Users\\Anastasiia\\.nuget\\packages\\swashbuckle.aspnetcore.swagger\\6.5.0\\swashbuckle.aspnetcore.swagger.6.5.0.nupkg.sha512",
     "C:\\Users\\Anastasiia\\.nuget\\packages\\swashbuckle.aspnetcore.swaggergen\\6.5.0\\swashbuckle.aspnetcore.swaggergen.6.5.0.nupkg.sha512",
     "C:\\Users\\Anastasiia\\.nuget\\packages\\swashbuckle.aspnetcore.swaggerui\\6.5.0\\swashbuckle.aspnetcore.swaggerui.6.5.0.nupkg.sha512",

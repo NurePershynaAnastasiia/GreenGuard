@@ -28,7 +28,7 @@ namespace GreenGuard.Controllers.BaseControllers
         /// If the operation is successful, it will return an ICollection of FertilizerDto.
         /// If there is a bad request, it will return an ErrorDto.
         /// </returns>
-        [HttpGet("all-fertilizers")]
+        [HttpGet("fertilizers")]
         public async Task<IActionResult> GetFertilizers()
         {
             try
@@ -49,39 +49,6 @@ namespace GreenGuard.Controllers.BaseControllers
         }
 
         /// <summary>
-        /// Update the quantity of a fertilizer.
-        /// </summary>
-        /// <param name="id">The ID of the fertilizer to update.</param>
-        /// <param name="model">The data to update the fertilizer quantity.</param>
-        /// <returns>
-        /// If the operation is successful, it will return a message confirming the update.
-        /// If there is a bad request, it will return an ErrorDto.
-        /// </returns>
-        [HttpPut("update-fertilizer-quantity/{id}")]
-        public async Task<IActionResult> UpdateFertilizerQuantity(int id, UpdateFertilizerQuantity model)
-        {
-            try
-            {
-                var fertilizer = await _context.Fertilizer.FindAsync(id);
-                if (fertilizer == null)
-                {
-                    return NotFound("There is no fertilizer with the provided ID");
-                }
-
-                fertilizer.FertilizerQuantity = model.FertilizerQuantity;
-                _context.Update(fertilizer);
-                await _context.SaveChangesAsync();
-
-                return Ok($"Fertilizer quantity {fertilizer.FertilizerQuantity} updated successfully");
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "An error occurred during updating quantity of fertilizer");
-                return StatusCode(500, ex.Message);
-            }
-        }
-
-        /// <summary>
         /// Add a new fertilizer.
         /// </summary>
         /// <param name="model">The data to add a new fertilizer.</param>
@@ -89,7 +56,7 @@ namespace GreenGuard.Controllers.BaseControllers
         /// If the operation is successful, it will return a message confirming the addition.
         /// If there is a bad request, it will return an ErrorDto.
         /// </returns>
-        [HttpPost("add-fertilizer")]
+        [HttpPost("add")]
         public async Task<IActionResult> AddFertilizer(AddFertilizer model)
         {
             try
@@ -125,6 +92,39 @@ namespace GreenGuard.Controllers.BaseControllers
         }
 
         /// <summary>
+        /// Update the quantity of a fertilizer.
+        /// </summary>
+        /// <param name="id">The ID of the fertilizer to update.</param>
+        /// <param name="model">The data to update the fertilizer quantity.</param>
+        /// <returns>
+        /// If the operation is successful, it will return a message confirming the update.
+        /// If there is a bad request, it will return an ErrorDto.
+        /// </returns>
+        [HttpPut("update-quantity/{id}")]
+        public async Task<IActionResult> UpdateFertilizerQuantity(int id, UpdateFertilizerQuantity model)
+        {
+            try
+            {
+                var fertilizer = await _context.Fertilizer.FindAsync(id);
+                if (fertilizer == null)
+                {
+                    return NotFound("There is no fertilizer with the provided ID");
+                }
+
+                fertilizer.FertilizerQuantity = model.FertilizerQuantity;
+                _context.Update(fertilizer);
+                await _context.SaveChangesAsync();
+
+                return Ok($"Fertilizer quantity {fertilizer.FertilizerQuantity} updated successfully");
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "An error occurred during updating quantity of fertilizer");
+                return StatusCode(500, ex.Message);
+            }
+        }
+
+        /// <summary>
         /// Delete a fertilizer.
         /// </summary>
         /// <param name="id">The ID of the fertilizer to delete.</param>
@@ -132,7 +132,7 @@ namespace GreenGuard.Controllers.BaseControllers
         /// If the operation is successful, it will return a message confirming the deletion.
         /// If there is a bad request, it will return an ErrorDto.
         /// </returns>
-        [HttpDelete("delete-fertilizer/{id}")]
+        [HttpDelete("delete/{id}")]
         public async Task<IActionResult> DeleteFertilizer(int id)
         {
             try

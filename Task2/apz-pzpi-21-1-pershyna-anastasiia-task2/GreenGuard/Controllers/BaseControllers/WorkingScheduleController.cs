@@ -27,7 +27,7 @@ namespace GreenGuard.Controllers.BaseControllers
         /// If the working schedule is not found, it will return a 404 Not Found response.
         /// If an error occurs, it will return a 500 Internal Server Error response.
         /// </returns>
-        [HttpGet("worker/{workerId}")]
+        [HttpGet("workerSchedule/{workerId}")]
         public async Task<IActionResult> GetWorkingScheduleByWorkerId(int workerId)
         {
             try
@@ -67,7 +67,7 @@ namespace GreenGuard.Controllers.BaseControllers
         /// If the working schedule for the specified worker is not found, it will return a 404 Not Found response.
         /// If an error occurs, it will return a 500 Internal Server Error response.
         /// </returns>
-        [HttpPut("worker/{workerId}")]
+        [HttpPut("update/{workerId}")]
         public async Task<IActionResult> UpdateWorkingScheduleByWorkerId(int workerId, UpdateWorkingSchedule updatedSchedule)
         {
             try

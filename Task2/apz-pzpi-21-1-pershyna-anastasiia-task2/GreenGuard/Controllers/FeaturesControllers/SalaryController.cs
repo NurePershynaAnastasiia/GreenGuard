@@ -24,7 +24,14 @@ namespace GreenGuard.Controllers.FeaturesControllers
             return flag == null ? false : (bool)flag;
         }
 
-        // GET: api/Salary/count-salary
+        /// <summary>
+        /// Calculate the weekly salary for a worker.
+        /// </summary>
+        /// <param name="workerId">The ID of the worker for whom to calculate the salary.</param>
+        /// <returns>
+        /// If the calculation is successful, it will return the weekly salary amount.
+        /// If there is an error during calculation, it will return an error message.
+        /// </returns>
         [HttpPost("count-salary")]
         public async Task<ActionResult> CountSalary(int workerId)
         {

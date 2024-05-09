@@ -19,7 +19,14 @@ namespace GreenGuard.Controllers.FeaturesControllers
         }
         private readonly WateringService _wateringService;
 
-        // GET: api/Watering/calculate-watering
+        /// <summary>
+        /// Calculate the date of the next watering for a specific plant.
+        /// </summary>
+        /// <param name="plantId">The ID of the plant for which to calculate the next watering date.</param>
+        /// <returns>
+        /// If the calculation is successful, it will return the date of the next watering.
+        /// If there is an error during calculation, it will return a 500 Internal Server Error.
+        /// </returns>
         [HttpGet("calculate-watering")]
         public async Task<IActionResult> CalculateNextWatering(int plantId)
         {
@@ -33,8 +40,6 @@ namespace GreenGuard.Controllers.FeaturesControllers
                 _logger.LogError(ex, "An error occurred during calculating watering schedule");
                 return StatusCode(500);
             }
-
         }
-
     }
 }

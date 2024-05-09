@@ -23,7 +23,7 @@ namespace GreenGuard.Controllers.BaseControllers
         /// If the operation is successful, it will return a list of PlantTypeDto.
         /// If there is a bad request, it will return an ErrorDto.
         /// </returns>
-        [HttpGet("all-plants")]
+        [HttpGet("plants")]
         public async Task<IActionResult> GetPlants()
         {
             try
@@ -58,7 +58,7 @@ namespace GreenGuard.Controllers.BaseControllers
         /// If the provided model is invalid, it will return a 400 Bad Request response.
         /// If an error occurs, it will return a 500 Internal Server Error response.
         /// </returns>
-        [HttpPost("add-plant")]
+        [HttpPost("add")]
         public async Task<ActionResult> AddNewPlant(AddPlant model)
         {
             try
@@ -93,40 +93,6 @@ namespace GreenGuard.Controllers.BaseControllers
         }
 
         /// <summary>
-        /// Deletes a plant by its ID.
-        /// </summary>
-        /// <param name="id">The ID of the plant to delete.</param>
-        /// <returns>
-        /// If the operation is successful, it will return a success message.
-        /// If there is no plant with the provided ID, it will return a 400 Bad Request response.
-        /// If an error occurs, it will return a 500 Internal Server Error response.
-        /// </returns>
-        [HttpDelete("delete-plant/{id}")]
-        public async Task<IActionResult> DeletePlant(int id)
-        {
-            try
-            {
-                var plant = await _context.Plant.FindAsync(id);
-                if (plant == null)
-                {
-                    return BadRequest(ModelState);
-                }
-                _context.Plant.Remove(plant);
-                await _context.SaveChangesAsync();
-
-                return Ok($"Plant with location: {plant.PlantLocation} was successfully deleted");
-
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "An error occurred during deleting plant");
-                return StatusCode(500, ex.Message);
-
-            }
-
-        }
-
-        /// <summary>
         /// Updates the details of a plant.
         /// </summary>
         /// <param name="id">The ID of the plant to update.</param>
@@ -136,7 +102,7 @@ namespace GreenGuard.Controllers.BaseControllers
         /// If there is no plant with the provided ID, it will return a 404 Not Found response.
         /// If an error occurs, it will return a 500 Internal Server Error response.
         /// </returns>
-        [HttpPut("update-plant/{id}")]
+        [HttpPut("update/{id}")]
         public async Task<IActionResult> UpdatePlant(int id, UpdatePlant model)
         {
             try
@@ -176,7 +142,7 @@ namespace GreenGuard.Controllers.BaseControllers
         /// If there is no plant with the provided ID, it will return a 404 Not Found response.
         /// If an error occurs, it will return a 500 Internal Server Error response.
         /// </returns>
-        [HttpPut("update-plant-state/{id}")]
+        [HttpPut("update-state/{id}")]
         public async Task<IActionResult> UpdatePlantState(int id, UpdatePlantState model)
         {
             try
@@ -198,6 +164,40 @@ namespace GreenGuard.Controllers.BaseControllers
                 _logger.LogError(ex, "An error occurred during updating state of plant");
                 return StatusCode(500, ex.Message);
             }
+        }
+
+        /// <summary>
+        /// Deletes a plant by its ID.
+        /// </summary>
+        /// <param name="id">The ID of the plant to delete.</param>
+        /// <returns>
+        /// If the operation is successful, it will return a success message.
+        /// If there is no plant with the provided ID, it will return a 400 Bad Request response.
+        /// If an error occurs, it will return a 500 Internal Server Error response.
+        /// </returns>
+        [HttpDelete("delete/{id}")]
+        public async Task<IActionResult> DeletePlant(int id)
+        {
+            try
+            {
+                var plant = await _context.Plant.FindAsync(id);
+                if (plant == null)
+                {
+                    return BadRequest(ModelState);
+                }
+                _context.Plant.Remove(plant);
+                await _context.SaveChangesAsync();
+
+                return Ok($"Plant with location: {plant.PlantLocation} was successfully deleted");
+
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "An error occurred during deleting plant");
+                return StatusCode(500, ex.Message);
+
+            }
+
         }
     }
 }

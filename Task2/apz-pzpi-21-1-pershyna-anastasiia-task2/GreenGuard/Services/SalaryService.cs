@@ -32,13 +32,14 @@ public class SalaryService
             double hoursPerDay = (worker.EndWorkTime - worker.StartWorkTime).Value.TotalHours;
 
             double hourlyRate = 150;
-            double weeklySalary = workingDaysPerWeek * hoursPerDay * hourlyRate;
+            double workingWeeks = 4;
+            double monthlySalary = workingDaysPerWeek * hoursPerDay * hourlyRate * workingWeeks;
 
             double bonusPerTask = hourlyRate * 0.3;
             double totalBonus = tasks.Count * bonusPerTask;
-            weeklySalary += totalBonus;
+            monthlySalary += totalBonus;
 
-            return weeklySalary;
+            return monthlySalary;
         }
         catch (Exception ex)
         {
