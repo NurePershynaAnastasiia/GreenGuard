@@ -39,6 +39,7 @@ namespace GreenGuard.Controllers.FeaturesControllers
         /// <returns>
         /// If the retrieval of backup files is successful, it will return a list of backup file names.
         /// If there is an error during the retrieval process, it will return a 500 Internal Server Error.
+        /// If the user is not authenticated or does not have sufficient privileges, returns a 401 Unauthorized response.
         /// </returns>
         [Authorize(Roles = Roles.Administrator)]
         [HttpGet("backups")]

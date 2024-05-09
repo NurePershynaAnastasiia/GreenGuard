@@ -1,10 +1,12 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace GreenGuard.Models.Plant
 {
-    public class AddPlant
+    public class PlantFull
     {
+        public required int PlantId { get; set; } 
+
         public required int PlantTypeId { get; set; }
 
         public required string PlantLocation { get; set; }
@@ -18,5 +20,7 @@ namespace GreenGuard.Models.Plant
         public string? AdditionalInfo { get; set; }
 
         public string? PlantState { get; set; }
+
+        public List<string>? Pests { get; set; }
     }
 }

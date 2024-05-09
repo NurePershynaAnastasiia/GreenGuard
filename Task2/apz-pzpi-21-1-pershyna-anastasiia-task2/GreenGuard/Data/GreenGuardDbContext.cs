@@ -27,6 +27,8 @@ namespace GreenGuard.Data
 
         public DbSet<WorkingScheduleDto> Working_Schedule { get; set; }
 
+        public DbSet<PestInPlantDto> Pest_in_Plant { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);

@@ -5,23 +5,16 @@ namespace GreenGuard.Models.Plant
 {
     public class UpdatePlant
     {
-        [Required]
-        [Column("Plant_location")]
         public required string PlantLocation { get; set; }
 
-        [Column("Temp")]
-        public float? Temp { get; set; }
+        public double? Temp { get; set; }
 
-        [Column("Humidity")]
-        public float? Humidity { get; set; }
+        public double? Humidity { get; set; }
 
-        [Column("Light")]
-        public float? Light { get; set; }
+        public double? Light { get; set; }
 
-        [Column("Additional_info")]
         public string? AdditionalInfo { get; set; }
 
-        [Column("Plant_state")]
         public string? PlantState { get; set; }
     }
 }

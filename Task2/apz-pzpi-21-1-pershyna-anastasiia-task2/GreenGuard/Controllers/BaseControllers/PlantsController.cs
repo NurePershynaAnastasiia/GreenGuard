@@ -31,7 +31,7 @@ namespace GreenGuard.Controllers.BaseControllers
         {
             try
             {
-                var plants = _context.Plant.Select(data => new PlantDto
+                var plants = _context.Plant.Select(data => new PlantFull
                 {
                     PlantId = data.PlantId,
                     PlantTypeId = data.PlantTypeId,
@@ -40,7 +40,11 @@ namespace GreenGuard.Controllers.BaseControllers
                     Temp = data.Temp,
                     Light = data.Light,
                     AdditionalInfo = data.AdditionalInfo,
-                    PlantState = data.PlantState
+                    PlantState = data.PlantState,
+                    Pests = _context.Pest_in_Plant
+                    .Where(pip => pip.PlantId == data.PlantId)
+                    .Select(pip => _context.Pest.FirstOrDefault(p => p.PestId == pip.PestId).PestName)
+                    .ToList()
                 }).ToList();
                 return Ok(plants);
             }

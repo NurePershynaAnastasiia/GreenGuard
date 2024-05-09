@@ -94,5 +94,87 @@ namespace GreenGuard.Controllers.BaseControllers
 
             }
         }
+
+
+        /// <summary>
+        /// Add a pest to a plant.
+        /// </summary>
+        /// <param name="plantId">The ID of the plant to add the pest to.</param>
+        /// <param name="pestId">The ID of the pest to add to the plant.</param>
+        /// <returns>
+        /// If the operation is successful, it will return a message confirming the addition.
+        /// If the plant or pest is not found, it will return a NotFound response.
+        /// If an error occurs during the operation, it will return a 500 Internal Server Error response.
+        /// </returns>
+        [Authorize(Roles = Roles.Administrator + "," + Roles.User)]
+        [HttpPost("AddPestToPlant")]
+        public async Task<IActionResult> AddPestToPlant(int plantId, int pestId)
+        {
+            try
+            {
+                var plant = await _context.Plant.FindAsync(plantId);
+                if (plant == null)
+                {
+                    return NotFound($"Plant with ID {plantId} not found");
+                }
+
+                var pest = await _context.Pest.FindAsync(pestId);
+                if (pest == null)
+                {
+                    return NotFound($"Pest with ID {pestId} not found");
+                }
+
+                var pestInPlant = new PestInPlantDto
+                {
+                    PlantId = plantId,
+                    PestId = pestId
+                };
+
+                _context.Pest_in_Plant.Add(pestInPlant);
+                await _context.SaveChangesAsync();
+
+                return Ok($"Pest with ID {pestId} added to plant with ID {plantId}");
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "An error occurred while adding pest to plant");
+                return StatusCode(500, ex.Message);
+            }
+        }
+
+
+        /// <summary>
+        /// Delete a pest from a plant.
+        /// </summary>
+        /// <param name="plantId">The ID of the plant to delete the pest from.</param>
+        /// <param name="pestId">The ID of the pest to delete from the plant.</param>
+        /// <returns>
+        /// If the operation is successful, it will return a message confirming the deletion.
+        /// If the pest is not associated with the plant, it will return a NotFound response.
+        /// If an error occurs during the operation, it will return a 500 Internal Server Error response.
+        /// </returns>
+        [Authorize(Roles = Roles.Administrator + "," + Roles.User)]
+        [HttpPost("DeletePestFromPlant")]
+        public async Task<IActionResult> DeletePestFromPlant(int plantId, int pestId)
+        {
+            try
+            {
+                var pestInPlant = await _context.Pest_in_Plant.FirstOrDefaultAsync(pip => pip.PlantId == plantId && pip.PestId == pestId);
+                if (pestInPlant == null)
+                {
+                    return NotFound($"Pest with ID {pestId} is not associated with plant with ID {plantId}");
+                }
+
+                _context.Pest_in_Plant.Remove(pestInPlant);
+                await _context.SaveChangesAsync();
+
+                return Ok($"Pest with ID {pestId} deleted from plant with ID {plantId}");
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "An error occurred while deleting pest from plant");
+                return StatusCode(500, ex.Message);
+            }
+        }
     }
 }
