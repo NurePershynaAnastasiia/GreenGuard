@@ -68,8 +68,8 @@ namespace GreenGuard.Controllers.BaseControllers
         /// If retrieval is successful, it returns a list of workers scheduled to work on the specified date.
         /// If an error occurs, it returns a 500 Internal Server Error response.
         /// </returns>
-        [HttpGet("working-date/{date}")]
         [Authorize(Roles = Roles.Administrator)]
+        [HttpGet("working-date/{date}")]
         public async Task<IActionResult> GetWorkersWorkingAtDate(DateTime date)
         {
             try
@@ -152,6 +152,7 @@ namespace GreenGuard.Controllers.BaseControllers
         /// If the email is already in use, it returns a 400 Bad Request response.
         /// If an error occurs, it returns a 500 Internal Server Error response.
         /// </returns>
+        [Authorize(Roles = Roles.Administrator)]
         [HttpPost("register")]
         public async Task<IActionResult> WorkerRegister(WorkerRegister model)
         {
@@ -200,6 +201,7 @@ namespace GreenGuard.Controllers.BaseControllers
         /// If the worker with the provided ID does not exist, it returns a 404 Not Found response.
         /// If an error occurs, it returns a 500 Internal Server Error response.
         /// </returns>
+        [Authorize(Roles = Roles.Administrator + "," + Roles.User)]
         [HttpPut("update/{id}")]
         public async Task<IActionResult> UpdateWorker(int id, UpdateWorker updatedWorker)
         {

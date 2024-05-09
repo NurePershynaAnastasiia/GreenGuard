@@ -1,5 +1,7 @@
 ﻿using GreenGuard.Data;
 using GreenGuard.Dto;
+using GreenGuard.Helpers;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GreenGuard.Controllers.FeaturesControllers
@@ -19,11 +21,6 @@ namespace GreenGuard.Controllers.FeaturesControllers
             _logger = logger;
         }
 
-        bool CheckNulls(bool? flag)
-        {
-            return flag == null ? false : (bool)flag;
-        }
-
         /// <summary>
         /// Calculate the weekly salary for a worker.
         /// </summary>
@@ -32,8 +29,9 @@ namespace GreenGuard.Controllers.FeaturesControllers
         /// If the calculation is successful, it will return the weekly salary amount.
         /// If there is an error during calculation, it will return an error message.
         /// </returns>
-        [HttpPost("count-salary")]
-        public async Task<ActionResult> CountSalary(int workerId)
+        [Authorize(Roles = Roles.Administrator)]
+        [HttpPost("calculate-salary")]
+        public async Task<ActionResult> CalculateSalary(int workerId)
         {
             try
             {

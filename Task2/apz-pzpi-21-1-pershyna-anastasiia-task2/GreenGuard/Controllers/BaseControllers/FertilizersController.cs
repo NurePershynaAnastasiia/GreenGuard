@@ -3,6 +3,8 @@ using Microsoft.EntityFrameworkCore;
 using GreenGuard.Data;
 using GreenGuard.Dto;
 using GreenGuard.Models.Fertilizer;
+using Microsoft.AspNetCore.Authorization;
+using GreenGuard.Helpers;
 
 namespace GreenGuard.Controllers.BaseControllers
 {
@@ -29,6 +31,7 @@ namespace GreenGuard.Controllers.BaseControllers
         /// If there is a bad request, it will return an ErrorDto.
         /// </returns>
         [HttpGet("fertilizers")]
+        [Authorize(Roles = Roles.Administrator + "," + Roles.User)]
         public async Task<IActionResult> GetFertilizers()
         {
             try
@@ -56,6 +59,7 @@ namespace GreenGuard.Controllers.BaseControllers
         /// If the operation is successful, it will return a message confirming the addition.
         /// If there is a bad request, it will return an ErrorDto.
         /// </returns>
+        [Authorize(Roles = Roles.Administrator)]
         [HttpPost("add")]
         public async Task<IActionResult> AddFertilizer(AddFertilizer model)
         {
@@ -100,6 +104,8 @@ namespace GreenGuard.Controllers.BaseControllers
         /// If the operation is successful, it will return a message confirming the update.
         /// If there is a bad request, it will return an ErrorDto.
         /// </returns>
+        [Authorize(Roles = Roles.Administrator + "," + Roles.User)]
+        [Authorize(Roles = Roles.Administrator + "," + Roles.User)]
         [HttpPut("update-quantity/{id}")]
         public async Task<IActionResult> UpdateFertilizerQuantity(int id, UpdateFertilizerQuantity model)
         {
@@ -132,6 +138,7 @@ namespace GreenGuard.Controllers.BaseControllers
         /// If the operation is successful, it will return a message confirming the deletion.
         /// If there is a bad request, it will return an ErrorDto.
         /// </returns>
+        [Authorize(Roles = Roles.Administrator)]
         [HttpDelete("delete/{id}")]
         public async Task<IActionResult> DeleteFertilizer(int id)
         {

@@ -2,6 +2,8 @@
 using GreenGuard.Data;
 using GreenGuard.Dto;
 using GreenGuard.Models.Plant;
+using GreenGuard.Helpers;
+using Microsoft.AspNetCore.Authorization;
 
 namespace GreenGuard.Controllers.BaseControllers
 {
@@ -23,6 +25,7 @@ namespace GreenGuard.Controllers.BaseControllers
         /// If the operation is successful, it will return a list of PlantTypeDto.
         /// If there is a bad request, it will return an ErrorDto.
         /// </returns>
+        [Authorize(Roles = Roles.Administrator + "," + Roles.User)]
         [HttpGet("plants")]
         public async Task<IActionResult> GetPlants()
         {
@@ -58,6 +61,7 @@ namespace GreenGuard.Controllers.BaseControllers
         /// If the provided model is invalid, it will return a 400 Bad Request response.
         /// If an error occurs, it will return a 500 Internal Server Error response.
         /// </returns>
+        [Authorize(Roles = Roles.Administrator)]
         [HttpPost("add")]
         public async Task<ActionResult> AddNewPlant(AddPlant model)
         {
@@ -102,6 +106,7 @@ namespace GreenGuard.Controllers.BaseControllers
         /// If there is no plant with the provided ID, it will return a 404 Not Found response.
         /// If an error occurs, it will return a 500 Internal Server Error response.
         /// </returns>
+        [Authorize(Roles = Roles.Administrator)]
         [HttpPut("update/{id}")]
         public async Task<IActionResult> UpdatePlant(int id, UpdatePlant model)
         {
@@ -142,6 +147,7 @@ namespace GreenGuard.Controllers.BaseControllers
         /// If there is no plant with the provided ID, it will return a 404 Not Found response.
         /// If an error occurs, it will return a 500 Internal Server Error response.
         /// </returns>
+        [Authorize(Roles = Roles.Administrator + "," + Roles.User)]
         [HttpPut("update-state/{id}")]
         public async Task<IActionResult> UpdatePlantState(int id, UpdatePlantState model)
         {
@@ -175,6 +181,7 @@ namespace GreenGuard.Controllers.BaseControllers
         /// If there is no plant with the provided ID, it will return a 400 Bad Request response.
         /// If an error occurs, it will return a 500 Internal Server Error response.
         /// </returns>
+        [Authorize(Roles = Roles.Administrator)]
         [HttpDelete("delete/{id}")]
         public async Task<IActionResult> DeletePlant(int id)
         {

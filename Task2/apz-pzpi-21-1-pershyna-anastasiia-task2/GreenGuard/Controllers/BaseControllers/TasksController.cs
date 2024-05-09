@@ -5,6 +5,8 @@ using GreenGuard.Dto;
 using GreenGuard.Models.Task;
 using TaskDto = GreenGuard.Dto.TaskDto;
 using GreenGuard.Services;
+using GreenGuard.Helpers;
+using Microsoft.AspNetCore.Authorization;
 
 namespace GreenGuard.Controllers.BaseControllers
 {
@@ -31,6 +33,7 @@ namespace GreenGuard.Controllers.BaseControllers
         /// If retrieval is successful, it returns a list of TaskFull objects containing task details, associated plants, and workers.
         /// If an error occurs, it returns a 500 Internal Server Error response.
         /// </returns>
+        [Authorize(Roles = Roles.Administrator)]
         [HttpGet("tasks")]
         public async Task<IActionResult> GetTasks()
         {
@@ -54,6 +57,7 @@ namespace GreenGuard.Controllers.BaseControllers
         /// If retrieval is successful, it returns a list of tasks assigned to the worker.
         /// If an error occurs, it returns a 500 Internal Server Error response.
         /// </returns>
+        [Authorize(Roles = Roles.Administrator + "," + Roles.User)]
         [HttpGet("worker-tasks/{workerId}")]
         public async Task<IActionResult> GetWorkerTasks(int workerId)
         {
@@ -86,6 +90,7 @@ namespace GreenGuard.Controllers.BaseControllers
         /// If retrieval is successful, it returns a list of tasks assigned to the worker for today.
         /// If an error occurs, it returns a 500 Internal Server Error response.
         /// </returns>
+        [Authorize(Roles = Roles.Administrator + "," + Roles.User)]
         [HttpGet("worker-tasks-today/{workerId}")]
         public async Task<IActionResult> GetWorkerTasksToday(int workerId)
         {
@@ -120,6 +125,7 @@ namespace GreenGuard.Controllers.BaseControllers
         /// If retrieval is successful, it returns a list of objects containing worker names and their task statuses.
         /// If an error occurs, it returns a 500 Internal Server Error response.
         /// </returns>
+        [Authorize(Roles = Roles.Administrator)]
         [HttpGet("statuses/{taskId}")]
         public async Task<IActionResult> GetTaskStatuses(int taskId)
         {
@@ -158,6 +164,7 @@ namespace GreenGuard.Controllers.BaseControllers
         /// If the model is invalid, it returns a 400 Bad Request response.
         /// If an error occurs, it returns a 500 Internal Server Error response.
         /// </returns>
+        [Authorize(Roles = Roles.Administrator)]
         [HttpPost("add")]
         public async Task<ActionResult> AddTask(AddTask model)
         {
@@ -199,6 +206,7 @@ namespace GreenGuard.Controllers.BaseControllers
         /// If the task with the provided ID does not exist, it returns a 400 Bad Request response.
         /// If an error occurs, it returns a 500 Internal Server Error response.
         /// </returns>
+        [Authorize(Roles = Roles.Administrator)]
         [HttpPost("add-worker/{taskId}")]
         public async Task<IActionResult> AddWorkerToTask(int taskId, List<int> workerIds)
         {
@@ -225,6 +233,7 @@ namespace GreenGuard.Controllers.BaseControllers
         /// If the task with the provided ID does not exist, it returns a 400 Bad Request response.
         /// If an error occurs, it returns a 500 Internal Server Error response.
         /// </returns>
+        [Authorize(Roles = Roles.Administrator)]
         [HttpPost("add-plant/{taskId}")]
         public async Task<IActionResult> AddPlantToTask(int taskId, List<int> plantIds)
         {
@@ -251,6 +260,7 @@ namespace GreenGuard.Controllers.BaseControllers
         /// If the task with the provided ID does not exist, it returns a 404 Not Found response.
         /// If an error occurs, it returns a 500 Internal Server Error response.
         /// </returns>
+        [Authorize(Roles = Roles.Administrator)]
         [HttpPut("update/{id}")]
         public async Task<IActionResult> UpdateTask(int id, TaskDto updatedTask)
         {
@@ -296,6 +306,7 @@ namespace GreenGuard.Controllers.BaseControllers
         /// If the worker-task relationship does not exist, it returns a 404 Not Found response.
         /// If an error occurs, it returns a 500 Internal Server Error response.
         /// </returns>
+        [Authorize(Roles = Roles.Administrator + "," + Roles.User)]
         [HttpPut("update-status/{taskId}/{workerId}")]
         public async Task<IActionResult> UpdateTaskStatus(int taskId, int workerId, string taskStatus)
         {
@@ -330,6 +341,7 @@ namespace GreenGuard.Controllers.BaseControllers
         /// If the task with the provided ID does not exist, it returns a 400 Bad Request response.
         /// If an error occurs, it returns a 500 Internal Server Error response.
         /// </returns>
+        [Authorize(Roles = Roles.Administrator)]
         [HttpDelete("delete/{id}")]
         public async Task<IActionResult> DeleteTask(int id)
         {
@@ -364,6 +376,7 @@ namespace GreenGuard.Controllers.BaseControllers
         /// If the worker-task link does not exist, it returns a 404 Not Found response.
         /// If an error occurs, it returns a 500 Internal Server Error response.
         /// </returns>
+        [Authorize(Roles = Roles.Administrator)]
         [HttpDelete("delete-worker-from-task/{taskId}/{workerId}")]
         public async Task<IActionResult> DeleteWorkerFromTask(int taskId, int workerId)
         {
@@ -399,6 +412,7 @@ namespace GreenGuard.Controllers.BaseControllers
         /// If the plant-task link does not exist, it returns a 404 Not Found response.
         /// If an error occurs, it returns a 500 Internal Server Error response.
         /// </returns>
+        [Authorize(Roles = Roles.Administrator)]
         [HttpDelete("delete-plant-from-task/{taskId}/{plantId}")]
         public async Task<IActionResult> DeletePlantFromTask(int taskId, int plantId)
         {

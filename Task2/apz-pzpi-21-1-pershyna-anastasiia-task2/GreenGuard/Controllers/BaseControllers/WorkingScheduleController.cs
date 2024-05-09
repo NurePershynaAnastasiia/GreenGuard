@@ -1,6 +1,8 @@
 ﻿using GreenGuard.Data;
 using GreenGuard.Dto;
+using GreenGuard.Helpers;
 using GreenGuard.Models.WorkingSchedule;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GreenGuard.Controllers.BaseControllers
@@ -27,6 +29,7 @@ namespace GreenGuard.Controllers.BaseControllers
         /// If the working schedule is not found, it will return a 404 Not Found response.
         /// If an error occurs, it will return a 500 Internal Server Error response.
         /// </returns>
+        [Authorize(Roles = Roles.Administrator + "," + Roles.User)]
         [HttpGet("workerSchedule/{workerId}")]
         public async Task<IActionResult> GetWorkingScheduleByWorkerId(int workerId)
         {
@@ -67,6 +70,7 @@ namespace GreenGuard.Controllers.BaseControllers
         /// If the working schedule for the specified worker is not found, it will return a 404 Not Found response.
         /// If an error occurs, it will return a 500 Internal Server Error response.
         /// </returns>
+        [Authorize(Roles = Roles.Administrator + "," + Roles.User)]
         [HttpPut("update/{workerId}")]
         public async Task<IActionResult> UpdateWorkingScheduleByWorkerId(int workerId, UpdateWorkingSchedule updatedSchedule)
         {

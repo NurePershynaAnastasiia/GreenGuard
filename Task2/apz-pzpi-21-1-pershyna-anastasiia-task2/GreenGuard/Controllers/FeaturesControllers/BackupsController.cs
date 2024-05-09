@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using GreenGuard.Helpers;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
 
 namespace GreenGuard.Controllers.FeaturesControllers
@@ -38,6 +40,7 @@ namespace GreenGuard.Controllers.FeaturesControllers
         /// If the retrieval of backup files is successful, it will return a list of backup file names.
         /// If there is an error during the retrieval process, it will return a 500 Internal Server Error.
         /// </returns>
+        [Authorize(Roles = Roles.Administrator)]
         [HttpGet("backups")]
         public IActionResult GetBackups()
         {
@@ -63,6 +66,7 @@ namespace GreenGuard.Controllers.FeaturesControllers
         /// If the backup is successful, it will return a message confirming the backup creation and the file path where the backup is saved.
         /// If there is an error during the backup process, it will return a 500 Internal Server Error.
         /// </returns>
+        [Authorize(Roles = Roles.Administrator)]
         [HttpPost("add")]
         public IActionResult CreateBackup()
         {
@@ -97,6 +101,7 @@ namespace GreenGuard.Controllers.FeaturesControllers
         /// If the specified backup file is not found, it will return a 404 Not Found error.
         /// If there is an error during the restoration process, it will return a 500 Internal Server Error.
         /// </returns>
+        [Authorize(Roles = Roles.Administrator)]
         [HttpPost("restore/{backupFileName}")]
         public IActionResult RestoreBackup(string backupFileName)
         {

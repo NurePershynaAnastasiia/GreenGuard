@@ -88,5 +88,10 @@ app.UseCors("AllowSpecificOrigin");
 
 app.UseAuthorization();
 
+app.UseErrorResponseInjection();
+
+app.MapControllerRoute(
+    name: "default",
+    pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.Run();

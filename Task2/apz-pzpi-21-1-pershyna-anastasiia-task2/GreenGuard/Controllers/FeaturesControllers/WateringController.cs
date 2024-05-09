@@ -2,6 +2,8 @@
 using GreenGuard.Data;
 using GreenGuard.Dto;
 using GreenGuard.Models.Watering;
+using GreenGuard.Helpers;
+using Microsoft.AspNetCore.Authorization;
 
 namespace GreenGuard.Controllers.FeaturesControllers
 {
@@ -27,6 +29,7 @@ namespace GreenGuard.Controllers.FeaturesControllers
         /// If the calculation is successful, it will return the date of the next watering.
         /// If there is an error during calculation, it will return a 500 Internal Server Error.
         /// </returns>
+        [Authorize(Roles = Roles.Administrator)]
         [HttpGet("calculate-watering")]
         public async Task<IActionResult> CalculateNextWatering(int plantId)
         {

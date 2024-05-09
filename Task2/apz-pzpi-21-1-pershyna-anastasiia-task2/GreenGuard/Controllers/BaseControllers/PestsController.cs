@@ -3,6 +3,8 @@ using Microsoft.EntityFrameworkCore;
 using GreenGuard.Data;
 using GreenGuard.Dto;
 using GreenGuard.Models.Pest;
+using GreenGuard.Helpers;
+using Microsoft.AspNetCore.Authorization;
 
 namespace GreenGuard.Controllers.BaseControllers
 {
@@ -29,6 +31,7 @@ namespace GreenGuard.Controllers.BaseControllers
         /// If there is a bad request, it will return an ErrorDto.
         /// </returns>
         [HttpGet("pests")]
+        [Authorize(Roles = Roles.Administrator + "," + Roles.User)]
         public async Task<IActionResult> GetPests()
         {
             try
@@ -55,6 +58,7 @@ namespace GreenGuard.Controllers.BaseControllers
         /// If the operation is successful, it will return a message confirming the addition.
         /// If there is a bad request, it will return an ErrorDto.
         /// </returns>
+        [Authorize(Roles = Roles.Administrator)]
         [HttpPost("add")]
         public async Task<IActionResult> AddPest(AddPest model)
         {

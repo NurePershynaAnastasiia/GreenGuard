@@ -3,6 +3,8 @@ using Microsoft.EntityFrameworkCore;
 using GreenGuard.Data;
 using GreenGuard.Dto;
 using GreenGuard.Models.PlantType;
+using GreenGuard.Helpers;
+using Microsoft.AspNetCore.Authorization;
 
 namespace GreenGuard.Controllers.BaseControllers
 {
@@ -28,6 +30,7 @@ namespace GreenGuard.Controllers.BaseControllers
         /// If there is a bad request, it will return an ErrorDto.
         /// </remarks>
         /// <returns>An IActionResult representing the result of the operation.</returns>
+        [Authorize(Roles = Roles.Administrator + "," + Roles.User)]
         [HttpGet("plantTypes")]
         public async Task<IActionResult> GetPlantTypes()
         {
@@ -61,6 +64,7 @@ namespace GreenGuard.Controllers.BaseControllers
         /// </remarks>
         /// <param name="model">The data to add a new plant type.</param>
         /// <returns>An IActionResult representing the result of the operation.</returns>
+        [Authorize(Roles = Roles.Administrator)]
         [HttpPost("add")]
         public async Task<IActionResult> AddPlantType(AddPlantType model)
         {
