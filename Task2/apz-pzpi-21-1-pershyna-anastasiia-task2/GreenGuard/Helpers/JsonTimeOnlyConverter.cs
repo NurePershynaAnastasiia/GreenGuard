@@ -1,31 +1,29 @@
-﻿using System.Text.Json;
+﻿using System;
+using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace GreenGuard.Helpers
+public class TimeOnlyConverter : JsonConverter<TimeOnly>
 {
-    public class JsonTimeOnlyConverter : JsonConverter<TimeOnly?>
+    public override TimeOnly Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
     {
-        public override TimeOnly? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
+        if (reader.TokenType != JsonTokenType.String)
         {
-            if (reader.TokenType == JsonTokenType.String && reader.TryGetDateTime(out var dateTime))
-            {
-                return new TimeOnly(dateTime.Hour, dateTime.Minute, dateTime.Second, dateTime.Millisecond * 1000);
-            }
-
-            return null;
+            throw new JsonException();
         }
 
-        public override void Write(Utf8JsonWriter writer, TimeOnly? value, JsonSerializerOptions options)
+        var timeStr = reader.GetString();
+        if (TimeOnly.TryParse(timeStr, out var time))
         {
-            if (value.HasValue)
-            {
-                writer.WriteStringValue(value.Value.ToString("HH:mm"));
-            }
-            else
-            {
-                writer.WriteNullValue();
-            }
+            return time;
+        }
+        else
+        {
+            throw new JsonException($"Invalid time format: {timeStr}");
         }
     }
 
+    public override void Write(Utf8JsonWriter writer, TimeOnly value, JsonSerializerOptions options)
+    {
+        writer.WriteStringValue(value.ToString());
+    }
 }

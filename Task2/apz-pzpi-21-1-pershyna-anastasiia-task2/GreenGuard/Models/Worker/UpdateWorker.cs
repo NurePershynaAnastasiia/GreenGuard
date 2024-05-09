@@ -2,6 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using GreenGuard.Helpers;
 using System.Text.Json.Serialization;
+using System.Runtime.CompilerServices;
 
 namespace GreenGuard.Models.Worker
 {
@@ -20,11 +21,9 @@ namespace GreenGuard.Models.Worker
         public string? Email { get; set; }
 
         [Column("Start_work_time")]
-        [JsonConverter(typeof(JsonTimeOnlyConverter))]
-        public TimeOnly? StartWorkTime { get; set; }
+        public TimeOnly StartWorkTime { get; set; }
 
         [Column("End_work_time")]
-        [JsonConverter(typeof(JsonTimeOnlyConverter))]
-        public TimeOnly? EndWorkTime { get; set; }
+        public TimeOnly EndWorkTime { get; set; }
     }
 }

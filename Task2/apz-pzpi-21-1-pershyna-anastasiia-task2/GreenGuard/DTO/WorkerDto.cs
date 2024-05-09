@@ -25,11 +25,9 @@ namespace GreenGuard.Dto
         public string? Email { get; set; }
 
         [Column("Start_work_time", TypeName = "time(7)")]
-        [JsonConverter(typeof(JsonTimeOnlyConverter))]
         public TimeOnly? StartWorkTime { get; set; }
 
         [Column("End_work_time", TypeName = "time(7)")]
-        [JsonConverter(typeof(JsonTimeOnlyConverter))]
         public TimeOnly? EndWorkTime { get; set; }
 
         [Column("Password_hash")]
