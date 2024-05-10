@@ -141,7 +141,6 @@ namespace GreenGuard.Controllers.BaseControllers
         /// If there is a bad request, it will return an ErrorDto.
         /// </returns>
         [Authorize(Roles = Roles.Administrator + "," + Roles.User)]
-        [Authorize(Roles = Roles.Administrator + "," + Roles.User)]
         [HttpPut("update-quantity/{id}")]
         public async Task<IActionResult> UpdateFertilizerQuantity(int id, UpdateFertilizerQuantity model)
         {
