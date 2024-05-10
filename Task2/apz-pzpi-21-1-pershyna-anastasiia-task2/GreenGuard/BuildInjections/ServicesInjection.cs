@@ -1,4 +1,6 @@
-﻿using GreenGuard.Services;
+﻿using GreenGuard.Dto;
+using GreenGuard.Services;
+using Microsoft.AspNetCore.Identity;
 
 namespace GreenGuard.BuildInjections
 {
@@ -9,6 +11,7 @@ namespace GreenGuard.BuildInjections
             services.AddScoped<WateringService>();
             services.AddScoped<SalaryService>();
             services.AddScoped<TaskService>();
+            services.AddScoped<IPasswordHasher<WorkerDto>, PasswordHasher<WorkerDto>>();
         }
     }
 }

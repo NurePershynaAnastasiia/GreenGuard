@@ -17,8 +17,6 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<GreenGuardDbContext>(options =>
     options.UseSqlServer("Server=DESKTOP-D0GBIS9;Database=GreenGuard;Trusted_Connection=True;TrustServerCertificate=True;"));
 
-builder.Services.AddScoped<IPasswordHasher<WorkerDto>, PasswordHasher<WorkerDto>>();
-
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowSpecificOrigin", builder =>
