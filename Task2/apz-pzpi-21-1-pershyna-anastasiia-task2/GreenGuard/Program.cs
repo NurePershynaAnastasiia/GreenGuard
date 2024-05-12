@@ -1,14 +1,7 @@
 using GreenGuard.BuildInjections;
 using GreenGuard.Data;
-using GreenGuard.Dto;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Localization;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using System.Globalization;
-using GreenGuard.BuildInjections;
-using GreenGuard.Helpers;
-using Microsoft.SqlServer.Management.Smo.Wmi;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -59,7 +52,6 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
-
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger(); 
@@ -84,6 +76,6 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    pattern: "{controller=Worker}/{action=Login}/{id?}");
 
 app.Run();

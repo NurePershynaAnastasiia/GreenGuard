@@ -1,10 +1,6 @@
 {
   "Files": [
     {
-      "Id": "D:\\apz-pzpi-21-1-pershyna-anastasiia\\Task2\\apz-pzpi-21-1-pershyna-anastasiia-task2\\GreenGuard\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\GreenGuard.bundle.scp.css",
-      "PackagePath": "staticwebassets\\GreenGuard.bundle.scp.css"
-    },
-    {
       "Id": "D:\\apz-pzpi-21-1-pershyna-anastasiia\\Task2\\apz-pzpi-21-1-pershyna-anastasiia-task2\\GreenGuard\\wwwroot\\css\\site.css",
       "PackagePath": "staticwebassets\\css\\site.css"
     },
