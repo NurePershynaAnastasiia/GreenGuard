@@ -22,7 +22,7 @@ namespace GreenGuard.Services
                 .Select(data => new TaskFull
                 {
                     TaskId = data.TaskId,
-                    TaskDate = data.TaskDate,
+                    TaskDate = data.TaskDate.ToLocalTime(),
                     TaskDetails = data.TaskDetails,
                     TaskType = data.TaskType,
                     TaskState = data.TaskState,

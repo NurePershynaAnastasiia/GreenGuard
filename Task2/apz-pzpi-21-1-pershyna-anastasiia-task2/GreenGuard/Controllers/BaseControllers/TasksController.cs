@@ -105,7 +105,7 @@ namespace GreenGuard.Controllers.BaseControllers
                 var taskIds = workerTasks.Select(wt => wt.TaskId).ToList();
 
                 var tasks = await _context.Task
-                    .Where(t => taskIds.Contains(t.TaskId) && t.TaskDate.Date == today)
+                    .Where(t => taskIds.Contains(t.TaskId) && t.TaskDate.Date.ToLocalTime() == today)
                     .ToListAsync();
 
                 return Ok(tasks);
@@ -177,7 +177,7 @@ namespace GreenGuard.Controllers.BaseControllers
                 }
                 var newTask = new TaskDto
                 {
-                    TaskDate = model.TaskDate,
+                    TaskDate = model.TaskDate.ToUniversalTime(),
                     TaskState = model.TaskState,
                     TaskDetails = model.TaskDetails,
                     TaskType = model.TaskType,
@@ -272,7 +272,7 @@ namespace GreenGuard.Controllers.BaseControllers
                     return NotFound("Task not found");
                 }
 
-                existingTask.TaskDate = updatedTask.TaskDate;
+                existingTask.TaskDate = updatedTask.TaskDate.ToUniversalTime();
                 existingTask.TaskDetails = updatedTask.TaskDetails;
                 existingTask.TaskType = updatedTask.TaskType;
                 existingTask.TaskState = updatedTask.TaskState;
