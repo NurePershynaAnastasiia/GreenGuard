@@ -143,7 +143,7 @@ namespace GreenGuard.Controllers.BaseControllers
         /// If an error occurs during the operation, it will return a 500 Internal Server Error response.
         /// </returns>
         [Authorize(Roles = Roles.Administrator + "," + Roles.User)]
-        [HttpPost("add-to-plant")]
+        [HttpPost("add/{pestId}/{plantId}")]
         public async Task<IActionResult> AddPestToPlant(int plantId, int pestId)
         {
             try
@@ -190,7 +190,7 @@ namespace GreenGuard.Controllers.BaseControllers
         /// If an error occurs during the operation, it will return a 500 Internal Server Error response.
         /// </returns>
         [Authorize(Roles = Roles.Administrator + "," + Roles.User)]
-        [HttpDelete("delete-from-plant")]
+        [HttpDelete("delete/{pestId}/{plantId}")]
         public async Task<IActionResult> DeletePestFromPlant(int plantId, int pestId)
         {
             try

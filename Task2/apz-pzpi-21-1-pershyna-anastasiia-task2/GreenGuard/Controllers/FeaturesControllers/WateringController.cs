@@ -30,7 +30,7 @@ namespace GreenGuard.Controllers.FeaturesControllers
         /// If there is an error during calculation, it will return a 500 Internal Server Error.
         /// </returns>
         [Authorize(Roles = Roles.Administrator)]
-        [HttpGet("calculate-watering")]
+        [HttpGet("{plantId}")]
         public async Task<IActionResult> CalculateNextWatering(int plantId)
         {
             try

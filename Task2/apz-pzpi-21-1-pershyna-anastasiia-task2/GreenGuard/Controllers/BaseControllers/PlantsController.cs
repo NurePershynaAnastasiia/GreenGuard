@@ -7,6 +7,9 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace GreenGuard.Controllers.BaseControllers
 {
+    // api/Plants
+    [ApiController]
+    [Route("api/[controller]")]
     public class PlantsController : ControllerBase
     {
         private readonly GreenGuardDbContext _context;
@@ -19,7 +22,7 @@ namespace GreenGuard.Controllers.BaseControllers
         }
 
         /// <summary>
-        /// Retrieves a list of all plants.
+        /// Get a list of all plants.
         /// </summary>
         /// <returns>
         /// If the operation is successful, it will return a list of PlantTypeDto.
@@ -56,7 +59,7 @@ namespace GreenGuard.Controllers.BaseControllers
         }
 
         /// <summary>
-        /// Adds a new plant.
+        /// Add a new plant.
         /// </summary>
         /// <param name="newPlantTypeId">The ID of the new plant type.</param>
         /// <param name="newPlantLocation">The location of the new plant.</param>
@@ -101,7 +104,7 @@ namespace GreenGuard.Controllers.BaseControllers
         }
 
         /// <summary>
-        /// Updates the details of a plant.
+        /// Update the details of a plant.
         /// </summary>
         /// <param name="id">The ID of the plant to update.</param>
         /// <param name="model">The updated details of the plant.</param>
@@ -142,7 +145,7 @@ namespace GreenGuard.Controllers.BaseControllers
         }
 
         /// <summary>
-        /// Updates the state of a plant by its ID.
+        /// Update the state of a plant by its ID.
         /// </summary>
         /// <param name="id">The ID of the plant to update.</param>
         /// <param name="model">The updated state of the plant.</param>
@@ -177,7 +180,7 @@ namespace GreenGuard.Controllers.BaseControllers
         }
 
         /// <summary>
-        /// Deletes a plant by its ID.
+        /// Delete a plant by its ID.
         /// </summary>
         /// <param name="id">The ID of the plant to delete.</param>
         /// <returns>

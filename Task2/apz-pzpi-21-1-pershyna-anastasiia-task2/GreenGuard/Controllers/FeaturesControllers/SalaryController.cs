@@ -30,7 +30,7 @@ namespace GreenGuard.Controllers.FeaturesControllers
         /// If there is an error during calculation, it will return an error message.
         /// </returns>
         [Authorize(Roles = Roles.Administrator)]
-        [HttpPost("calculate-salary")]
+        [HttpGet("{workerId}")]
         public async Task<ActionResult> CalculateSalary(int workerId)
         {
             try

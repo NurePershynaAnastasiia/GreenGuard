@@ -29,7 +29,7 @@ namespace GreenGuard.Controllers.BaseControllers
         }
 
         /// <summary>
-        /// Retrieves a list of all workers.
+        /// Get a list of all workers.
         /// </summary>
         /// <returns>
         /// If the operation is successful, it will return an ICollection of WorkerDto.
@@ -61,7 +61,7 @@ namespace GreenGuard.Controllers.BaseControllers
         }
 
         /// <summary>
-        /// Retrieves workers who are scheduled to work on a specific date.
+        /// Get workers who are scheduled to work on a specific date.
         /// </summary>
         /// <param name="date">The date to retrieve workers for.</param>
         /// <returns>
@@ -101,7 +101,7 @@ namespace GreenGuard.Controllers.BaseControllers
         }
 
         /// <summary>
-        /// Authenticates a worker using email and password.
+        /// Authenticate a worker using email and password.
         /// </summary>
         /// <param name="model">The WorkerLogin model containing email and password.</param>
         /// <returns>
@@ -144,7 +144,7 @@ namespace GreenGuard.Controllers.BaseControllers
         }
 
         /// <summary>
-        /// Registers a new worker.
+        /// Register a new worker.
         /// </summary>
         /// <param name="model">The WorkerRegister model containing worker information.</param>
         /// <returns>
@@ -192,7 +192,7 @@ namespace GreenGuard.Controllers.BaseControllers
         }
 
         /// <summary>
-        /// Updates worker information by ID.
+        /// Update worker information by ID.
         /// </summary>
         /// <param name="id">The ID of the worker to update.</param>
         /// <param name="updatedWorker">The updated worker information.</param>
@@ -232,7 +232,7 @@ namespace GreenGuard.Controllers.BaseControllers
         }
 
         /// <summary>
-        /// Updates the role of a worker by ID.
+        /// Update the role of a worker by ID.
         /// </summary>
         /// <param name="id">The ID of the worker to update.</param>
         /// <param name="isAdmin">Boolean value indicating whether the worker is an administrator.</param>
@@ -269,7 +269,7 @@ namespace GreenGuard.Controllers.BaseControllers
         }
 
         /// <summary>
-        /// Deletes a worker by ID.
+        /// Delete a worker by ID.
         /// </summary>
         /// <param name="id">The ID of the worker to delete.</param>
         /// <returns>

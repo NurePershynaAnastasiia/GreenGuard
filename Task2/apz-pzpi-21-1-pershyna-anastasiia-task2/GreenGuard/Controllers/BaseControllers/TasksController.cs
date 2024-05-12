@@ -27,7 +27,7 @@ namespace GreenGuard.Controllers.BaseControllers
         }
 
         /// <summary>
-        /// Retrieves a list of all tasks along with associated plants and workers.
+        /// Get a list of all tasks along with associated plants and workers.
         /// </summary>
         /// <returns>
         /// If retrieval is successful, it returns a list of TaskFull objects containing task details, associated plants, and workers.
@@ -50,7 +50,7 @@ namespace GreenGuard.Controllers.BaseControllers
         }
 
         /// <summary>
-        /// Retrieves tasks assigned to a specific worker.
+        /// Get tasks assigned to a specific worker.
         /// </summary>
         /// <param name="workerId">The ID of the worker.</param>
         /// <returns>
@@ -58,7 +58,7 @@ namespace GreenGuard.Controllers.BaseControllers
         /// If an error occurs, it returns a 500 Internal Server Error response.
         /// </returns>
         [Authorize(Roles = Roles.Administrator + "," + Roles.User)]
-        [HttpGet("worker-tasks/{workerId}")]
+        [HttpGet("tasks/{workerId}")]
         public async Task<IActionResult> GetWorkerTasks(int workerId)
         {
             try
@@ -83,7 +83,7 @@ namespace GreenGuard.Controllers.BaseControllers
         }
 
         /// <summary>
-        /// Retrieves tasks assigned to a specific worker for today's date.
+        /// Get tasks assigned to a specific worker for today's date.
         /// </summary>
         /// <param name="workerId">The ID of the worker.</param>
         /// <returns>
@@ -91,7 +91,7 @@ namespace GreenGuard.Controllers.BaseControllers
         /// If an error occurs, it returns a 500 Internal Server Error response.
         /// </returns>
         [Authorize(Roles = Roles.Administrator + "," + Roles.User)]
-        [HttpGet("worker-tasks-today/{workerId}")]
+        [HttpGet("tasks-today/{workerId}")]
         public async Task<IActionResult> GetWorkerTasksToday(int workerId)
         {
             try
@@ -118,7 +118,7 @@ namespace GreenGuard.Controllers.BaseControllers
         }
 
         /// <summary>
-        /// Retrieves the statuses of workers associated with a specific task.
+        /// Get the statuses of workers associated with a specific task.
         /// </summary>
         /// <param name="taskId">The ID of the task.</param>
         /// <returns>
@@ -156,7 +156,7 @@ namespace GreenGuard.Controllers.BaseControllers
         }
 
         /// <summary>
-        /// Adds a new task.
+        /// Add a new task.
         /// </summary>
         /// <param name="model">The AddTask model containing task details.</param>
         /// <returns>
@@ -197,7 +197,7 @@ namespace GreenGuard.Controllers.BaseControllers
         }
 
         /// <summary>
-        /// Adds workers to a task.
+        /// Add workers to a task.
         /// </summary>
         /// <param name="taskId">The ID of the task.</param>
         /// <param name="workerIds">The IDs of the workers to add.</param>
@@ -207,7 +207,7 @@ namespace GreenGuard.Controllers.BaseControllers
         /// If an error occurs, it returns a 500 Internal Server Error response.
         /// </returns>
         [Authorize(Roles = Roles.Administrator)]
-        [HttpPost("add-worker/{taskId}")]
+        [HttpPost("add-workers/{taskId}")]
         public async Task<IActionResult> AddWorkerToTask(int taskId, List<int> workerIds)
         {
             try
@@ -224,7 +224,7 @@ namespace GreenGuard.Controllers.BaseControllers
         }
 
         /// <summary>
-        /// Adds plants to a task.
+        /// Add plants to a task.
         /// </summary>
         /// <param name="taskId">The ID of the task.</param>
         /// <param name="plantIds">The IDs of the plants to add.</param>
@@ -234,7 +234,7 @@ namespace GreenGuard.Controllers.BaseControllers
         /// If an error occurs, it returns a 500 Internal Server Error response.
         /// </returns>
         [Authorize(Roles = Roles.Administrator)]
-        [HttpPost("add-plant/{taskId}")]
+        [HttpPost("add-plants/{taskId}")]
         public async Task<IActionResult> AddPlantToTask(int taskId, List<int> plantIds)
         {
             try
@@ -251,7 +251,7 @@ namespace GreenGuard.Controllers.BaseControllers
         }
 
         /// <summary>
-        /// Updates a task by ID.
+        /// Update a task by ID.
         /// </summary>
         /// <param name="id">The ID of the task to update.</param>
         /// <param name="updatedTask">The updated TaskDto object.</param>
@@ -291,7 +291,7 @@ namespace GreenGuard.Controllers.BaseControllers
         }
 
         /// <summary>
-        /// Updates the status of a worker associated with a task.
+        /// Update the status of a worker associated with a task.
         /// </summary>
         /// <param name="taskId">The ID of the task.</param>
         /// <param name="workerId">The ID of the worker.</param>
@@ -328,7 +328,7 @@ namespace GreenGuard.Controllers.BaseControllers
         }
 
         /// <summary>
-        /// Deletes a task by ID.
+        /// Delete a task by ID.
         /// </summary>
         /// <param name="id">The ID of the task to delete.</param>
         /// <returns>
@@ -362,7 +362,7 @@ namespace GreenGuard.Controllers.BaseControllers
         }
 
         /// <summary>
-        /// Deletes a worker from a task.
+        /// Delete a worker from a task.
         /// </summary>
         /// <param name="taskId">The ID of the task.</param>
         /// <param name="workerId">The ID of the worker to delete from the task.</param>
@@ -372,7 +372,7 @@ namespace GreenGuard.Controllers.BaseControllers
         /// If an error occurs, it returns a 500 Internal Server Error response.
         /// </returns>
         [Authorize(Roles = Roles.Administrator)]
-        [HttpDelete("delete-worker-from-task/{taskId}/{workerId}")]
+        [HttpDelete("delete-worker/{taskId}/{workerId}")]
         public async Task<IActionResult> DeleteWorkerFromTask(int taskId, int workerId)
         {
             try
@@ -398,7 +398,7 @@ namespace GreenGuard.Controllers.BaseControllers
         }
 
         /// <summary>
-        /// Deletes a plant from a task.
+        /// Delete a plant from a task.
         /// </summary>
         /// <param name="taskId">The ID of the task.</param>
         /// <param name="plantId">The ID of the plant to delete from the task.</param>
@@ -408,7 +408,7 @@ namespace GreenGuard.Controllers.BaseControllers
         /// If an error occurs, it returns a 500 Internal Server Error response.
         /// </returns>
         [Authorize(Roles = Roles.Administrator)]
-        [HttpDelete("delete-plant-from-task/{taskId}/{plantId}")]
+        [HttpDelete("delete-plant/{taskId}/{plantId}")]
         public async Task<IActionResult> DeletePlantFromTask(int taskId, int plantId)
         {
             try

@@ -22,7 +22,7 @@ namespace GreenGuard.Controllers.BaseControllers
         }
 
         /// <summary>
-        /// Retrieves the working schedule for a specific worker.
+        /// Get the working schedule for a specific worker.
         /// </summary>
         /// <param name="workerId">The ID of the worker.</param>
         /// <returns>
@@ -65,7 +65,7 @@ namespace GreenGuard.Controllers.BaseControllers
         }
 
         /// <summary>
-        /// Updates the working schedule for a specific worker.
+        /// Update the working schedule for a specific worker.
         /// </summary>
         /// <param name="workerId">The ID of the worker.</param>
         /// <param name="updatedSchedule">The updated working schedule.</param>
