@@ -16,11 +16,13 @@ namespace GreenGuard.Controllers.BaseControllers
     {
         private readonly GreenGuardDbContext _context;
         private readonly ILogger<FertilizersController> _logger;
+        private readonly FertilizerService _fertilizerService;
 
-        public FertilizersController(GreenGuardDbContext context, ILogger<FertilizersController> logger)
+        public FertilizersController(GreenGuardDbContext context, ILogger<FertilizersController> logger, FertilizerService fertilizerService)
         {
             _context = context;
             _logger = logger;
+            _fertilizerService = fertilizerService;
         }
 
         /// <summary>
@@ -36,17 +38,11 @@ namespace GreenGuard.Controllers.BaseControllers
         {
             try
             {
-                var fertilizers = _context.Fertilizer.Select(data => new FertilizerDto
-                {
-                    FertilizerId = data.FertilizerId,
-                    FertilizerName = data.FertilizerName,
-                    FertilizerQuantity = data.FertilizerQuantity
-                }).ToList();
+                var fertilizers = await _fertilizerService.GetFertilizers();
                 return Ok(fertilizers);
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "An error occurred during all fertilizers loading");
                 return StatusCode(500, ex.Message);
             }
         }
@@ -66,23 +62,16 @@ namespace GreenGuard.Controllers.BaseControllers
         {
             try
             {
-                var fertilizer = await _context.Fertilizer.FindAsync(id);
+                var fertilizer = await _fertilizerService.GetFertilizerById(id);
                 if (fertilizer == null)
                 {
                     return NotFound($"Fertilizer with ID {id} not found");
                 }
 
-                var fertilizerDto = new AddFertilizer
-                {
-                    FertilizerName = fertilizer.FertilizerName,
-                    FertilizerQuantity = fertilizer.FertilizerQuantity
-                };
-
-                return Ok(fertilizerDto);
+                return Ok(fertilizer);
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "An error occurred while retrieving fertilizer by ID");
                 return StatusCode(500, ex.Message);
             }
         }
@@ -106,28 +95,12 @@ namespace GreenGuard.Controllers.BaseControllers
                     return BadRequest(ModelState);
                 }
 
-                if (await _context.Fertilizer.AnyAsync(data => data.FertilizerName == model.FertilizerName))
-                {
-                    return BadRequest("Fertilizer with such name already exists");
-                }
-
-                var newFertilizer = new FertilizerDto
-                {
-                    FertilizerName = model.FertilizerName,
-                    FertilizerQuantity = model.FertilizerQuantity
-                };
-
-                await _context.Fertilizer.AddAsync(newFertilizer);
-                await _context.SaveChangesAsync();
-
-                return Ok($"{newFertilizer.FertilizerName} - {newFertilizer.FertilizerQuantity} was added successfully");
-
+                await _fertilizerService.AddFertilizer(model);
+                return Ok("Fertilizer was successfully added");
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "An error occurred during adding new fertilizer");
                 return StatusCode(500, ex.Message);
-
             }
         }
 
@@ -146,21 +119,11 @@ namespace GreenGuard.Controllers.BaseControllers
         {
             try
             {
-                var fertilizer = await _context.Fertilizer.FindAsync(id);
-                if (fertilizer == null)
-                {
-                    return NotFound("There is no fertilizer with the provided ID");
-                }
-
-                fertilizer.FertilizerQuantity = model.FertilizerQuantity;
-                _context.Update(fertilizer);
-                await _context.SaveChangesAsync();
-
-                return Ok($"Fertilizer quantity {fertilizer.FertilizerQuantity} updated successfully");
+                await _fertilizerService.UpdateFertilizerQuantity(id, model);
+                return Ok($"Fertilizer quantity updated successfully");
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "An error occurred during updating quantity of fertilizer");
                 return StatusCode(500, ex.Message);
             }
         }
@@ -179,24 +142,13 @@ namespace GreenGuard.Controllers.BaseControllers
         {
             try
             {
-                var fertilizer = await _context.Fertilizer.FindAsync(id);
-                if (fertilizer == null)
-                {
-                    return BadRequest(ModelState);
-                }
-                _context.Fertilizer.Remove(fertilizer);
-                await _context.SaveChangesAsync();
-
-                return Ok($"Fertilizer {fertilizer.FertilizerName} was successfully deleted");
-
+                await _fertilizerService.DeleteFertilizer(id);
+                return Ok($"Fertilizer with ID {id} was successfully deleted");
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "An error occurred during deleting fertilizer");
                 return StatusCode(500, ex.Message);
-
             }
-
         }
     }
 }

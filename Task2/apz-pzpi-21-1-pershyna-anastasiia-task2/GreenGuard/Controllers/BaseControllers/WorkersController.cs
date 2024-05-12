@@ -7,6 +7,7 @@ using GreenGuard.Services;
 using GreenGuard.Models.Worker;
 using Microsoft.AspNetCore.Authorization;
 using GreenGuard.Helpers;
+using Microsoft.SqlServer.Management.Smo.Broker;
 
 namespace GreenGuard.Controllers.BaseControllers
 {
@@ -19,13 +20,15 @@ namespace GreenGuard.Controllers.BaseControllers
         private readonly ILogger<WorkersController> _logger;
         private readonly IPasswordHasher<WorkerDto> _passwordHasher;
         private readonly JwtTokenService _jwtService;
+        private readonly WorkerService _workerService;
 
-        public WorkersController(GreenGuardDbContext context, ILogger<WorkersController> logger, IConfiguration config, IPasswordHasher<WorkerDto> passwordHasher)
+        public WorkersController(GreenGuardDbContext context, ILogger<WorkersController> logger, IConfiguration config, IPasswordHasher<WorkerDto> passwordHasher, WorkerService workerService)
         {
             _jwtService = new JwtTokenService(config);
             _context = context;
             _logger = logger;
             _passwordHasher = passwordHasher;
+            _workerService = workerService;
         }
 
         /// <summary>
@@ -41,21 +44,11 @@ namespace GreenGuard.Controllers.BaseControllers
         {
             try
             {
-                var workers = _context.Worker.Select(data => new GetWorker
-                {
-                    WorkerId = data.WorkerId,
-                    WorkerName = data.WorkerName,
-                    PhoneNumber = data.PhoneNumber,
-                    StartWorkTime = data.StartWorkTime,
-                    EndWorkTime = data.EndWorkTime,
-                    Email = data.Email,
-                    IsAdmin = data.IsAdmin,
-                }).ToList();
+                var workers = await _workerService.GetWorkers();
                 return Ok(workers);
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "An error occurred during all workers loading");
                 return StatusCode(500, ex.Message);
             }
         }
@@ -74,29 +67,12 @@ namespace GreenGuard.Controllers.BaseControllers
         {
             try
             {
-                var workers = await _context.Working_Schedule
-                    .Where(ws =>
-                        ws.Monday == true && date.DayOfWeek == DayOfWeek.Monday ||
-                        ws.Tuesday == true && date.DayOfWeek == DayOfWeek.Tuesday ||
-                        ws.Wednesday == true && date.DayOfWeek == DayOfWeek.Wednesday ||
-                        ws.Thursday == true && date.DayOfWeek == DayOfWeek.Thursday ||
-                        ws.Friday == true && date.DayOfWeek == DayOfWeek.Friday ||
-                        ws.Saturday == true && date.DayOfWeek == DayOfWeek.Saturday ||
-                        ws.Sunday == true && date.DayOfWeek == DayOfWeek.Sunday
-                    )
-                    .Select(ws => ws.WorkerId)
-                    .ToListAsync();
-
-                var workersInfo = await _context.Worker
-                    .Where(w => workers.Contains(w.WorkerId))
-                    .ToListAsync();
-
-                return Ok(workersInfo);
+                var workers = await _workerService.GetWorkersWorkingAtDate(date);
+                return Ok(workers);
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "An error occurred while fetching workers working at the specified date");
-                return StatusCode(500, "Internal server error");
+                return StatusCode(500, ex.Message);
             }
         }
 
@@ -114,32 +90,16 @@ namespace GreenGuard.Controllers.BaseControllers
         {
             try
             {
-                if (!ModelState.IsValid)
-                {
-                    return BadRequest(ModelState);
-                }
-
-                var worker = await _context.Worker.FirstOrDefaultAsync(w => w.Email == model.Email);
-
-                if (worker == null)
-                {
-                    return BadRequest("Invalid email or password");
-                }
-
-                var passwordVerificationResult = _passwordHasher.VerifyHashedPassword(worker, worker.PasswordHash, model.Password);
-
-                if (passwordVerificationResult != PasswordVerificationResult.Success)
-                {
-                    return BadRequest("Invalid email or password");
-                }
-
-                var token = _jwtService.GenerateToken(worker);
+                var token = await _workerService.AuthenticateWorker(model);
                 return Ok(new { Token = token });
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                return BadRequest(ex.Message);
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "An error occurred during login");
-                return StatusCode(500, "Internal server error");
+                return StatusCode(500, ex.Message);
             }
         }
 
@@ -158,35 +118,15 @@ namespace GreenGuard.Controllers.BaseControllers
         {
             try
             {
-                if (!ModelState.IsValid)
-                {
-                    return BadRequest(ModelState);
-                }
-
-                if (await _context.Worker.AnyAsync(w => w.Email == model.Email))
-                {
-                    return BadRequest("Worker with such email already exists");
-                }
-
-                var newWorker = new WorkerDto
-                {
-                    WorkerName = model.WorkerName,
-                    Email = model.Email,
-                    PhoneNumber = model.PhoneNumber,
-                    IsAdmin = model.IsAdmin,
-                };
-
-                newWorker.PasswordHash = _passwordHasher.HashPassword(newWorker, model.Password);
-
-                await _context.Worker.AddAsync(newWorker);
-                await _context.SaveChangesAsync();
-
-                var token = _jwtService.GenerateToken(newWorker);
+                var token = await _workerService.RegisterWorker(model);
                 return Ok(new { Token = token });
+            }
+            catch (InvalidOperationException ex)
+            {
+                return BadRequest(ex.Message);
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "An error occurred during worker registration");
                 return StatusCode(500, ex.Message);
             }
         }
@@ -207,26 +147,11 @@ namespace GreenGuard.Controllers.BaseControllers
         {
             try
             {
-                var existingWorker = await _context.Worker.FindAsync(id);
-                if (existingWorker == null)
-                {
-                    return NotFound("Worker not found");
-                }
-
-                existingWorker.WorkerName = updatedWorker.WorkerName;
-                existingWorker.Email = updatedWorker.Email;
-                existingWorker.PhoneNumber = updatedWorker.PhoneNumber;
-                existingWorker.StartWorkTime = updatedWorker.StartWorkTime;
-                existingWorker.EndWorkTime = updatedWorker.EndWorkTime;
-
-                _context.Update(existingWorker);
-                await _context.SaveChangesAsync();
-
+                await _workerService.UpdateWorker(id, updatedWorker);
                 return Ok("Worker information updated successfully");
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "An error occurred while updating worker information");
                 return StatusCode(500, ex.Message);
             }
         }
@@ -247,23 +172,11 @@ namespace GreenGuard.Controllers.BaseControllers
         {
             try
             {
-
-                var existingWorker = await _context.Worker.FindAsync(id);
-                if (existingWorker == null)
-                {
-                    return NotFound("Worker not found");
-                }
-
-                existingWorker.IsAdmin = isAdmin;
-
-                _context.Entry(existingWorker).State = EntityState.Modified;
-                await _context.SaveChangesAsync();
-
+                await _workerService.UpdateWorkerRole(id, isAdmin);
                 return Ok("Worker role updated successfully");
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "An error occurred while updating worker role");
                 return StatusCode(500, ex.Message);
             }
         }
@@ -283,20 +196,11 @@ namespace GreenGuard.Controllers.BaseControllers
         {
             try
             {
-                var worker = await _context.Worker.FindAsync(id);
-                if (worker == null)
-                {
-                    return NotFound("Worker not found");
-                }
-
-                _context.Worker.Remove(worker);
-                await _context.SaveChangesAsync();
-
+                await _workerService.DeleteWorker(id);
                 return Ok($"Worker with ID {id} successfully deleted");
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "An error occurred while deleting worker");
                 return StatusCode(500, ex.Message);
             }
         }

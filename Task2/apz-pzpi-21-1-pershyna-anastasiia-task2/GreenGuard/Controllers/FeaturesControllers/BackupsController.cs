@@ -1,4 +1,5 @@
 ﻿using GreenGuard.Helpers;
+using GreenGuard.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
@@ -11,26 +12,11 @@ namespace GreenGuard.Controllers.FeaturesControllers
 
     public class BackupsController : ControllerBase
     {
-        private readonly ILogger<BackupsController> _logger;
-        private readonly string _connectionString;
-        private readonly string _backupDirectory = "D:\\";
+        private readonly BackupService _backupService;
 
-        public BackupsController(ILogger<BackupsController> logger)
+        public BackupsController(BackupService backupService)
         {
-            _logger = logger;
-            _connectionString = "Server=DESKTOP-D0GBIS9;Database=GreenGuard;Trusted_Connection=True;TrustServerCertificate=True;";
-        }
-
-        private SqlConnection CreateAndOpenConnection()
-        {
-            var sqlConnection = new SqlConnection(_connectionString);
-            sqlConnection.Open();
-            return sqlConnection;
-        }
-
-        private string GetBackupFilePath(string databaseName)
-        {
-            return Path.Combine(_backupDirectory, $"{databaseName}_Backup_{DateTime.Now:yyyyMMdd_HHmmss}.bak");
+            _backupService = backupService;
         }
 
         /// <summary>
@@ -47,15 +33,11 @@ namespace GreenGuard.Controllers.FeaturesControllers
         {
             try
             {
-                var backupFiles = Directory.GetFiles(_backupDirectory, "*.bak")
-                    .Select(Path.GetFileName)
-                    .ToList();
-
+                var backupFiles = _backupService.GetBackupFiles();
                 return Ok(backupFiles);
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "An error occurred while fetching backup files");
                 return StatusCode(500, ex.Message);
             }
         }
@@ -73,22 +55,11 @@ namespace GreenGuard.Controllers.FeaturesControllers
         {
             try
             {
-                using (var sqlConnection = CreateAndOpenConnection())
-                {
-                    string databaseName = sqlConnection.Database;
-                    string backupPath = GetBackupFilePath(databaseName);
-
-                    using (var sqlCommand = new SqlCommand($"BACKUP DATABASE [{databaseName}] TO DISK='{backupPath}' WITH FORMAT", sqlConnection))
-                    {
-                        sqlCommand.ExecuteNonQuery();
-                    }
-
-                    return Ok($"Backup created successfully at {backupPath}");
-                }
+                var backupPath = _backupService.CreateBackup();
+                return Ok($"Backup created successfully at {backupPath}");
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "An error occurred while creating a backup");
                 return StatusCode(500, ex.Message);
             }
         }
@@ -108,32 +79,17 @@ namespace GreenGuard.Controllers.FeaturesControllers
         {
             try
             {
-                using (var sqlConnection = CreateAndOpenConnection())
-                {
-                    sqlConnection.ChangeDatabase("master");
-
-                    string backupFilePath = Path.Combine(_backupDirectory, backupFileName);
-
-                    if (!System.IO.File.Exists(backupFilePath))
-                    {
-                        return NotFound("Backup file not found");
-                    }
-
-                    string restoreQuery = $"RESTORE DATABASE GreenGuard FROM DISK = '{backupFilePath}' WITH REPLACE;";
-                    using (SqlCommand sqlCommand = new SqlCommand(restoreQuery, sqlConnection))
-                    {
-                        sqlCommand.ExecuteNonQuery();
-                    }
-                }
-
-                return Ok($"Database restored successfully");
+                _backupService.RestoreBackup(backupFileName);
+                return Ok("Database restored successfully");
+            }
+            catch (FileNotFoundException ex)
+            {
+                return NotFound(ex.Message);
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "An error occurred while restoring the database");
                 return StatusCode(500, ex.Message);
             }
         }
-
     }
 }

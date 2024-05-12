@@ -12,12 +12,12 @@ namespace GreenGuard.Controllers.BaseControllers
     [Route("api/[controller]")]
     public class WorkingScheduleController : ControllerBase
     {
-        private readonly GreenGuardDbContext _context;
+        private readonly WorkingScheduleService _workingScheduleService;
         private readonly ILogger<WorkingScheduleController> _logger;
 
-        public WorkingScheduleController(GreenGuardDbContext context, ILogger<WorkingScheduleController> logger)
+        public WorkingScheduleController(WorkingScheduleService workingScheduleService, ILogger<WorkingScheduleController> logger)
         {
-            _context = context;
+            _workingScheduleService = workingScheduleService;
             _logger = logger;
         }
 
@@ -36,26 +36,13 @@ namespace GreenGuard.Controllers.BaseControllers
         {
             try
             {
-                var workingSchedule = await _context.Working_Schedule
-                    .FirstOrDefaultAsync(ws => ws.WorkerId == workerId);
-
+                var workingSchedule = await _workingScheduleService.GetWorkingScheduleByWorkerId(workerId);
                 if (workingSchedule == null)
                 {
                     return NotFound($"Working schedule not found for worker with ID {workerId}");
                 }
 
-                var updateWorkingSchedule = new UpdateWorkingSchedule
-                {
-                    Monday = workingSchedule.Monday,
-                    Tuesday = workingSchedule.Tuesday,
-                    Wednesday = workingSchedule.Wednesday,
-                    Thursday = workingSchedule.Thursday,
-                    Friday = workingSchedule.Friday,
-                    Saturday = workingSchedule.Saturday,
-                    Sunday = workingSchedule.Sunday,
-                };
-
-                return Ok(updateWorkingSchedule);
+                return Ok(workingSchedule);
             }
             catch (Exception ex)
             {
@@ -80,39 +67,7 @@ namespace GreenGuard.Controllers.BaseControllers
         {
             try
             {
-                var existingSchedule = await _context.Working_Schedule.FindAsync(workerId);
-
-                if (existingSchedule == null)
-                {
-                    // Create a new working schedule if it doesn't exist for the worker
-                    existingSchedule = new WorkingScheduleDto
-                    {
-                        WorkerId = workerId,
-                        Monday = updatedSchedule.Monday,
-                        Tuesday = updatedSchedule.Tuesday,
-                        Wednesday = updatedSchedule.Wednesday,
-                        Thursday = updatedSchedule.Thursday,
-                        Friday = updatedSchedule.Friday,
-                        Saturday = updatedSchedule.Saturday,
-                        Sunday = updatedSchedule.Sunday
-                    };
-
-                    _context.Working_Schedule.Add(existingSchedule);
-                }
-                else
-                {
-                    // Update the existing working schedule
-                    existingSchedule.Monday = updatedSchedule.Monday;
-                    existingSchedule.Tuesday = updatedSchedule.Tuesday;
-                    existingSchedule.Wednesday = updatedSchedule.Wednesday;
-                    existingSchedule.Thursday = updatedSchedule.Thursday;
-                    existingSchedule.Friday = updatedSchedule.Friday;
-                    existingSchedule.Saturday = updatedSchedule.Saturday;
-                    existingSchedule.Sunday = updatedSchedule.Sunday;
-                }
-
-                await _context.SaveChangesAsync();
-
+                await _workingScheduleService.UpdateWorkingScheduleByWorkerId(workerId, updatedSchedule);
                 return Ok("Working schedule updated successfully");
             }
             catch (Exception ex)
@@ -121,6 +76,5 @@ namespace GreenGuard.Controllers.BaseControllers
                 return StatusCode(500, "Internal server error");
             }
         }
-
     }
 }

@@ -304,3 +304,10 @@ D:\apz-pzpi-21-1-pershyna-anastasiia\Task2\apz-pzpi-21-1-pershyna-anastasiia-tas
 D:\apz-pzpi-21-1-pershyna-anastasiia\Task2\apz-pzpi-21-1-pershyna-anastasiia-task2\GreenGuard\obj\Debug\net8.0\GreenGuard.RazorAssemblyInfo.cs
 D:\apz-pzpi-21-1-pershyna-anastasiia\Task2\apz-pzpi-21-1-pershyna-anastasiia-task2\GreenGuard\obj\Debug\net8.0\scopedcss\Views\Shared\_Layout.cshtml.rz.scp.css
 D:\apz-pzpi-21-1-pershyna-anastasiia\Task2\apz-pzpi-21-1-pershyna-anastasiia-task2\GreenGuard\obj\Debug\net8.0\scopedcss\projectbundle\GreenGuard.bundle.scp.css
+D:\apz-pzpi-21-1-pershyna-anastasiia\Task2\apz-pzpi-21-1-pershyna-anastasiia-task2\GreenGuard\bin\Debug\net8.0\System.Web.Mvc.dll
+D:\apz-pzpi-21-1-pershyna-anastasiia\Task2\apz-pzpi-21-1-pershyna-anastasiia-task2\GreenGuard\bin\Debug\net8.0\System.Web.Razor.dll
+D:\apz-pzpi-21-1-pershyna-anastasiia\Task2\apz-pzpi-21-1-pershyna-anastasiia-task2\GreenGuard\bin\Debug\net8.0\System.Web.Helpers.dll
+D:\apz-pzpi-21-1-pershyna-anastasiia\Task2\apz-pzpi-21-1-pershyna-anastasiia-task2\GreenGuard\bin\Debug\net8.0\System.Web.WebPages.Deployment.dll
+D:\apz-pzpi-21-1-pershyna-anastasiia\Task2\apz-pzpi-21-1-pershyna-anastasiia-task2\GreenGuard\bin\Debug\net8.0\System.Web.WebPages.Razor.dll
+D:\apz-pzpi-21-1-pershyna-anastasiia\Task2\apz-pzpi-21-1-pershyna-anastasiia-task2\GreenGuard\bin\Debug\net8.0\System.Web.WebPages.dll
+D:\apz-pzpi-21-1-pershyna-anastasiia\Task2\apz-pzpi-21-1-pershyna-anastasiia-task2\GreenGuard\bin\Debug\net8.0\Microsoft.Web.Infrastructure.dll

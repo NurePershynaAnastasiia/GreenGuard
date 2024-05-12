@@ -7,6 +7,8 @@ using TaskDto = GreenGuard.Dto.TaskDto;
 using GreenGuard.Services;
 using GreenGuard.Helpers;
 using Microsoft.AspNetCore.Authorization;
+using System;
+using System.Threading.Tasks;
 
 namespace GreenGuard.Controllers.BaseControllers
 {
@@ -63,21 +65,11 @@ namespace GreenGuard.Controllers.BaseControllers
         {
             try
             {
-                var workerTasks = await _context.Worker_in_Task
-                    .Where(wt => wt.WorkerId == workerId)
-                    .ToListAsync();
-
-                var taskIds = workerTasks.Select(wt => wt.TaskId).ToList();
-
-                var tasks = await _context.Task
-                    .Where(t => taskIds.Contains(t.TaskId))
-                    .ToListAsync();
-
+                var tasks = await _taskService.GetWorkerTasks(workerId);
                 return Ok(tasks);
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "An error occurred while fetching worker tasks");
                 return StatusCode(500, ex.Message);
             }
         }
@@ -96,23 +88,11 @@ namespace GreenGuard.Controllers.BaseControllers
         {
             try
             {
-                DateTime today = DateTime.Today;
-
-                var workerTasks = await _context.Worker_in_Task
-                    .Where(wt => wt.WorkerId == workerId)
-                    .ToListAsync();
-
-                var taskIds = workerTasks.Select(wt => wt.TaskId).ToList();
-
-                var tasks = await _context.Task
-                    .Where(t => taskIds.Contains(t.TaskId) && t.TaskDate.Date.ToLocalTime() == today)
-                    .ToListAsync();
-
+                var tasks = await _taskService.GetWorkerTasksToday(workerId);
                 return Ok(tasks);
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "An error occurred while fetching worker tasks for today");
                 return StatusCode(500, ex.Message);
             }
         }
@@ -131,26 +111,11 @@ namespace GreenGuard.Controllers.BaseControllers
         {
             try
             {
-                var taskWorkers = await _context.Worker_in_Task
-                    .Where(wt => wt.TaskId == taskId)
-                    .ToListAsync();
-
-                var workerStatuses = new List<object>();
-
-                foreach (var taskWorker in taskWorkers)
-                {
-                    var worker = await _context.Worker.FindAsync(taskWorker.WorkerId);
-                    if (worker != null)
-                    {
-                        workerStatuses.Add(new { worker.WorkerName, taskWorker.TaskStatus });
-                    }
-                }
-
+                var workerStatuses = await _taskService.GetTaskStatuses(taskId);
                 return Ok(workerStatuses);
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "An error occurred while fetching task statuses");
                 return StatusCode(500, ex.Message);
             }
         }
@@ -171,27 +136,13 @@ namespace GreenGuard.Controllers.BaseControllers
             try
             {
                 if (!ModelState.IsValid)
-                {
                     return BadRequest(ModelState);
 
-                }
-                var newTask = new TaskDto
-                {
-                    TaskDate = model.TaskDate.ToUniversalTime(),
-                    TaskState = model.TaskState,
-                    TaskDetails = model.TaskDetails,
-                    TaskType = model.TaskType,
-                    FertilizerId = (model.FertilizerId == 0)? null : model.FertilizerId
-                };
-
-                _context.Add(newTask);
-                await _context.SaveChangesAsync();
+                await _taskService.AddTask(model);
                 return Ok("Task was succesfully created");
-
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "An error occurred during adding new task");
                 return StatusCode(500, ex.Message);
             }
         }
@@ -208,7 +159,7 @@ namespace GreenGuard.Controllers.BaseControllers
         /// </returns>
         [Authorize(Roles = Roles.Administrator)]
         [HttpPost("add-workers/{taskId}")]
-        public async Task<IActionResult> AddWorkerToTask(int taskId, List<int> workerIds)
+        public async Task<IActionResult> AddWorkersToTask(int taskId, List<int> workerIds)
         {
             try
             {
@@ -235,13 +186,12 @@ namespace GreenGuard.Controllers.BaseControllers
         /// </returns>
         [Authorize(Roles = Roles.Administrator)]
         [HttpPost("add-plants/{taskId}")]
-        public async Task<IActionResult> AddPlantToTask(int taskId, List<int> plantIds)
+        public async Task<IActionResult> AddPlantsToTask(int taskId, List<int> plantIds)
         {
             try
             {
                 var result = await _taskService.AddPlantToTask(taskId, plantIds);
                 return Ok(result);
-
             }
             catch (Exception ex)
             {
@@ -266,26 +216,14 @@ namespace GreenGuard.Controllers.BaseControllers
         {
             try
             {
-                var existingTask = await _context.Task.FindAsync(id);
-                if (existingTask == null)
-                {
+                var result = await _taskService.UpdateTask(id, updatedTask);
+                if (result)
+                    return Ok("Task updated successfully");
+                else
                     return NotFound("Task not found");
-                }
-
-                existingTask.TaskDate = updatedTask.TaskDate.ToUniversalTime();
-                existingTask.TaskDetails = updatedTask.TaskDetails;
-                existingTask.TaskType = updatedTask.TaskType;
-                existingTask.TaskState = updatedTask.TaskState;
-                existingTask.FertilizerId = updatedTask.FertilizerId;
-
-                _context.Entry(existingTask).State = EntityState.Modified;
-                await _context.SaveChangesAsync();
-
-                return Ok("Task updated successfully");
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "An error occurred while updating task");
                 return StatusCode(500, ex.Message);
             }
         }
@@ -307,22 +245,14 @@ namespace GreenGuard.Controllers.BaseControllers
         {
             try
             {
-                var workerInTask = await _context.Worker_in_Task
-                    .FirstOrDefaultAsync(wt => wt.TaskId == taskId && wt.WorkerId == workerId);
-
-                if (workerInTask == null)
-                {
+                var result = await _taskService.UpdateTaskStatus(taskId, workerId, taskStatus);
+                if (result)
+                    return Ok("Task status updated successfully");
+                else
                     return NotFound("Worker-task relationship not found");
-                }
-
-                workerInTask.TaskStatus = taskStatus;
-                await _context.SaveChangesAsync();
-
-                return Ok("Task status updated successfully");
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "An error occurred while updating task status");
                 return StatusCode(500, ex.Message);
             }
         }
@@ -342,23 +272,16 @@ namespace GreenGuard.Controllers.BaseControllers
         {
             try
             {
-                var task = await _context.Task.FindAsync(id);
-                if (task == null)
-                {
-                    return BadRequest(ModelState);
-                }
-                _context.Task.Remove(task);
-                await _context.SaveChangesAsync();
-
-                return Ok($"Task with description: {task.TaskDetails} was successfully deleted");
+                var result = await _taskService.DeleteTask(id);
+                if (result)
+                    return Ok($"Task with ID {id} was successfully deleted");
+                else
+                    return NotFound($"Task with ID {id} not found");
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "An error occurred during deleting task");
                 return StatusCode(500, ex.Message);
-
             }
-
         }
 
         /// <summary>
@@ -373,26 +296,18 @@ namespace GreenGuard.Controllers.BaseControllers
         /// </returns>
         [Authorize(Roles = Roles.Administrator)]
         [HttpDelete("delete-worker/{taskId}/{workerId}")]
-        public async Task<IActionResult> DeleteWorkerFromTask(int taskId, int workerId)
+        public async Task<IActionResult> e(int taskId, int workerId)
         {
             try
             {
-                var existingLink = await _context.Worker_in_Task
-                    .FirstOrDefaultAsync(wt => wt.TaskId == taskId && wt.WorkerId == workerId);
-
-                if (existingLink == null)
-                {
+                var result = await _taskService.DeleteWorkerFromTask(taskId, workerId);
+                if (result)
+                    return Ok("Worker successfully removed from task");
+                else
                     return NotFound("Worker-task link not found");
-                }
-
-                _context.Worker_in_Task.Remove(existingLink);
-                await _context.SaveChangesAsync();
-
-                return Ok("Worker successfully removed from task");
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "An error occurred while deleting worker from task");
                 return StatusCode(500, ex.Message);
             }
         }
@@ -413,24 +328,21 @@ namespace GreenGuard.Controllers.BaseControllers
         {
             try
             {
-                var existingLink = await _context.Plant_in_Task
-                    .FirstOrDefaultAsync(wt => wt.TaskId == taskId && wt.PlantId == plantId);
-
-                if (existingLink == null)
+                var result = await _taskService.DeletePlantFromTask(taskId, plantId);
+                if (result)
+                {
+                    return Ok("Plant successfully removed from task");
+                }
+                else
                 {
                     return NotFound("Plant-task link not found");
                 }
-
-                _context.Plant_in_Task.Remove(existingLink);
-                await _context.SaveChangesAsync();
-
-                return Ok("Plant successfully removed from task");
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "An error occurred while deleting plant from task");
                 return StatusCode(500, ex.Message);
             }
+
         }
     }
 }

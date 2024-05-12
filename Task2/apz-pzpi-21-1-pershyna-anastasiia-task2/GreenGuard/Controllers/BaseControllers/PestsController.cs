@@ -16,11 +16,13 @@ namespace GreenGuard.Controllers.BaseControllers
     {
         private readonly GreenGuardDbContext _context;
         private readonly ILogger<PestsController> _logger;
+        private readonly PestService _pestService;
 
-        public PestsController(GreenGuardDbContext context, ILogger<PestsController> logger)
+        public PestsController(GreenGuardDbContext context, ILogger<PestsController> logger, PestService pestService)
         {
             _context = context;
             _logger = logger;
+            _pestService = pestService;
         }
 
         /// <summary>
@@ -36,17 +38,11 @@ namespace GreenGuard.Controllers.BaseControllers
         {
             try
             {
-                var pests = _context.Pest.Select(data => new PestDto
-                {
-                    PestId = data.PestId,
-                    PestName = data.PestName,
-                    PestDescription = data.PestDescription
-                }).ToList();
+                var pests = await _pestService.GetPests();
                 return Ok(pests);
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "An error occurred during all pests loading");
                 return StatusCode(500, ex.Message);
             }
         }
@@ -66,23 +62,16 @@ namespace GreenGuard.Controllers.BaseControllers
         {
             try
             {
-                var pest = await _context.Pest.FindAsync(pestId);
+                var pest = await _pestService.GetPestById(pestId);
                 if (pest == null)
                 {
                     return NotFound($"Pest with ID {pestId} not found");
                 }
 
-                var pestDto = new AddPest
-                {
-                    PestName = pest.PestName,
-                    PestDescription = pest.PestDescription
-                };
-
-                return Ok(pestDto);
+                return Ok(pest);
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "An error occurred while retrieving pest by ID");
                 return StatusCode(500, ex.Message);
             }
         }
@@ -94,7 +83,7 @@ namespace GreenGuard.Controllers.BaseControllers
         /// <returns>
         /// If the operation is successful, it will return a message confirming the addition.
         /// If there is a bad request, it will return an ErrorDto.
-        /// </returns>
+        /// </returns>   
         [Authorize(Roles = Roles.Administrator)]
         [HttpPost("add")]
         public async Task<IActionResult> AddPest(AddPest model)
@@ -106,31 +95,14 @@ namespace GreenGuard.Controllers.BaseControllers
                     return BadRequest(ModelState);
                 }
 
-                if (await _context.Pest.AnyAsync(data => data.PestName == model.PestName))
-                {
-                    return BadRequest("Pest with such name already exists");
-                }
-
-                var newPest = new PestDto
-                {
-                    PestName = model.PestName,
-                    PestDescription = model.PestDescription
-                };
-
-                await _context.Pest.AddAsync(newPest);
-                await _context.SaveChangesAsync();
-
-                return Ok($"{newPest.PestName} was added successfully");
-
+                await _pestService.AddPest(model);
+                return Ok("Pest was successfully added");
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "An error occurred during adding new pest");
                 return StatusCode(500, ex.Message);
-
             }
         }
-
 
         /// <summary>
         /// Add a pest to a plant.
@@ -148,32 +120,11 @@ namespace GreenGuard.Controllers.BaseControllers
         {
             try
             {
-                var plant = await _context.Plant.FindAsync(plantId);
-                if (plant == null)
-                {
-                    return NotFound($"Plant with ID {plantId} not found");
-                }
-
-                var pest = await _context.Pest.FindAsync(pestId);
-                if (pest == null)
-                {
-                    return NotFound($"Pest with ID {pestId} not found");
-                }
-
-                var pestInPlant = new PestInPlantDto
-                {
-                    PlantId = plantId,
-                    PestId = pestId
-                };
-
-                _context.Pest_in_Plant.Add(pestInPlant);
-                await _context.SaveChangesAsync();
-
+                await _pestService.AddPestToPlant(plantId, pestId);
                 return Ok($"Pest with ID {pestId} added to plant with ID {plantId}");
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "An error occurred while adding pest to plant");
                 return StatusCode(500, ex.Message);
             }
         }
@@ -195,20 +146,11 @@ namespace GreenGuard.Controllers.BaseControllers
         {
             try
             {
-                var pestInPlant = await _context.Pest_in_Plant.FirstOrDefaultAsync(pip => pip.PlantId == plantId && pip.PestId == pestId);
-                if (pestInPlant == null)
-                {
-                    return NotFound($"Pest with ID {pestId} is not associated with plant with ID {plantId}");
-                }
-
-                _context.Pest_in_Plant.Remove(pestInPlant);
-                await _context.SaveChangesAsync();
-
+                await _pestService.DeletePestFromPlant(plantId, pestId);
                 return Ok($"Pest with ID {pestId} deleted from plant with ID {plantId}");
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "An error occurred while deleting pest from plant");
                 return StatusCode(500, ex.Message);
             }
         }

@@ -4,6 +4,7 @@ using GreenGuard.Dto;
 using GreenGuard.Models.Plant;
 using GreenGuard.Helpers;
 using Microsoft.AspNetCore.Authorization;
+using GreenGuard.Services;
 
 namespace GreenGuard.Controllers.BaseControllers
 {
@@ -14,11 +15,13 @@ namespace GreenGuard.Controllers.BaseControllers
     {
         private readonly GreenGuardDbContext _context;
         private readonly ILogger<PlantsController> _logger;
+        private readonly PlantService _plantService;
 
-        public PlantsController(GreenGuardDbContext context, ILogger<PlantsController> logger)
+        public PlantsController(GreenGuardDbContext context, ILogger<PlantsController> logger, PlantService plantService)
         {
             _context = context;
             _logger = logger;
+            _plantService = plantService;
         }
 
         /// <summary>
@@ -34,27 +37,13 @@ namespace GreenGuard.Controllers.BaseControllers
         {
             try
             {
-                var plants = _context.Plant.Select(data => new PlantFull
-                {
-                    PlantId = data.PlantId,
-                    PlantTypeId = data.PlantTypeId,
-                    PlantLocation = data.PlantLocation,
-                    Humidity = data.Humidity,
-                    Temp = data.Temp,
-                    Light = data.Light,
-                    AdditionalInfo = data.AdditionalInfo,
-                    PlantState = data.PlantState,
-                    Pests = _context.Pest_in_Plant
-                    .Where(pip => pip.PlantId == data.PlantId)
-                    .Select(pip => _context.Pest.FirstOrDefault(p => p.PestId == pip.PestId).PestName)
-                    .ToList()
-                }).ToList();
+                var plants = await _plantService.GetPlants();
                 return Ok(plants);
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "An error occurred during all plants loading");
-                return StatusCode(500, ex.Message);
+                _logger.LogError(ex, "An error occurred while getting plants");
+                return StatusCode(500, "An error occurred while getting plants");
             }
         }
 
@@ -70,36 +59,17 @@ namespace GreenGuard.Controllers.BaseControllers
         /// </returns>
         [Authorize(Roles = Roles.Administrator)]
         [HttpPost("add")]
-        public async Task<ActionResult> AddNewPlant(AddPlant model)
+        public async Task<ActionResult> AddPlant(AddPlant model)
         {
             try
             {
-                if (!ModelState.IsValid)
-                {
-                    return BadRequest(ModelState);
-
-                }
-
-                var newPlant = new PlantDto
-                {
-                    PlantTypeId = model.PlantTypeId,
-                    PlantLocation = model.PlantLocation,
-                    Humidity = model.Humidity,
-                    Light = model.Light,
-                    Temp = model.Temp,
-                    AdditionalInfo = model.AdditionalInfo,
-                    PlantState = model.PlantState
-                };
-
-                _context.Add(newPlant);
-                await _context.SaveChangesAsync();
-                return Ok("Plant was succesfully added");
-
+                await _plantService.AddNewPlant(model);
+                return Ok("Plant was successfully added");
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "An error occurred during adding new plant");
-                return StatusCode(500, ex.Message);
+                _logger.LogError(ex, "An error occurred while adding a new plant");
+                return StatusCode(500, "An error occurred while adding a new plant");
             }
         }
 
@@ -119,28 +89,13 @@ namespace GreenGuard.Controllers.BaseControllers
         {
             try
             {
-                var plant = await _context.Plant.FindAsync(id);
-                if (plant == null)
-                {
-                    return NotFound("There is no plant with the provided ID.");
-                }
-
-                plant.PlantLocation = model.PlantLocation;
-                plant.Humidity = model.Humidity;
-                plant.Light = model.Light;
-                plant.Temp = model.Temp;
-                plant.AdditionalInfo = model.AdditionalInfo;
-                plant.PlantState = model.PlantState;
-
-                _context.Update(plant);
-                await _context.SaveChangesAsync();
-
-                return Ok("Plant details updated successfully.");
+                await _plantService.UpdatePlant(id, model);
+                return Ok("Plant details updated successfully");
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "An error occurred during editing plant");
-                return StatusCode(500, ex.Message);
+                _logger.LogError(ex, "An error occurred while updating plant");
+                return StatusCode(500, "An error occurred while updating plant");
             }
         }
 
@@ -160,22 +115,13 @@ namespace GreenGuard.Controllers.BaseControllers
         {
             try
             {
-                var plant = await _context.Plant.FindAsync(id);
-                if (plant == null)
-                {
-                    return NotFound("There is no pant with the provided ID");
-                }
-
-                plant.PlantState = model.PlantState;
-                _context.Update(plant);
-                await _context.SaveChangesAsync();
-
-                return Ok($"Plant state {plant.PlantState} updated successfully");
+                await _plantService.UpdatePlantState(id, model);
+                return Ok($"Plant state updated successfully");
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "An error occurred during updating state of plant");
-                return StatusCode(500, ex.Message);
+                _logger.LogError(ex, "An error occurred while updating plant state");
+                return StatusCode(500, "An error occurred while updating plant state");
             }
         }
 
@@ -194,24 +140,14 @@ namespace GreenGuard.Controllers.BaseControllers
         {
             try
             {
-                var plant = await _context.Plant.FindAsync(id);
-                if (plant == null)
-                {
-                    return BadRequest(ModelState);
-                }
-                _context.Plant.Remove(plant);
-                await _context.SaveChangesAsync();
-
-                return Ok($"Plant with location: {plant.PlantLocation} was successfully deleted");
-
+                await _plantService.DeletePlant(id);
+                return Ok($"Plant with ID {id} was successfully deleted");
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "An error occurred during deleting plant");
-                return StatusCode(500, ex.Message);
-
+                _logger.LogError(ex, "An error occurred while deleting plant");
+                return StatusCode(500, "An error occurred while deleting plant");
             }
-
         }
     }
 }

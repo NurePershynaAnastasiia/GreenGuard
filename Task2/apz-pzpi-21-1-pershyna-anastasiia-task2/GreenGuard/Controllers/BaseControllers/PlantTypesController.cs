@@ -5,6 +5,7 @@ using GreenGuard.Dto;
 using GreenGuard.Models.PlantType;
 using GreenGuard.Helpers;
 using Microsoft.AspNetCore.Authorization;
+using GreenGuard.Services;
 
 namespace GreenGuard.Controllers.BaseControllers
 {
@@ -15,11 +16,13 @@ namespace GreenGuard.Controllers.BaseControllers
     {
         private readonly GreenGuardDbContext _context;
         private readonly ILogger<PlantTypesController> _logger;
+        private readonly PlantTypeService _plantTypeService;
 
-        public PlantTypesController(GreenGuardDbContext context, ILogger<PlantTypesController> logger)
+        public PlantTypesController(GreenGuardDbContext context, ILogger<PlantTypesController> logger, PlantTypeService plantTypeService)
         {
             _context = context;
             _logger = logger;
+            _plantTypeService = plantTypeService;
         }
 
         /// <summary>
@@ -35,21 +38,11 @@ namespace GreenGuard.Controllers.BaseControllers
         {
             try
             {
-                var plantTypes = _context.Plant_type.Select(data => new PlantTypeDto
-                {
-                    PlantTypeId = data.PlantTypeId,
-                    PlantTypeName = data.PlantTypeName,
-                    PlantTypeDescription = data.PlantTypeDescription,
-                    OptHumidity = data.OptHumidity,
-                    OptTemp = data.OptTemp,
-                    OptLight = data.OptLight,
-                    WaterFreq = data.WaterFreq,
-                }).ToList();
+                var plantTypes = await _plantTypeService.GetPlantTypes();
                 return Ok(plantTypes);
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "An error occurred during all plant types loading");
                 return StatusCode(500, ex.Message);
             }
         }
@@ -73,32 +66,12 @@ namespace GreenGuard.Controllers.BaseControllers
                     return BadRequest(ModelState);
                 }
 
-                if (await _context.Plant_type.AnyAsync(data => data.PlantTypeName == model.PlantTypeName))
-                {
-                    return BadRequest("Plant type with such name already exists");
-                }
-
-                var newPlantType = new PlantTypeDto
-                {
-                    PlantTypeName = model.PlantTypeName,
-                    PlantTypeDescription = model.PlantTypeDescription,
-                    OptHumidity = model.OptHumidity,
-                    OptTemp = model.OptTemp,
-                    OptLight = model.OptLight,
-                    WaterFreq = model.WaterFreq,
-                };
-
-                await _context.Plant_type.AddAsync(newPlantType);
-                await _context.SaveChangesAsync();
-
-                return Ok($"{newPlantType.PlantTypeName} was added successfully");
-
+                await _plantTypeService.AddPlantType(model);
+                return Ok("Plant type was successfully added");
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "An error occurred during adding new plant type");
                 return StatusCode(500, ex.Message);
-
             }
         }
     }
