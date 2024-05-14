@@ -29,20 +29,6 @@ namespace GreenGuard.Data
 
         public DbSet<PestInPlantDto> Pest_in_Plant { get; set; }
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            base.OnModelCreating(modelBuilder);
 
-            var timeOnlyConverter = new ValueConverter<TimeOnly, TimeSpan>(
-                timeOnly => timeOnly.ToTimeSpan(),
-                timeSpan => TimeOnly.FromTimeSpan(timeSpan));
-
-            modelBuilder.Entity<WorkerDto>()
-                .Property(e => e.StartWorkTime)
-                .HasConversion(timeOnlyConverter)
-                .HasColumnType("time(7)");
-
-            base.OnModelCreating(modelBuilder);
-        }
     }
 }

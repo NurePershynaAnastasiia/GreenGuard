@@ -8,6 +8,7 @@ namespace GreenGuard.Models.Worker
         public required string WorkerName { get; set; }
 
         [Phone]
+        [MinLength(3)]
         public string? PhoneNumber { get; set; }
 
         [EmailAddress]
@@ -15,7 +16,6 @@ namespace GreenGuard.Models.Worker
         public required string Email { get; set; }
 
         [MinLength(8)]
-        [RegularExpression(@"^(?=.*\d).*$")]
         [DataType(DataType.Password)]
         public required string Password { get; set; }
 

@@ -44,7 +44,7 @@ namespace GreenGuard.Services
             }
         }
 
-        public async Task<IEnumerable<WorkerDto>> GetWorkersWorkingAtDate(DateTime date)
+        public async Task<IEnumerable<WorkerDto>> GetWorkersWorkingOnDate(DateTime date)
         {
             try
             {

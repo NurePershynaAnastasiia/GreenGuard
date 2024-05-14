@@ -8,6 +8,7 @@ using GreenGuard.Models.Worker;
 using Microsoft.AspNetCore.Authorization;
 using GreenGuard.Helpers;
 using Microsoft.SqlServer.Management.Smo.Broker;
+using static GreenGuard.Helpers.DateValidation;
 
 namespace GreenGuard.Controllers.BaseControllers
 {
@@ -62,17 +63,24 @@ namespace GreenGuard.Controllers.BaseControllers
         /// If an error occurs, it returns a 500 Internal Server Error response.
         /// </returns>
         [Authorize(Roles = Roles.Administrator)]
-        [HttpGet("working-date/{date}")]
-        public async Task<IActionResult> GetWorkersWorkingAtDate(DateTime date)
+        [HttpGet("working-date")]
+        public async Task<IActionResult> GetWorkersWorkingOnDate(string dateString)
         {
-            try
+            if (TryParseDate(dateString, out DateTime date))
             {
-                var workers = await _workerService.GetWorkersWorkingAtDate(date);
-                return Ok(workers);
+                try
+                {
+                    var workers = await _workerService.GetWorkersWorkingOnDate(date);
+                    return Ok(workers);
+                }
+                catch (Exception ex)
+                {
+                    return StatusCode(500, ex.Message);
+                }
             }
-            catch (Exception ex)
+            else
             {
-                return StatusCode(500, ex.Message);
+                return BadRequest("Невірний формат дати");
             }
         }
 
