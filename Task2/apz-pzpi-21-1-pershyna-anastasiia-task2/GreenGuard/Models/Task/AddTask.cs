@@ -7,7 +7,6 @@ namespace GreenGuard.Models.Task
     public class AddTask
     {
         [PastDate(ErrorMessage = "Дата завдання не може бути раніше поточної дати")]
-        [ValidDateFormat(ErrorMessage = "Невірний формат дати")]
         public DateTime TaskDate { get; set; }
 
         public string TaskDetails { get; set; }

@@ -1,6 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using GreenGuard.Data;
-using GreenGuard.Dto;
 using GreenGuard.Models.Plant;
 using GreenGuard.Helpers;
 using Microsoft.AspNetCore.Authorization;
@@ -13,14 +11,12 @@ namespace GreenGuard.Controllers.BaseControllers
     [Route("api/[controller]")]
     public class PlantsController : ControllerBase
     {
-        private readonly GreenGuardDbContext _context;
         private readonly ILogger<PlantsController> _logger;
         private readonly PlantService _plantService;
         private readonly PlantStatusService _plantStatusService;
 
-        public PlantsController(GreenGuardDbContext context, ILogger<PlantsController> logger, PlantService plantService, PlantStatusService plantStatusService)
+        public PlantsController(ILogger<PlantsController> logger, PlantService plantService, PlantStatusService plantStatusService)
         {
-            _context = context;
             _logger = logger;
             _plantService = plantService;
             _plantStatusService = plantStatusService;
@@ -66,6 +62,7 @@ namespace GreenGuard.Controllers.BaseControllers
             try
             {
                 await _plantService.AddNewPlant(model);
+                await _plantStatusService.UpdatePlantStatus();
                 return Ok("Plant was successfully added");
             }
             catch (Exception ex)
@@ -92,60 +89,13 @@ namespace GreenGuard.Controllers.BaseControllers
             try
             {
                 await _plantService.UpdatePlant(id, model);
+                await _plantStatusService.UpdatePlantStatus();
                 return Ok("Plant details updated successfully");
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex, "An error occurred while updating plant");
                 return StatusCode(500, "An error occurred while updating plant");
-            }
-        }
-
-        /// <summary>
-        /// Update the status of a plant by its ID.
-        /// </summary>
-        /// <param name="id">The ID of the plant to update.</param>
-        /// <param name="model">The updated status of the plant.</param>
-        /// <returns>
-        /// If the operation is successful, it will return a success message.
-        /// If there is no plant with the provided ID, it will return a 404 Not Found response.
-        /// If an error occurs, it will return a 500 Internal Server Error response.
-        /// </returns>
-        [Authorize(Roles = Roles.Administrator + "," + Roles.User)]
-        [HttpPut("update-status/{id}")]
-        public async Task<IActionResult> UpdatePlantState(int id, UpdatePlantState model)
-        {
-            try
-            {
-                await _plantService.UpdatePlantState(id, model);
-                return Ok($"Plant state updated successfully");
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "An error occurred while updating plant state");
-                return StatusCode(500, "An error occurred while updating plant state");
-            }
-        }
-
-        /// <summary>
-        /// Update the statuses of all plants.
-        /// </summary>
-        /// <returns>
-        /// If the operation is successful, it will return a success message.
-        /// If an error occurs, it will return a 500 Internal Server Error response.
-        /// </returns>
-        [Authorize(Roles = Roles.Administrator + "," + Roles.User)]
-        [HttpPut("update-statuses")]
-        public async Task<IActionResult> UpdatePlantsStatuses()
-        {
-            try
-            {
-                await _plantStatusService.UpdatePlantStatus();
-                return Ok("Plants' statuses updated successfully");
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, $"Error while updating plant statuses: {ex.Message}");
             }
         }
 

@@ -46,12 +46,6 @@ builder.Services.AddControllersWithViews().AddJsonOptions(options =>
 
 var app = builder.Build();
 
-if (!app.Environment.IsDevelopment())
-{
-    app.UseExceptionHandler("/Home/Error");
-    app.UseHsts();
-}
-
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger(); 

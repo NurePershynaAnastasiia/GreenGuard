@@ -1,7 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using GreenGuard.Data;
-using GreenGuard.Dto;
 using GreenGuard.Models.PlantType;
 using GreenGuard.Helpers;
 using Microsoft.AspNetCore.Authorization;
@@ -14,14 +11,10 @@ namespace GreenGuard.Controllers.BaseControllers
     [Route("api/[controller]")]
     public class PlantTypesController : ControllerBase
     {
-        private readonly GreenGuardDbContext _context;
-        private readonly ILogger<PlantTypesController> _logger;
         private readonly PlantTypeService _plantTypeService;
 
-        public PlantTypesController(GreenGuardDbContext context, ILogger<PlantTypesController> logger, PlantTypeService plantTypeService)
+        public PlantTypesController(PlantTypeService plantTypeService)
         {
-            _context = context;
-            _logger = logger;
             _plantTypeService = plantTypeService;
         }
 

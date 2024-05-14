@@ -1,7 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using GreenGuard.Data;
-using GreenGuard.Dto;
 using GreenGuard.Models.Pest;
 using GreenGuard.Helpers;
 using Microsoft.AspNetCore.Authorization;
@@ -14,14 +11,10 @@ namespace GreenGuard.Controllers.BaseControllers
 
     public class PestsController : ControllerBase
     {
-        private readonly GreenGuardDbContext _context;
-        private readonly ILogger<PestsController> _logger;
         private readonly PestService _pestService;
 
-        public PestsController(GreenGuardDbContext context, ILogger<PestsController> logger, PestService pestService)
+        public PestsController(PestService pestService)
         {
-            _context = context;
-            _logger = logger;
             _pestService = pestService;
         }
 

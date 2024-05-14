@@ -1,6 +1,5 @@
 ﻿using GreenGuard.Dto;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TaskDto = GreenGuard.Dto.TaskDto;
 
 namespace GreenGuard.Data
@@ -28,7 +27,5 @@ namespace GreenGuard.Data
         public DbSet<WorkingScheduleDto> Working_Schedule { get; set; }
 
         public DbSet<PestInPlantDto> Pest_in_Plant { get; set; }
-
-
     }
 }

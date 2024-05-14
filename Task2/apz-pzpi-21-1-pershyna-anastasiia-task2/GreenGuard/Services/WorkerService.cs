@@ -94,7 +94,7 @@ namespace GreenGuard.Services
             }
         }
 
-        public async Task<string> RegisterWorker(WorkerRegister model)
+        public async Task RegisterWorker(WorkerRegister model)
         {
             try
             {
@@ -115,8 +115,6 @@ namespace GreenGuard.Services
 
                 await _context.Worker.AddAsync(newWorker);
                 await _context.SaveChangesAsync();
-
-                return _jwtService.GenerateToken(newWorker);
             }
             catch (Exception ex)
             {

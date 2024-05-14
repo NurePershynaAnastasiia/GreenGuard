@@ -13,7 +13,7 @@ namespace GreenGuard.Helpers
             protected override ValidationResult IsValid(object value, ValidationContext validationContext)
             {
                 var date = (DateTime)value;
-                if (date.Date > DateTime.Now.Date)
+                if (date.Date >= DateTime.Now.Date)
                 {
                     return ValidationResult.Success;
                 }
@@ -28,7 +28,8 @@ namespace GreenGuard.Helpers
         {
             protected override ValidationResult IsValid(object value, ValidationContext validationContext)
             {
-                var dateValue = value as string;
+                var dateValue = value.ToString();
+
                 if (dateValue == null)
                 {
                     return new ValidationResult("Значення не є рядком");

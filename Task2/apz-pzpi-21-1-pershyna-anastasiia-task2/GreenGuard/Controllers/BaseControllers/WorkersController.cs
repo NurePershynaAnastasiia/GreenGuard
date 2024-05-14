@@ -17,18 +17,10 @@ namespace GreenGuard.Controllers.BaseControllers
     [Route("api/[controller]")]
     public class WorkersController : ControllerBase
     {
-        private readonly GreenGuardDbContext _context;
-        private readonly ILogger<WorkersController> _logger;
-        private readonly IPasswordHasher<WorkerDto> _passwordHasher;
-        private readonly JwtTokenService _jwtService;
         private readonly WorkerService _workerService;
 
-        public WorkersController(GreenGuardDbContext context, ILogger<WorkersController> logger, IConfiguration config, IPasswordHasher<WorkerDto> passwordHasher, WorkerService workerService)
+        public WorkersController(WorkerService workerService)
         {
-            _jwtService = new JwtTokenService(config);
-            _context = context;
-            _logger = logger;
-            _passwordHasher = passwordHasher;
             _workerService = workerService;
         }
 
@@ -126,8 +118,8 @@ namespace GreenGuard.Controllers.BaseControllers
         {
             try
             {
-                var token = await _workerService.RegisterWorker(model);
-                return Ok(new { Token = token });
+                await _workerService.RegisterWorker(model);
+                return Ok("New worker was successfully registered");
             }
             catch (InvalidOperationException ex)
             {

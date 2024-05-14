@@ -36,7 +36,7 @@ public class WorkingScheduleService
 
     public async Task UpdateWorkingScheduleByWorkerId(int workerId, UpdateWorkingSchedule updatedSchedule)
     {
-        var existingSchedule = await _context.Working_Schedule.FindAsync(workerId);
+        var existingSchedule = await _context.Working_Schedule.FirstOrDefaultAsync(ws => ws.WorkerId == workerId);
 
         if (existingSchedule == null)
         {

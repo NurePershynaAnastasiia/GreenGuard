@@ -46,7 +46,7 @@ public class WateringService
 
             var nextWateringDate = lastWateringTask.TaskDate.AddDays(recommendedData.WaterFreq);
 
-            if (lastWateringTask == null || daysSinceLastWatering >= recommendedData.WaterFreq || humidityDifference > 0)
+            if (daysSinceLastWatering >= recommendedData.WaterFreq || humidityDifference > 0)
             {
                 var humidityCoefficient = humidityDifference / recommendedData.OptHumidity * -1;
                 var tempCoefficient = tempDifference / recommendedData.OptTemp * -1;

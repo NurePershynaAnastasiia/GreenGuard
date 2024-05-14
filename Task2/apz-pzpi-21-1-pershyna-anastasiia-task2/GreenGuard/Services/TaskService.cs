@@ -184,7 +184,7 @@ namespace GreenGuard.Services
                 var taskIds = workerTasks.Select(wt => wt.TaskId).ToList();
 
                 var tasks = await _context.Task
-                    .Where(t => taskIds.Contains(t.TaskId) && t.TaskDate.Date.ToLocalTime() == today)
+                    .Where(t => taskIds.Contains(t.TaskId) && t.TaskDate.Date == today)
                     .ToListAsync();
 
                 return tasks;

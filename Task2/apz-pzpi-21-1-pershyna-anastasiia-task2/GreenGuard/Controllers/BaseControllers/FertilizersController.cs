@@ -1,7 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using GreenGuard.Data;
-using GreenGuard.Dto;
 using GreenGuard.Models.Fertilizer;
 using Microsoft.AspNetCore.Authorization;
 using GreenGuard.Helpers;
@@ -14,14 +11,10 @@ namespace GreenGuard.Controllers.BaseControllers
 
     public class FertilizersController : ControllerBase
     {
-        private readonly GreenGuardDbContext _context;
-        private readonly ILogger<FertilizersController> _logger;
         private readonly FertilizerService _fertilizerService;
 
-        public FertilizersController(GreenGuardDbContext context, ILogger<FertilizersController> logger, FertilizerService fertilizerService)
+        public FertilizersController(FertilizerService fertilizerService)
         {
-            _context = context;
-            _logger = logger;
             _fertilizerService = fertilizerService;
         }
 

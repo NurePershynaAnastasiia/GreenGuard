@@ -17,13 +17,11 @@ namespace GreenGuard.Controllers.BaseControllers
     [Route("api/[controller]")]
     public class TasksController : ControllerBase
     {
-        private readonly GreenGuardDbContext _context;
         private readonly ILogger<TasksController> _logger;
         private readonly TaskService _taskService;
 
-        public TasksController(GreenGuardDbContext context, ILogger<TasksController> logger, TaskService taskService)
+        public TasksController(ILogger<TasksController> logger, TaskService taskService)
         {
-            _context = context;
             _logger = logger;
             _taskService = taskService;
         }
