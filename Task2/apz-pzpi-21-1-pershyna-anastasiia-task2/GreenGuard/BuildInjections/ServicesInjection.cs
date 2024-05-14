@@ -18,6 +18,7 @@ namespace GreenGuard.BuildInjections
             services.AddScoped<PlantTypeService>();
             services.AddScoped<WorkingScheduleService>();
             services.AddScoped<BackupService>();
+            services.AddScoped<PlantStatusService>();
             services.AddScoped<IPasswordHasher<WorkerDto>, PasswordHasher<WorkerDto>>();
         }
     }

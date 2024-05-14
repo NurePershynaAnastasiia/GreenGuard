@@ -16,12 +16,14 @@ namespace GreenGuard.Controllers.BaseControllers
         private readonly GreenGuardDbContext _context;
         private readonly ILogger<PlantsController> _logger;
         private readonly PlantService _plantService;
+        private readonly PlantStatusService _plantStatusService;
 
-        public PlantsController(GreenGuardDbContext context, ILogger<PlantsController> logger, PlantService plantService)
+        public PlantsController(GreenGuardDbContext context, ILogger<PlantsController> logger, PlantService plantService, PlantStatusService plantStatusService)
         {
             _context = context;
             _logger = logger;
             _plantService = plantService;
+            _plantStatusService = plantStatusService;
         }
 
         /// <summary>
@@ -100,17 +102,17 @@ namespace GreenGuard.Controllers.BaseControllers
         }
 
         /// <summary>
-        /// Update the state of a plant by its ID.
+        /// Update the status of a plant by its ID.
         /// </summary>
         /// <param name="id">The ID of the plant to update.</param>
-        /// <param name="model">The updated state of the plant.</param>
+        /// <param name="model">The updated status of the plant.</param>
         /// <returns>
         /// If the operation is successful, it will return a success message.
         /// If there is no plant with the provided ID, it will return a 404 Not Found response.
         /// If an error occurs, it will return a 500 Internal Server Error response.
         /// </returns>
         [Authorize(Roles = Roles.Administrator + "," + Roles.User)]
-        [HttpPut("update-state/{id}")]
+        [HttpPut("update-status/{id}")]
         public async Task<IActionResult> UpdatePlantState(int id, UpdatePlantState model)
         {
             try
@@ -122,6 +124,28 @@ namespace GreenGuard.Controllers.BaseControllers
             {
                 _logger.LogError(ex, "An error occurred while updating plant state");
                 return StatusCode(500, "An error occurred while updating plant state");
+            }
+        }
+
+        /// <summary>
+        /// Update the statuses of all plants.
+        /// </summary>
+        /// <returns>
+        /// If the operation is successful, it will return a success message.
+        /// If an error occurs, it will return a 500 Internal Server Error response.
+        /// </returns>
+        [Authorize(Roles = Roles.Administrator + "," + Roles.User)]
+        [HttpPut("update-statuses")]
+        public async Task<IActionResult> UpdatePlantsStatuses()
+        {
+            try
+            {
+                await _plantStatusService.UpdatePlantStatus();
+                return Ok("Plants' statuses updated successfully");
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Error while updating plant statuses: {ex.Message}");
             }
         }
 
