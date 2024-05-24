@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background_profile"
+    tools:context=".activities.ProfileActivity">
+
+    <ImageButton
+        android:id="@+id/exit_btn"
+        android:src="@drawable/icon_exit"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
+        android:background="@android:color/transparent"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignParentRight="true"/>
+
+    <!-- Full Name -->
+    <EditText
+        android:id="@+id/full_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="260dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:hint="ПІБ"
+        android:text="Ім'я Прізвище"
+        android:textSize="20sp"
+        android:background="#F8F1F4"
+        android:padding="10dp" />
+
+    <!-- Phone Number -->
+    <EditText
+        android:id="@+id/phone_number"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/full_name"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:hint="Номер телефону"
+        android:inputType="phone"
+        android:text="380XXXXXXXXX"
+        android:textSize="20sp"
+        android:background="#F8F1F4"
+        android:padding="10dp" />
+
+    <!-- Email -->
+    <EditText
+        android:id="@+id/email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/phone_number"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:hint="Електронна пошта"
+        android:inputType="textEmailAddress"
+        android:text="example@example.com"
+        android:textSize="20sp"
+        android:background="#F8F1F4"
+        android:padding="10dp" />
+
+    <!-- Work Start Time -->
+    <LinearLayout
+        android:id="@+id/work_start_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/email"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/work_start_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Початок робочого дня"
+            android:textSize="15sp"
+            android:layout_weight="1"
+            android:textColor="@android:color/black" />
+
+        <TextView
+            android:id="@+id/work_start_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="09:00"
+            android:textSize="20sp"
+            android:layout_weight="1"
+            android:textColor="@android:color/black" />
+
+        <Button
+            android:id="@+id/edit_start_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Редагувати"
+            android:onClick="showTimePickerStart"
+            android:backgroundTint="#275362"
+            android:textColor="#FFFFFF"/>
+    </LinearLayout>
+
+    <!-- Work End Time -->
+    <LinearLayout
+        android:id="@+id/work_end_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/work_start_layout"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/work_end_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Кінець робочого дня"
+            android:textSize="15sp"
+            android:layout_weight="1"
+            android:textColor="@android:color/black" />
+
+        <TextView
+            android:id="@+id/work_end_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="18:00"
+            android:textSize="20sp"
+            android:layout_weight="1"
+            android:textColor="@android:color/black" />
+
+        <Button
+            android:id="@+id/edit_end_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Редагувати"
+            android:onClick="showTimePickerEnd"
+            android:backgroundTint="#275362"
+            android:textColor="#FFFFFF"/>
+    </LinearLayout>
+
+    <!-- Working Days -->
+    <TextView
+        android:id="@+id/working_days_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/work_end_layout"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="20dp"
+        android:text="Робочі дні:"
+        android:textSize="20sp"
+        android:textColor="@android:color/black" />
+
+    <LinearLayout
+        android:id="@+id/working_days"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/working_days_label"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:orientation="horizontal"
+        android:weightSum="7">
+
+        <CheckBox
+            android:id="@+id/monday"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Пн"
+            android:checked="true" />
+
+        <CheckBox
+            android:id="@+id/tuesday"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Вт"
+            android:checked="true" />
+
+        <CheckBox
+            android:id="@+id/wednesday"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Ср"
+            android:checked="true" />
+
+        <CheckBox
+            android:id="@+id/thursday"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Чт"
+            android:checked="true" />
+
+        <CheckBox
+            android:id="@+id/friday"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Пт"
+            android:checked="true" />
+
+        <CheckBox
+            android:id="@+id/saturday"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Сб" />
+
+        <CheckBox
+            android:id="@+id/sunday"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Нд" />
+    </LinearLayout>
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_navigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        style="@style/Menu"
+        app:itemIconTint="@color/white"
+        app:menu="@menu/bottom_nav_menu" />
+
+</RelativeLayout>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Theme.GreenGuardMobile" parent="Theme.AppCompat.Light.DarkActionBar" />
+
+    <style name="Menu">
+        <item name="itemBackground">@color/dark_green</item>
+        <item name="itemTextColor">@color/white</item>
+        <item name="android:background">@color/dark_green</item>
+        <item name="colorPrimary">@color/dark_green</item>
+        <item name="colorOnPrimary">@color/dark_green</item>
+        <item name="android:backgroundTint">@color/dark_green</item>
+    </style>
+</resources>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/plants"
+        android:title="Рослини"
+        android:icon="@drawable/icon_plant" />
+    <item android:id="@+id/tasks"
+        android:title="Завдання"
+        android:icon="@drawable/icon_task"/>
+    <item android:id="@+id/pests"
+        android:title="Шкідники"
+        android:icon="@drawable/icon_pest"/>
+    <item android:id="@+id/fertilizers"
+        android:title="Добрива"
+        android:icon="@drawable/icon_fertilizer"/>
+
+
+</menu>
