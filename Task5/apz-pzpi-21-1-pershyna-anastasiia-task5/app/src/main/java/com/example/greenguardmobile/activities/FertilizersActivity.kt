@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.greenguardmobile.R
 import com.example.greenguardmobile.adapter.FertilizerAdapter
 import com.example.greenguardmobile.api.ApiService
+import com.example.greenguardmobile.api.NetworkModule
 import com.example.greenguardmobile.databinding.ActivityFertilizersBinding
 import com.example.greenguardmobile.model.Fertilizer
 import com.example.greenguardmobile.util.NavigationUtils
@@ -54,7 +55,7 @@ class FertilizersActivity : AppCompatActivity() {
             }
 
             override fun onFailure(call: Call<List<Fertilizer>>, t: Throwable) {
-                Log.d("fetchFertilizers", "onFailure")
+                //Log.d("fetchFertilizers", "onFailure")
                 t.printStackTrace()
                 // Handle error
             }

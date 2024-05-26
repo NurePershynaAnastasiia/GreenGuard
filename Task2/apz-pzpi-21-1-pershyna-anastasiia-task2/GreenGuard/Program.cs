@@ -14,7 +14,7 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowSpecificOrigin", builder =>
     {
-        builder.WithOrigins("http://localhost:7042")
+        builder.WithOrigins("http://localhost:5159")
             .AllowAnyMethod()
             .AllowAnyHeader()
             .SetIsOriginAllowed(_ => true)
@@ -64,17 +64,26 @@ if (app.Environment.IsDevelopment())
 }
 
 
-app.UseHttpsRedirection();
+//app.UseHttpsRedirection();
+//app.UseHttpRedirection();
+
 app.UseStaticFiles();
 
 app.UseRouting();
 
 app.UseAuthorization();
 
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllers();
+});
 
+
+/*
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Worker}/{action=Login}/{id?}");
+*/
 
 
 app.Run();

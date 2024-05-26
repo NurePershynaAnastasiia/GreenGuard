@@ -1,7 +1,7 @@
 package com.example.greenguardmobile.model
 
 data class Fertilizer(
-    val FertilizerId: Int,
-    val FertilizerName: String?,
-    val FertilizerQuantity: Int
+    val fertilizerId: Int,
+    val fertilizerName: String?,
+    val fertilizerQuantity: Int
 )

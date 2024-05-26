@@ -19,10 +19,10 @@ class FertilizerAdapter(private val fertilizers: MutableList<Fertilizer>) :
 
     override fun onBindViewHolder(holder: FertilizerViewHolder, position: Int) {
         val fertilizer = fertilizers[position]
-        holder.nameTextView.text = fertilizer.FertilizerName.toString()
-        holder.quantityTextView.text = fertilizer.FertilizerQuantity.toString()
+        holder.nameTextView.text = fertilizer.fertilizerName.toString()
+        holder.quantityTextView.text = fertilizer.fertilizerQuantity.toString()
 
-        Log.d("NetworkModule", fertilizer.FertilizerName.toString())
+        Log.d("NetworkModule", fertilizer.fertilizerName.toString())
     }
 
     override fun getItemCount(): Int {

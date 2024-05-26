@@ -1,6 +1,7 @@
 package com.example.greenguardmobile.api
 
 import android.content.Context
+import android.util.Log
 
 class TokenManager(private val context: Context) {
 
@@ -13,6 +14,7 @@ class TokenManager(private val context: Context) {
     }
 
     fun getJwtToken(): String? {
+        Log.d("getJwtToken", sharedPreferences.getString("jwt_token", null).toString())
         return sharedPreferences.getString("jwt_token", null)
     }
 }
