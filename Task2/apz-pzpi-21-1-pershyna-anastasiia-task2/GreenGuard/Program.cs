@@ -14,7 +14,7 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowSpecificOrigin", builder =>
     {
-        builder.WithOrigins("https://localhost:7223")
+        builder.WithOrigins("http://localhost:7042")
             .AllowAnyMethod()
             .AllowAnyHeader()
             .SetIsOriginAllowed(_ => true)
@@ -46,6 +46,10 @@ builder.Services.AddControllersWithViews().AddJsonOptions(options =>
 
 var app = builder.Build();
 
+
+app.UseCors("AllowSpecificOrigin");
+
+
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger(); 
@@ -59,17 +63,18 @@ if (app.Environment.IsDevelopment())
     app.UseDeveloperExceptionPage();
 }
 
+
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
 
-app.UseCors("AllowSpecificOrigin");
-
 app.UseAuthorization();
+
 
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Worker}/{action=Login}/{id?}");
+
 
 app.Run();

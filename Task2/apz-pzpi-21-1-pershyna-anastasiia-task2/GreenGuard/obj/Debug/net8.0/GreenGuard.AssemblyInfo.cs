@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("GreenGuard")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ae858d01b27a0a659c7f50f84d5c5a09efdfdf70")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d5289f865430fc9370781076820717c61ba3c695")]
 [assembly: System.Reflection.AssemblyProductAttribute("GreenGuard")]
 [assembly: System.Reflection.AssemblyTitleAttribute("GreenGuard")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

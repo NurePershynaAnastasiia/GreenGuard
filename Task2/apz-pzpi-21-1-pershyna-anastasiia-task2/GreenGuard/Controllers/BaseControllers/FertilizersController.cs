@@ -26,7 +26,7 @@ namespace GreenGuard.Controllers.BaseControllers
         /// If there is a bad request, it will return an ErrorDto.
         /// </returns>
         [HttpGet("fertilizers")]
-        [Authorize(Roles = Roles.Administrator + "," + Roles.User)]
+        //[Authorize(Roles = Roles.Administrator + "," + Roles.User)]
         public async Task<IActionResult> GetFertilizers()
         {
             try
