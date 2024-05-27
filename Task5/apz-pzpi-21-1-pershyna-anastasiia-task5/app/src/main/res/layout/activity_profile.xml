@@ -171,54 +171,49 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Пн"
-            android:checked="true" />
+            android:text="Пн" />
 
         <CheckBox
             android:id="@+id/tuesday"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Вт"
-            android:checked="true" />
+            android:text="Вт" />
 
         <CheckBox
             android:id="@+id/wednesday"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Ср"
-            android:checked="true" />
+            android:text="Ср" />
 
         <CheckBox
             android:id="@+id/thursday"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Чт"
-            android:checked="true" />
+            android:text="Чт" />
 
         <CheckBox
             android:id="@+id/friday"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Пт"
-            android:checked="true" />
+            android:text="Пт" />
 
         <CheckBox
             android:id="@+id/saturday"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Сб" />
+            android:text="Сб"/>
 
         <CheckBox
             android:id="@+id/sunday"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Нд" />
+            android:text="Нд"/>
     </LinearLayout>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView

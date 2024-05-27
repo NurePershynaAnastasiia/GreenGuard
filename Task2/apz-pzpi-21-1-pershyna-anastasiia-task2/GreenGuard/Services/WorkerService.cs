@@ -1,8 +1,10 @@
 ﻿using GreenGuard.Data;
 using GreenGuard.Dto;
+using GreenGuard.Models.Fertilizer;
 using GreenGuard.Models.Worker;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace GreenGuard.Services
 {
@@ -36,6 +38,34 @@ namespace GreenGuard.Services
                     IsAdmin = data.IsAdmin,
                 }).ToListAsync();
                 return workers;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "An error occurred during all workers loading");
+                throw;
+            }
+        }
+
+        public async Task<GetWorker> GetWorker(int id)
+        {
+            try
+            {
+                var worker = await _context.Worker.FindAsync(id);
+                if (worker == null)
+                {
+                    return null;
+                }
+
+                return new GetWorker
+                {
+                    WorkerId = worker.WorkerId,
+                    WorkerName = worker.WorkerName,
+                    PhoneNumber = worker.PhoneNumber,
+                    StartWorkTime = worker.StartWorkTime,
+                    EndWorkTime = worker.EndWorkTime,
+                    Email = worker.Email,
+                    IsAdmin = worker.IsAdmin
+                };
             }
             catch (Exception ex)
             {

@@ -47,6 +47,29 @@ namespace GreenGuard.Controllers.BaseControllers
         }
 
         /// <summary>
+        /// Get a worker by id
+        /// </summary>
+        /// <returns>
+        /// <param name="id">The ID of the worker</param>
+        /// If the operation is successful, it will return a GetWorker object
+        /// If there is an error during retrieval, it will return a 500 Internal Server Error response.
+        /// </returns>
+        [Authorize(Roles = Roles.Administrator + "," + Roles.User)]
+        [HttpGet("workers/{id}")]
+        public async Task<IActionResult> GetWorker(int id)
+        {
+            try
+            {
+                var worker = await _workerService.GetWorker(id);
+                return Ok(worker);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
+
+        /// <summary>
         /// Get workers who are scheduled to work on a specific date.
         /// </summary>
         /// <param name="date">The date to retrieve workers for.</param>

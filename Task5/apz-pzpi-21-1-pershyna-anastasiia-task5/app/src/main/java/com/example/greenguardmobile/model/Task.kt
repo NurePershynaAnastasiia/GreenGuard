@@ -3,10 +3,10 @@ package com.example.greenguardmobile.model
 import java.util.Date
 
 data class Task (
-    val TaskId: Int,
-    val TaskDate: Date,
-    val TaskType: String?,
-    val FertilizerId: Int?,
-    val TaskDetails: String?,
-    val TaskState: String?
+    val taskId: Int,
+    val taskDate: Date,
+    val taskType: String?,
+    val fertilizerId: Int?,
+    val taskDetails: String?,
+    val taskState: String?
 )

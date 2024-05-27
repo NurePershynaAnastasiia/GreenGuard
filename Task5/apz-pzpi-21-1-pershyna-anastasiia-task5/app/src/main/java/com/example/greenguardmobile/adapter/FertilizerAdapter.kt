@@ -22,7 +22,7 @@ class FertilizerAdapter(private val fertilizers: MutableList<Fertilizer>) :
         holder.nameTextView.text = fertilizer.fertilizerName.toString()
         holder.quantityTextView.text = fertilizer.fertilizerQuantity.toString()
 
-        Log.d("NetworkModule", fertilizer.fertilizerName.toString())
+        //Log.d("NetworkModule", fertilizer.fertilizerName.toString())
     }
 
     override fun getItemCount(): Int {
