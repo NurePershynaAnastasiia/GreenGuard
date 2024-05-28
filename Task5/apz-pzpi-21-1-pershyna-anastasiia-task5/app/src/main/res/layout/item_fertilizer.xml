@@ -19,4 +19,20 @@
         android:layout_height="wrap_content"
         android:text="Quantity"
         android:textSize="16sp"/>
+
+    <Button
+        android:id="@+id/updateQuantityButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Змінити кількість"
+        android:textColor="@color/white"
+        android:backgroundTint="@color/dark_green"/>
+
+    <Button
+        android:id="@+id/deleteButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Видалити"
+        android:textColor="@color/white"
+        android:backgroundTint="@color/dark_red"/>
 </LinearLayout>

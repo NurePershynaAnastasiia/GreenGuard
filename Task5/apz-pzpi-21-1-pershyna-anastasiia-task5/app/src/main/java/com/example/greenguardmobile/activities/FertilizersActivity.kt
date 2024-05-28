@@ -8,6 +8,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.LinearLayout
 import android.widget.PopupWindow
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -17,6 +18,7 @@ import com.example.greenguardmobile.api.ApiService
 import com.example.greenguardmobile.api.NetworkModule
 import com.example.greenguardmobile.model.Fertilizer
 import com.example.greenguardmobile.model.AddFertilizer
+import com.example.greenguardmobile.model.UpdateFertilizerQuantity
 import com.example.greenguardmobile.util.NavigationUtils
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -43,7 +45,11 @@ class FertilizersActivity : AppCompatActivity() {
 
         recyclerView = findViewById(R.id.recyclerView)
         recyclerView.layoutManager = LinearLayoutManager(this)
-        fertilizerAdapter = FertilizerAdapter(mutableListOf())
+
+        fertilizerAdapter = FertilizerAdapter(mutableListOf(),
+            onDeleteClick = { fertilizer -> deleteFertilizer(fertilizer) },
+            onUpdateQuantityClick = { fertilizer -> updateFertilizerQuantity(fertilizer) })
+
         recyclerView.adapter = fertilizerAdapter
 
         apiService = NetworkModule.provideApiService(this)
@@ -118,4 +124,68 @@ class FertilizersActivity : AppCompatActivity() {
             }
         })
     }
+
+    private fun deleteFertilizer(fertilizer: Fertilizer) {
+        apiService.deleteFertilizer(fertilizer.fertilizerId).enqueue(object : Callback<Void> {
+            override fun onResponse(call: Call<Void>, response: Response<Void>) {
+                if (response.isSuccessful) {
+                    fetchFertilizers()
+                    Log.d("DeleteFertilizer", "Fertilizer deleted successfully")
+                    Toast.makeText(this@FertilizersActivity, "Fertilizer deleted successfully", Toast.LENGTH_SHORT).show()
+                } else {
+                    Log.e("DeleteFertilizer", "Error: ${response.code()} ${response.message()}")
+                }
+            }
+
+            override fun onFailure(call: Call<Void>, t: Throwable) {
+                Log.e("DeleteFertilizer", "Network error")
+                t.printStackTrace()
+            }
+        })
+    }
+
+    private fun updateFertilizerQuantity(fertilizer: Fertilizer) {
+        val inflater = getSystemService(LAYOUT_INFLATER_SERVICE) as LayoutInflater
+        val popupView = inflater.inflate(R.layout.popup_update_fertilizer_quantity, null)
+
+        val width = LinearLayout.LayoutParams.WRAP_CONTENT
+        val height = LinearLayout.LayoutParams.WRAP_CONTENT
+        val focusable = true
+
+        val popupWindow = PopupWindow(popupView, width, height, focusable)
+
+        val addButtonPopup = popupView.findViewById<Button>(R.id.addButtonPopup)
+        val quantityEditText = popupView.findViewById<EditText>(R.id.et_fertilizer_quantity)
+
+        addButtonPopup.setOnClickListener {
+            val newQuantity = quantityEditText.text.toString().toIntOrNull()
+
+            if (newQuantity != null) {
+                apiService.updateFertilizerQuantity(fertilizer.fertilizerId, UpdateFertilizerQuantity(newQuantity)).enqueue(object : Callback<Void> {
+                    override fun onResponse(call: Call<Void>, response: Response<Void>) {
+                        if (response.isSuccessful) {
+                            fetchFertilizers()
+                            Log.d("UpdateFertilizer", "Fertilizer quantity updated successfully")
+                            Toast.makeText(this@FertilizersActivity, "Fertilizer quantity updated successfully", Toast.LENGTH_SHORT).show()
+                        } else {
+                            Log.e("UpdateFertilizer", "Error: ${response.code()} ${response.message()}")
+                            // Handle error
+                        }
+                    }
+
+                    override fun onFailure(call: Call<Void>, t: Throwable) {
+                        Log.e("UpdateFertilizer", "Network error")
+                        t.printStackTrace()
+                        // Handle error
+                    }
+                })
+                popupWindow.dismiss()
+            } else {
+                Log.d("UpdateFertilizer", "Invalid input")
+            }
+        }
+
+        popupWindow.showAtLocation(window.decorView, Gravity.CENTER, 0, 0)
+    }
+
 }

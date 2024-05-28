@@ -9,11 +9,13 @@ import com.example.greenguardmobile.model.Pest
 import com.example.greenguardmobile.model.Plant
 import com.example.greenguardmobile.model.PlantType
 import com.example.greenguardmobile.model.Task
+import com.example.greenguardmobile.model.UpdateFertilizerQuantity
 import com.example.greenguardmobile.model.UpdateWorker
 import com.example.greenguardmobile.model.Worker
 import com.example.greenguardmobile.model.WorkerSchedule
 import retrofit2.Call
 import retrofit2.http.Body
+import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.PUT
@@ -59,4 +61,10 @@ interface ApiService {
 
     @POST("api/Plants/add")
     fun addPlant(@Body addPlant: AddPlant): Call<Void>
+
+    @DELETE("api/Fertilizers/delete/{fertilizerId}")
+    fun deleteFertilizer(@Path("fertilizerId") fertilizerId: Int): Call<Void>
+
+    @PUT("api/Fertilizers/update-quantity/{fertilizerId}")
+    fun updateFertilizerQuantity(@Path("fertilizerId") fertilizerId: Int, @Body updatedFertilizerQuantity: UpdateFertilizerQuantity): Call<Void>
 }

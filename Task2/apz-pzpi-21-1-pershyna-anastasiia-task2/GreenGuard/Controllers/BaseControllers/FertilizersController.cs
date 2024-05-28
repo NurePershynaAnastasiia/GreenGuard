@@ -129,7 +129,7 @@ namespace GreenGuard.Controllers.BaseControllers
         /// If the operation is successful, it will return a message confirming the deletion.
         /// If there is a bad request, it will return an ErrorDto.
         /// </returns>
-        [Authorize(Roles = Roles.Administrator)]
+        [Authorize(Roles = Roles.Administrator + "," + Roles.User)]
         [HttpDelete("delete/{id}")]
         public async Task<IActionResult> DeleteFertilizer(int id)
         {
