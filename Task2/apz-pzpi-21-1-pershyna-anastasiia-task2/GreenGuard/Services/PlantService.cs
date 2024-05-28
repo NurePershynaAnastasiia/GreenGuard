@@ -60,7 +60,6 @@ namespace GreenGuard.Services
                     Light = model.Light,
                     Temp = model.Temp,
                     AdditionalInfo = model.AdditionalInfo,
-                    PlantState = model.PlantState
                 };
 
                 _context.Add(newPlant);

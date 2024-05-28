@@ -55,7 +55,7 @@ namespace GreenGuard.Controllers.BaseControllers
         /// If the provided model is invalid, it will return a 400 Bad Request response.
         /// If an error occurs, it will return a 500 Internal Server Error response.
         /// </returns>
-        [Authorize(Roles = Roles.Administrator)]
+        [Authorize(Roles = Roles.Administrator + "," + Roles.User)]
         [HttpPost("add")]
         public async Task<ActionResult> AddPlant(AddPlant model)
         {

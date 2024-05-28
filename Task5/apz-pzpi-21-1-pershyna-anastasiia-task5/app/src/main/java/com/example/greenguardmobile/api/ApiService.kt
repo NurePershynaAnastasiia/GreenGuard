@@ -1,10 +1,13 @@
 package com.example.greenguardmobile.api
 
+import com.example.greenguardmobile.model.AddFertilizer
+import com.example.greenguardmobile.model.AddPlant
 import com.example.greenguardmobile.model.Fertilizer
 import com.example.greenguardmobile.model.LoginRequest
 import com.example.greenguardmobile.model.LoginResponse
 import com.example.greenguardmobile.model.Pest
 import com.example.greenguardmobile.model.Plant
+import com.example.greenguardmobile.model.PlantType
 import com.example.greenguardmobile.model.Task
 import com.example.greenguardmobile.model.UpdateWorker
 import com.example.greenguardmobile.model.Worker
@@ -42,9 +45,18 @@ interface ApiService {
     @GET("api/Plants/plants")
     fun getPlants(): Call<List<Plant>>
 
+    @GET("api/PlantTypes/plantTypes")
+    fun getPlantTypes(): Call<List<PlantType>>
+
     @PUT("api/Workers/update/{workerId}")
     fun updateWorker(@Path("workerId") workerId: Int, @Body updatedWorker: UpdateWorker): Call<Void>
 
     @PUT("api/Workers/updateSchedule/{workerId}")
     fun updateWorkingSchedule(@Path("workerId") workerId: Int, @Body updatedSchedule: WorkerSchedule): Call<Void>
+
+    @POST("api/Fertilizers/add")
+    fun addFertilizer(@Body addFertilizer: AddFertilizer): Call<Void>
+
+    @POST("api/Plants/add")
+    fun addPlant(@Body addPlant: AddPlant): Call<Void>
 }

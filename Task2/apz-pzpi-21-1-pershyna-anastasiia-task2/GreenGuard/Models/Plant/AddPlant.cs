@@ -16,7 +16,5 @@ namespace GreenGuard.Models.Plant
         public double? Light { get; set; }
 
         public string? AdditionalInfo { get; set; }
-
-        public string? PlantState { get; set; }
     }
 }

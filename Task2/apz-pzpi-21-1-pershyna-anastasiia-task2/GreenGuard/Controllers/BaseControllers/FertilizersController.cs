@@ -77,7 +77,7 @@ namespace GreenGuard.Controllers.BaseControllers
         /// If the operation is successful, it will return a message confirming the addition.
         /// If there is a bad request, it will return an ErrorDto.
         /// </returns>
-        [Authorize(Roles = Roles.Administrator)]
+        [Authorize(Roles = Roles.Administrator + "," + Roles.User)]
         [HttpPost("add")]
         public async Task<IActionResult> AddFertilizer(AddFertilizer model)
         {
