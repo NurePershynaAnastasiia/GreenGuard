@@ -225,7 +225,20 @@
         android:layout_marginTop="10dp"
         android:text="Зберегти зміни"
         android:backgroundTint="#275362"
-        android:textColor="#FFFFFF"/>
+        android:textColor="#FFFFFF"
+        android:layout_alignParentRight="true"/>
+
+    <Button
+        android:id="@+id/calculate_salary_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/working_days"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:text="Розрахувати зарплатню"
+        android:backgroundTint="#275362"
+        android:textColor="#FFFFFF"
+        android:layout_alignParentLeft="true"/>
 
 
     <com.google.android.material.bottomnavigation.BottomNavigationView

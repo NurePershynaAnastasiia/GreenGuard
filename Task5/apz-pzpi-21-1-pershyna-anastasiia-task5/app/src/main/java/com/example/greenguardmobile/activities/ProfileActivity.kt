@@ -1,5 +1,6 @@
 package com.example.greenguardmobile.activities
 
+import android.app.AlertDialog
 import android.app.TimePickerDialog
 import android.content.Intent
 import android.os.Bundle
@@ -73,6 +74,15 @@ class ProfileActivity : AppCompatActivity() {
             if (workerId != null) {
                 updateWorkerProfile(workerId)
                 updateWorkerSchedule(workerId)
+            } else {
+                Log.d("ProfileActivity", "Worker ID not found")
+            }
+        }
+
+        findViewById<Button>(R.id.calculate_salary_button).setOnClickListener {
+            val workerId = tokenManager.getWorkerIdFromToken()
+            if (workerId != null) {
+                calculateSalary(workerId)
             } else {
                 Log.d("ProfileActivity", "Worker ID not found")
             }
@@ -192,6 +202,36 @@ class ProfileActivity : AppCompatActivity() {
                 t.printStackTrace()
             }
         })
+    }
+
+    private fun calculateSalary(workerId: Int) {
+        apiService.calculateSalary(workerId).enqueue(object : Callback<Double> {
+            override fun onResponse(call: Call<Double>, response: Response<Double>) {
+                if (response.isSuccessful) {
+                    response.body()?.let { salary ->
+                        showSalaryPopup(salary)
+                    }
+                } else {
+                    Log.e("ProfileActivity", "Error: ${response.code()} ${response.message()}")
+                }
+            }
+
+            override fun onFailure(call: Call<Double>, t: Throwable) {
+                Log.e("ProfileActivity", "Network error")
+                t.printStackTrace()
+            }
+        })
+    }
+
+    private fun showSalaryPopup(salary: Double) {
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle("Розрахована зарплатня")
+        builder.setMessage("Ваша зарплатня: $salary грн")
+        builder.setPositiveButton("OK") { dialog, _ ->
+            dialog.dismiss()
+        }
+        val dialog = builder.create()
+        dialog.show()
     }
 
     fun showTimePickerStart(view: android.view.View) {

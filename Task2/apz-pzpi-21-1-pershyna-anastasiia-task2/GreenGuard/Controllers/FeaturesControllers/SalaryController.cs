@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace GreenGuard.Controllers.FeaturesControllers
 {
-    // api/PlantTypes
+    // api/Salary
     [ApiController]
     [Route("api/[controller]")]
 
@@ -29,7 +29,7 @@ namespace GreenGuard.Controllers.FeaturesControllers
         /// If the calculation is successful, it will return the monthly salary amount.
         /// If there is an error during calculation, it will return an error message.
         /// </returns>
-        [Authorize(Roles = Roles.Administrator)]
+        [Authorize(Roles = Roles.Administrator + "," + Roles.User)]
         [HttpGet("{workerId}")]
         public async Task<ActionResult> CalculateSalary(int workerId)
         {

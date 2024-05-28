@@ -18,6 +18,7 @@ class PlantAdapter(private val plants: List<Plant>) : RecyclerView.Adapter<Plant
         val plantHumidity: TextView = view.findViewById(R.id.plant_humidity)
         val plantLight: TextView = view.findViewById(R.id.plant_light)
         val plantAdditionalInfo: TextView = view.findViewById(R.id.plant_additional_info)
+        val plantPests: TextView = view.findViewById(R.id.plant_pests)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PlantViewHolder {
@@ -34,6 +35,7 @@ class PlantAdapter(private val plants: List<Plant>) : RecyclerView.Adapter<Plant
         holder.plantHumidity.text = "Вологість: ${plant.humidity}"
         holder.plantLight.text = "Освітлення: ${plant.light}"
         holder.plantAdditionalInfo.text = "Додаткова інформація: ${plant.additionalInfo ?: "Немає"}"
+        holder.plantPests.text = "Шкідники: ${plant.pests.joinToString(", ")}"
     }
 
     override fun getItemCount(): Int = plants.size

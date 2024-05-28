@@ -67,4 +67,13 @@ interface ApiService {
 
     @PUT("api/Fertilizers/update-quantity/{fertilizerId}")
     fun updateFertilizerQuantity(@Path("fertilizerId") fertilizerId: Int, @Body updatedFertilizerQuantity: UpdateFertilizerQuantity): Call<Void>
+
+    @POST("api/Pests/add/{pestId}/{plantId}")
+    fun addPestToPlant(@Path("pestId") pestId: Int, @Path("plantId") plantId: Int): Call<Void>
+
+    @GET("api/Salary/{workerId}")
+    fun calculateSalary(@Path("workerId") workerId: Int): Call<Double>
+
+    @DELETE("api/Pests/delete/{pestId}/{plantId}")
+    fun deletePestFromPlant(@Path("pestId") pestId: Int, @Path("plantId") plantId: Int): Call<Void>
 }

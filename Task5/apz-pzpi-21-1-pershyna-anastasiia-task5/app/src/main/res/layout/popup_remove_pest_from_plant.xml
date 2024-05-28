@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/popup_add_allergen">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="120dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="50dp"
+        android:background="@drawable/popup_background"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginTop="20dp"
+            android:text="Виберіть рослину для видалення шкідника"
+            android:textColor="@color/white"
+            android:layout_gravity="center"
+            android:textSize="25dp"
+            android:textAlignment="center" />
+
+        <Spinner
+            android:id="@+id/plantSpinnerRemove"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_below="@+id/image_add"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="15dp"
+            android:background="#F8F1F4"
+            android:textColor="#27353C"
+            android:dropDownWidth="250dp"
+            />
+
+
+        <Button
+            android:id="@+id/removeButtonPopup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginBottom="15dp"
+            android:backgroundTint="@color/white"
+            android:text="ОК"
+            android:textColor="@color/black"
+            android:textSize="20dp"
+            android:layout_gravity="center"
+            app:cornerRadius="100dp" />
+
+    </LinearLayout>
+</RelativeLayout>
