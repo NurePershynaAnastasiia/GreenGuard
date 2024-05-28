@@ -4,15 +4,18 @@ import android.app.TimePickerDialog
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.widget.Button
 import android.widget.CheckBox
 import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.greenguardmobile.R
 import com.example.greenguardmobile.api.ApiService
 import com.example.greenguardmobile.api.NetworkModule
 import com.example.greenguardmobile.api.TokenManager
+import com.example.greenguardmobile.model.UpdateWorker
 import com.example.greenguardmobile.model.Worker
 import com.example.greenguardmobile.model.WorkerSchedule
 import com.example.greenguardmobile.util.NavigationUtils
@@ -65,6 +68,16 @@ class ProfileActivity : AppCompatActivity() {
             finish()
         }
 
+        findViewById<Button>(R.id.save_button).setOnClickListener {
+            val workerId = tokenManager.getWorkerIdFromToken()
+            if (workerId != null) {
+                updateWorkerProfile(workerId)
+                updateWorkerSchedule(workerId)
+            } else {
+                Log.d("ProfileActivity", "Worker ID not found")
+            }
+        }
+
         val bottomNavMenu = findViewById<BottomNavigationView>(R.id.bottom_navigation)
         NavigationUtils.setupBottomNavigation(bottomNavMenu, this)
 
@@ -78,6 +91,59 @@ class ProfileActivity : AppCompatActivity() {
         } else {
             Log.d("ProfileActivity", "Worker ID not found")
         }
+    }
+
+    private fun updateWorkerProfile(workerId: Int) {
+        val updatedWorker = UpdateWorker(
+            workerName = fullName.text.toString(),
+            phoneNumber = phoneNumber.text.toString(),
+            email = email.text.toString(),
+            startWorkTime = workStartTime.text.toString(),
+            endWorkTime = workEndTime.text.toString()
+        )
+
+        apiService.updateWorker(workerId, updatedWorker).enqueue(object : Callback<Void> {
+            override fun onResponse(call: Call<Void>, response: Response<Void>) {
+                if (response.isSuccessful) {
+                    Log.d("ProfileActivity", "Worker information updated successfully")
+                } else {
+                    Log.e("ProfileActivity", "Error: ${response.code()} ${response.message()}")
+                }
+                Toast.makeText(this@ProfileActivity, "Information updated successfully", Toast.LENGTH_SHORT).show()
+            }
+
+            override fun onFailure(call: Call<Void>, t: Throwable) {
+                Log.e("ProfileActivity", "Network error")
+                t.printStackTrace()
+            }
+        })
+    }
+
+    private fun updateWorkerSchedule(workerId: Int) {
+        val updatedSchedule = WorkerSchedule(
+            monday = monday.isChecked,
+            tuesday = tuesday.isChecked,
+            wednesday = wednesday.isChecked,
+            thursday = thursday.isChecked,
+            friday = friday.isChecked,
+            saturday = saturday.isChecked,
+            sunday = sunday.isChecked
+        )
+
+        apiService.updateWorkingSchedule(workerId, updatedSchedule).enqueue(object : Callback<Void> {
+            override fun onResponse(call: Call<Void>, response: Response<Void>) {
+                if (response.isSuccessful) {
+                    Log.d("ProfileActivity", "Working schedule updated successfully")
+                } else {
+                    Log.e("ProfileActivity", "Error: ${response.code()} ${response.message()}")
+                }
+            }
+
+            override fun onFailure(call: Call<Void>, t: Throwable) {
+                Log.e("ProfileActivity", "Network error")
+                t.printStackTrace()
+            }
+        })
     }
 
     private fun fetchWorkerProfile(workerId: Int) {

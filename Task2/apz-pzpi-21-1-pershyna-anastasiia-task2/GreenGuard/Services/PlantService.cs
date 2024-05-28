@@ -23,7 +23,10 @@ namespace GreenGuard.Services
                 var plants = await _context.Plant.Select(data => new PlantFull
                 {
                     PlantId = data.PlantId,
-                    PlantTypeId = data.PlantTypeId,
+                    PlantTypeName = _context.Plant_type
+                        .Where(pt => pt.PlantTypeId == data.PlantTypeId)
+                        .Select(pt => pt.PlantTypeName)
+                        .FirstOrDefault(),
                     PlantLocation = data.PlantLocation,
                     Humidity = data.Humidity,
                     Temp = data.Temp,

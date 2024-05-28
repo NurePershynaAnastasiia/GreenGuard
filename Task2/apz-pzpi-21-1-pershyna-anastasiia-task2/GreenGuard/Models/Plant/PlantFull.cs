@@ -7,7 +7,7 @@ namespace GreenGuard.Models.Plant
     {
         public required int PlantId { get; set; } 
 
-        public required int PlantTypeId { get; set; }
+        public string PlantTypeName { get; set; }
 
         public required string PlantLocation { get; set; }
 

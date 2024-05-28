@@ -9,10 +9,10 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.greenguardmobile.R
 import com.example.greenguardmobile.api.ApiService
-import com.example.greenguardmobile.api.LoginRequest
-import com.example.greenguardmobile.api.LoginResponse
 import com.example.greenguardmobile.api.NetworkModule
 import com.example.greenguardmobile.api.TokenManager
+import com.example.greenguardmobile.model.LoginRequest
+import com.example.greenguardmobile.model.LoginResponse
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
