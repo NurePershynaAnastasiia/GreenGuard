@@ -9,10 +9,12 @@ import com.example.greenguardmobile.model.Pest
 import com.example.greenguardmobile.model.Plant
 import com.example.greenguardmobile.model.PlantType
 import com.example.greenguardmobile.model.Task
+import com.example.greenguardmobile.model.TaskStatus
 import com.example.greenguardmobile.model.UpdateFertilizerQuantity
 import com.example.greenguardmobile.model.UpdateWorker
 import com.example.greenguardmobile.model.Worker
 import com.example.greenguardmobile.model.WorkerSchedule
+import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.DELETE
@@ -20,6 +22,7 @@ import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.PUT
 import retrofit2.http.Path
+import retrofit2.http.Query
 
 interface ApiService {
 
@@ -54,7 +57,10 @@ interface ApiService {
     fun updateWorker(@Path("workerId") workerId: Int, @Body updatedWorker: UpdateWorker): Call<Void>
 
     @PUT("api/Workers/updateSchedule/{workerId}")
-    fun updateWorkingSchedule(@Path("workerId") workerId: Int, @Body updatedSchedule: WorkerSchedule): Call<Void>
+    fun updateWorkingSchedule(
+        @Path("workerId") workerId: Int,
+        @Body updatedSchedule: WorkerSchedule
+    ): Call<Void>
 
     @POST("api/Fertilizers/add")
     fun addFertilizer(@Body addFertilizer: AddFertilizer): Call<Void>
@@ -66,7 +72,10 @@ interface ApiService {
     fun deleteFertilizer(@Path("fertilizerId") fertilizerId: Int): Call<Void>
 
     @PUT("api/Fertilizers/update-quantity/{fertilizerId}")
-    fun updateFertilizerQuantity(@Path("fertilizerId") fertilizerId: Int, @Body updatedFertilizerQuantity: UpdateFertilizerQuantity): Call<Void>
+    fun updateFertilizerQuantity(
+        @Path("fertilizerId") fertilizerId: Int,
+        @Body updatedFertilizerQuantity: UpdateFertilizerQuantity
+    ): Call<Void>
 
     @POST("api/Pests/add/{pestId}/{plantId}")
     fun addPestToPlant(@Path("pestId") pestId: Int, @Path("plantId") plantId: Int): Call<Void>
@@ -76,4 +85,17 @@ interface ApiService {
 
     @DELETE("api/Pests/delete/{pestId}/{plantId}")
     fun deletePestFromPlant(@Path("pestId") pestId: Int, @Path("plantId") plantId: Int): Call<Void>
+
+    @GET("api/Tasks/status/{taskId}/{workerId}")
+    fun getTaskStatus(
+        @Path("taskId") taskId: Int,
+        @Path("workerId") workerId: Int
+    ): Call<TaskStatus>
+
+    @PUT("api/Tasks/update-status/{taskId}/{workerId}")
+    fun updateTaskStatus(
+        @Path("taskId") taskId: Int,
+        @Path("workerId") workerId: Int,
+        @Query("taskStatus") taskStatus: String
+    ): Call<Void>
 }

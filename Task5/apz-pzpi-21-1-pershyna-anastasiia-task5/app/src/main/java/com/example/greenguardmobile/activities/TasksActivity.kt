@@ -30,7 +30,7 @@ class TasksActivity : AppCompatActivity() {
 
         val bottomNavMenu = findViewById<BottomNavigationView>(R.id.bottom_navigation)
         NavigationUtils.setupBottomNavigation(bottomNavMenu, this)
-        bottomNavMenu.menu.findItem(R.id.tasks).setChecked(true);
+        bottomNavMenu.menu.findItem(R.id.tasks).isChecked = true
 
         val toolbar = findViewById<MaterialToolbar>(R.id.toolbar)
         NavigationUtils.setupTopMenu(toolbar, this)
@@ -40,23 +40,21 @@ class TasksActivity : AppCompatActivity() {
 
         val workerId = tokenManager.getWorkerIdFromToken()
         if (workerId != null) {
+            val recyclerView = findViewById<RecyclerView>(R.id.recyclerViewTasks)
+            recyclerView.layoutManager = LinearLayoutManager(this)
+            taskAdapter = TaskAdapter(mutableListOf(), apiService, workerId)
+            recyclerView.adapter = taskAdapter
+
             fetchWorkerTasks(workerId)
         } else {
-            Log.d("workerId", "not found")
+            Log.d("TasksActivity", "Worker ID not found")
         }
-
-        val recyclerView = findViewById<RecyclerView>(R.id.recyclerViewTasks)
-        recyclerView.layoutManager = LinearLayoutManager(this)
-        taskAdapter = TaskAdapter(mutableListOf())
-        recyclerView.adapter = taskAdapter
-
     }
 
     private fun fetchWorkerTasks(workerId: Int) {
         apiService.getWorkerTasks(workerId).enqueue(object : Callback<List<Task>> {
             override fun onResponse(call: Call<List<Task>>, response: Response<List<Task>>) {
                 if (response.isSuccessful) {
-                    Log.d("TasksActivity", "isSuccessful")
                     response.body()?.let { tasks ->
                         taskAdapter.setTasks(tasks)
                     }

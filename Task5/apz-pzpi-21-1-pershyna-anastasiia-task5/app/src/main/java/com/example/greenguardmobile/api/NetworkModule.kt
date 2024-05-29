@@ -7,6 +7,7 @@ import okhttp3.Request
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import com.google.gson.GsonBuilder
+import retrofit2.converter.scalars.ScalarsConverterFactory
 import java.util.Date
 
 
@@ -24,12 +25,14 @@ object NetworkModule {
 
         val gson = GsonBuilder()
             .registerTypeAdapter(Date::class.java, DateTypeAdapter())
+            .setLenient()
             .create()
 
         val retrofit = Retrofit.Builder()
-            .baseUrl("http://10.0.2.2:5159/") // Переконайтеся, що це правильний URL
+            .baseUrl("http://10.0.2.2:5159/")
             .client(client)
             .addConverterFactory(GsonConverterFactory.create(gson))
+            .addConverterFactory(ScalarsConverterFactory.create())
             .build()
 
         return retrofit.create(ApiService::class.java)

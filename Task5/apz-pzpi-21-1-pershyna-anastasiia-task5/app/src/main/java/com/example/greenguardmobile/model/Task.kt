@@ -8,5 +8,5 @@ data class Task (
     val taskType: String?,
     val fertilizerId: Int?,
     val taskDetails: String?,
-    val taskState: String?
+    var taskStatus: String?
 )

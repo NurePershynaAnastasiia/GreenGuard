@@ -9,6 +9,7 @@ using GreenGuard.Helpers;
 using Microsoft.AspNetCore.Authorization;
 using System;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
 
 namespace GreenGuard.Controllers.BaseControllers
 {
@@ -111,6 +112,33 @@ namespace GreenGuard.Controllers.BaseControllers
             {
                 var workerStatuses = await _taskService.GetTaskStatuses(taskId);
                 return Ok(workerStatuses);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// Get the status of a worker associated with a task.
+        /// </summary>
+        /// <param name="taskId">The ID of the task.</param>
+        /// <param name="workerId">The ID of the worker.</param>
+        /// <returns>
+        /// If update is successful, it returns a success message.
+        /// If the worker-task relationship does not exist, it returns a 404 Not Found response.
+        /// If an error occurs, it returns a 500 Internal Server Error response.
+        /// </returns>
+        [Authorize(Roles = Roles.Administrator + "," + Roles.User)]
+        [HttpGet("status/{taskId}/{workerId}")]
+        public async Task<IActionResult> GetTaskStatus(int taskId, int workerId)
+        {
+            try
+            {
+                var result = await _taskService.GetTaskWorkerStatus(taskId, workerId);
+                _logger.LogInformation(result.WorkerTaskStatus);
+
+                return Ok(result);
             }
             catch (Exception ex)
             {

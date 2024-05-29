@@ -4,6 +4,7 @@ using GreenGuard.Dto;
 using GreenGuard.Models.Task;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Threading.Tasks;
 
 namespace GreenGuard.Services
 {
@@ -223,6 +224,29 @@ namespace GreenGuard.Services
                 throw; 
             }
         }
+
+        public async Task<Models.Task.TaskStatus> GetTaskWorkerStatus(int taskId, int workerId)
+        {
+            try
+            {
+                var taskStatus = await _context.Worker_in_Task
+                    .Where(wt => wt.TaskId == taskId && wt.WorkerId == workerId)
+                    .Select(wt => wt.TaskStatus) 
+                    .FirstOrDefaultAsync();
+
+                Models.Task.TaskStatus result = new Models.Task.TaskStatus();
+                result.WorkerTaskStatus = taskStatus;
+
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "An error occurred while fetching task status");
+                throw;
+            }
+        }
+
 
         public async Task AddTask(AddTask model)
         {
