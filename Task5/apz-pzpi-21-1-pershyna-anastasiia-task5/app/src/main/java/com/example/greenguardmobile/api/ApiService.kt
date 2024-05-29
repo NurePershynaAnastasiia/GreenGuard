@@ -38,6 +38,9 @@ interface ApiService {
     @GET("api/Pests/pests")
     fun getPests(): Call<List<Pest>>
 
+    @GET("api/Tasks/tasks-today/{workerId}")
+    fun getWorkerTasksToday(@Path("workerId") workerId: Int): Call<List<Task>>
+
     @GET("api/Tasks/tasks/{workerId}")
     fun getWorkerTasks(@Path("workerId") workerId: Int): Call<List<Task>>
 

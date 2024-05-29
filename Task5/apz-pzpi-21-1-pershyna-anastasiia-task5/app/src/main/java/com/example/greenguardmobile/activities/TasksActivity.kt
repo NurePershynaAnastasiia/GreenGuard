@@ -2,6 +2,7 @@ package com.example.greenguardmobile.activities
 
 import android.os.Bundle
 import android.util.Log
+import android.widget.CheckBox
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -23,6 +24,7 @@ class TasksActivity : AppCompatActivity() {
     private lateinit var apiService: ApiService
     private lateinit var tokenManager: TokenManager
     private lateinit var taskAdapter: TaskAdapter
+    private var workerId: Int? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,14 +40,23 @@ class TasksActivity : AppCompatActivity() {
         tokenManager = TokenManager(this)
         apiService = NetworkModule.provideApiService(this)
 
-        val workerId = tokenManager.getWorkerIdFromToken()
+        workerId = tokenManager.getWorkerIdFromToken()
         if (workerId != null) {
             val recyclerView = findViewById<RecyclerView>(R.id.recyclerViewTasks)
             recyclerView.layoutManager = LinearLayoutManager(this)
-            taskAdapter = TaskAdapter(mutableListOf(), apiService, workerId)
+            taskAdapter = TaskAdapter(mutableListOf(), apiService, workerId!!)
             recyclerView.adapter = taskAdapter
 
-            fetchWorkerTasks(workerId)
+            val checkboxTasksToday = findViewById<CheckBox>(R.id.checkbox_tasks_today)
+            checkboxTasksToday.setOnCheckedChangeListener { _, isChecked ->
+                if (isChecked) {
+                    fetchWorkerTasksToday(workerId!!)
+                } else {
+                    fetchWorkerTasks(workerId!!)
+                }
+            }
+
+            fetchWorkerTasks(workerId!!)
         } else {
             Log.d("TasksActivity", "Worker ID not found")
         }
@@ -53,6 +64,25 @@ class TasksActivity : AppCompatActivity() {
 
     private fun fetchWorkerTasks(workerId: Int) {
         apiService.getWorkerTasks(workerId).enqueue(object : Callback<List<Task>> {
+            override fun onResponse(call: Call<List<Task>>, response: Response<List<Task>>) {
+                if (response.isSuccessful) {
+                    response.body()?.let { tasks ->
+                        taskAdapter.setTasks(tasks)
+                    }
+                } else {
+                    Log.d("TasksActivity", "Error: ${response.errorBody()}")
+                }
+            }
+
+            override fun onFailure(call: Call<List<Task>>, t: Throwable) {
+                Log.d("TasksActivity", "Network error")
+                t.printStackTrace()
+            }
+        })
+    }
+
+    private fun fetchWorkerTasksToday(workerId: Int) {
+        apiService.getWorkerTasksToday(workerId).enqueue(object : Callback<List<Task>> {
             override fun onResponse(call: Call<List<Task>>, response: Response<List<Task>>) {
                 if (response.isSuccessful) {
                     response.body()?.let { tasks ->
