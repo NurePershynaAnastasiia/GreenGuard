@@ -1,4 +1,4 @@
-package com.example.greenguardmobile.adapter
+package com.example.greenguardmobile.adapters
 
 import android.view.LayoutInflater
 import android.view.View
@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.greenguardmobile.R
-import com.example.greenguardmobile.model.Plant
+import com.example.greenguardmobile.models.plant.Plant
 
 class PlantAdapter(private val plants: List<Plant>) : RecyclerView.Adapter<PlantAdapter.PlantViewHolder>() {
 

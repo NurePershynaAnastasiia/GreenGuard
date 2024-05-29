@@ -1,4 +1,4 @@
-package com.example.greenguardmobile.model
+package com.example.greenguardmobile.models.worker
 
 data class WorkerSchedule (
     val monday: Boolean,

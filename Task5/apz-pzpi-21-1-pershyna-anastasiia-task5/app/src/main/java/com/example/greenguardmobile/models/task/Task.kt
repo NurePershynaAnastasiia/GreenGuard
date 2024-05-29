@@ -1,4 +1,4 @@
-package com.example.greenguardmobile.model
+package com.example.greenguardmobile.models.task
 
 import java.util.Date
 

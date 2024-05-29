@@ -1,4 +1,4 @@
-package com.example.greenguardmobile.adapter
+package com.example.greenguardmobile.adapters
 
 import android.util.Log
 import android.view.LayoutInflater
@@ -11,10 +11,9 @@ import android.widget.Spinner
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.greenguardmobile.R
-import com.example.greenguardmobile.api.ApiService
-import com.example.greenguardmobile.model.Task
-import com.example.greenguardmobile.model.TaskStatus
-import okhttp3.ResponseBody
+import com.example.greenguardmobile.network.ApiService
+import com.example.greenguardmobile.models.task.Task
+import com.example.greenguardmobile.models.task.TaskStatus
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

@@ -4,28 +4,24 @@ import android.os.Bundle
 import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
-import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.greenguardmobile.R
-import com.example.greenguardmobile.adapter.PlantAdapter
-import com.example.greenguardmobile.api.ApiService
-import com.example.greenguardmobile.api.NetworkModule
-import com.example.greenguardmobile.model.AddPlant
-import com.example.greenguardmobile.model.Plant
-import com.example.greenguardmobile.model.PlantType
+import com.example.greenguardmobile.adapters.PlantAdapter
+import com.example.greenguardmobile.network.NetworkModule
+import com.example.greenguardmobile.models.plant.AddPlant
+import com.example.greenguardmobile.models.plant.Plant
+import com.example.greenguardmobile.models.plant.PlantType
+import com.example.greenguardmobile.service.PlantsService
 import com.example.greenguardmobile.util.NavigationUtils
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 class PlantsActivity : AppCompatActivity() {
 
-    private lateinit var apiService: ApiService
+    private lateinit var plantsService: PlantsService
     private lateinit var plantsRecyclerView: RecyclerView
     private lateinit var plantTypes: List<PlantType>
 
@@ -43,7 +39,8 @@ class PlantsActivity : AppCompatActivity() {
         plantsRecyclerView = findViewById(R.id.plants_recycler_view)
         plantsRecyclerView.layoutManager = LinearLayoutManager(this)
 
-        apiService = NetworkModule.provideApiService(this)
+        val apiService = NetworkModule.provideApiService(this)
+        plantsService = PlantsService(apiService, this)
 
         fetchPlants()
         fetchPlantTypes()
@@ -54,40 +51,18 @@ class PlantsActivity : AppCompatActivity() {
     }
 
     private fun fetchPlants() {
-        apiService.getPlants().enqueue(object : Callback<List<Plant>> {
-            override fun onResponse(call: Call<List<Plant>>, response: Response<List<Plant>>) {
-                if (response.isSuccessful) {
-                    response.body()?.let { plants ->
-                        plantsRecyclerView.adapter = PlantAdapter(plants)
-                    }
-                } else {
-                    Log.e("PlantsActivity", "Error: ${response.code()} ${response.message()}")
-                }
-            }
-
-            override fun onFailure(call: Call<List<Plant>>, t: Throwable) {
-                Log.e("PlantsActivity", "Network error")
-                t.printStackTrace()
-            }
+        plantsService.fetchPlants({ plants ->
+            plantsRecyclerView.adapter = PlantAdapter(plants)
+        }, { errorMsg ->
+            Log.e("PlantsActivity", errorMsg)
         })
     }
 
     private fun fetchPlantTypes() {
-        apiService.getPlantTypes().enqueue(object : Callback<List<PlantType>> {
-            override fun onResponse(call: Call<List<PlantType>>, response: Response<List<PlantType>>) {
-                if (response.isSuccessful) {
-                    response.body()?.let { types ->
-                        plantTypes = types
-                    }
-                } else {
-                    Log.e("PlantsActivity", "Error: ${response.code()} ${response.message()}")
-                }
-            }
-
-            override fun onFailure(call: Call<List<PlantType>>, t: Throwable) {
-                Log.e("PlantsActivity", "Network error")
-                t.printStackTrace()
-            }
+        plantsService.fetchPlantTypes({ types ->
+            plantTypes = types
+        }, { errorMsg ->
+            Log.e("PlantsActivity", errorMsg)
         })
     }
 
@@ -124,7 +99,12 @@ class PlantsActivity : AppCompatActivity() {
 
             if (light != null && humidity != null && temp != null) {
                 val newPlant = AddPlant(plantTypeId, location, light, humidity, temp, additionalInfo)
-                addPlant(newPlant)
+                plantsService.addPlant(newPlant, {
+                    fetchPlants()
+                    Log.d("AddPlant", "Plant added successfully")
+                }, { errorMsg ->
+                    Log.e("AddPlant", errorMsg)
+                })
                 popupWindow.dismiss()
             } else {
                 Log.d("AddPlantPopup", "Invalid input")
@@ -132,23 +112,5 @@ class PlantsActivity : AppCompatActivity() {
         }
 
         popupWindow.showAtLocation(window.decorView, Gravity.CENTER, 0, 0)
-    }
-
-    private fun addPlant(plant: AddPlant) {
-        apiService.addPlant(plant).enqueue(object : Callback<Void> {
-            override fun onResponse(call: Call<Void>, response: Response<Void>) {
-                if (response.isSuccessful) {
-                    fetchPlants()
-                    Log.d("AddPlant", "Plant added successfully")
-                } else {
-                    Log.e("AddPlant", "Error: ${response.code()} ${response.message()}")
-                }
-            }
-
-            override fun onFailure(call: Call<Void>, t: Throwable) {
-                Log.e("AddPlant", "Network error")
-                t.printStackTrace()
-            }
-        })
     }
 }

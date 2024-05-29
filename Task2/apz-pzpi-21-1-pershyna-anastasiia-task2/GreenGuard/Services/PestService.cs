@@ -87,11 +87,6 @@ public class PestService
     {
         var pestInPlant = await _context.Pest_in_Plant.FirstOrDefaultAsync(pip => pip.PlantId == plantId && pip.PestId == pestId);
 
-        if (pestInPlant == null)
-        {
-            _logger.LogError($"Pest with ID {pestId} is not associated with plant with ID {plantId}");
-            return;
-        }
 
         _context.Pest_in_Plant.Remove(pestInPlant);
         await _context.SaveChangesAsync();

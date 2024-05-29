@@ -13,25 +13,22 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.greenguardmobile.R
-import com.example.greenguardmobile.api.ApiService
-import com.example.greenguardmobile.api.NetworkModule
-import com.example.greenguardmobile.api.TokenManager
-import com.example.greenguardmobile.model.UpdateWorker
-import com.example.greenguardmobile.model.Worker
-import com.example.greenguardmobile.model.WorkerSchedule
+import com.example.greenguardmobile.network.NetworkModule
+import com.example.greenguardmobile.network.TokenManager
+import com.example.greenguardmobile.models.worker.UpdateWorker
+import com.example.greenguardmobile.models.worker.Worker
+import com.example.greenguardmobile.models.worker.WorkerSchedule
+import com.example.greenguardmobile.service.ProfileService
 import com.example.greenguardmobile.util.NavigationUtils
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 import java.util.*
 
 class ProfileActivity : AppCompatActivity() {
 
     private lateinit var workStartTime: TextView
     private lateinit var workEndTime: TextView
-    private lateinit var apiService: ApiService
     private lateinit var tokenManager: TokenManager
+    private lateinit var profileService: ProfileService
 
     private lateinit var fullName: EditText
     private lateinit var phoneNumber: EditText
@@ -92,7 +89,8 @@ class ProfileActivity : AppCompatActivity() {
         NavigationUtils.setupBottomNavigation(bottomNavMenu, this)
 
         tokenManager = TokenManager(this)
-        apiService = NetworkModule.provideApiService(this)
+        val apiService = NetworkModule.provideApiService(this)
+        profileService = ProfileService(apiService, this)
 
         val workerId = tokenManager.getWorkerIdFromToken()
         if (workerId != null) {
@@ -112,20 +110,10 @@ class ProfileActivity : AppCompatActivity() {
             endWorkTime = workEndTime.text.toString()
         )
 
-        apiService.updateWorker(workerId, updatedWorker).enqueue(object : Callback<Void> {
-            override fun onResponse(call: Call<Void>, response: Response<Void>) {
-                if (response.isSuccessful) {
-                    Log.d("ProfileActivity", "Worker information updated successfully")
-                } else {
-                    Log.e("ProfileActivity", "Error: ${response.code()} ${response.message()}")
-                }
-                Toast.makeText(this@ProfileActivity, "Information updated successfully", Toast.LENGTH_SHORT).show()
-            }
-
-            override fun onFailure(call: Call<Void>, t: Throwable) {
-                Log.e("ProfileActivity", "Network error")
-                t.printStackTrace()
-            }
+        profileService.updateWorkerProfile(workerId, updatedWorker, {
+            Log.d("ProfileActivity", "Worker information updated successfully")
+        }, { errorMsg ->
+            Log.e("ProfileActivity", errorMsg)
         })
     }
 
@@ -140,86 +128,44 @@ class ProfileActivity : AppCompatActivity() {
             sunday = sunday.isChecked
         )
 
-        apiService.updateWorkingSchedule(workerId, updatedSchedule).enqueue(object : Callback<Void> {
-            override fun onResponse(call: Call<Void>, response: Response<Void>) {
-                if (response.isSuccessful) {
-                    Log.d("ProfileActivity", "Working schedule updated successfully")
-                } else {
-                    Log.e("ProfileActivity", "Error: ${response.code()} ${response.message()}")
-                }
-            }
-
-            override fun onFailure(call: Call<Void>, t: Throwable) {
-                Log.e("ProfileActivity", "Network error")
-                t.printStackTrace()
-            }
+        profileService.updateWorkerSchedule(workerId, updatedSchedule, {
+            Log.d("ProfileActivity", "Working schedule updated successfully")
+        }, { errorMsg ->
+            Log.e("ProfileActivity", errorMsg)
         })
     }
 
     private fun fetchWorkerProfile(workerId: Int) {
-        apiService.getWorker(workerId).enqueue(object : Callback<Worker> {
-            override fun onResponse(call: Call<Worker>, response: Response<Worker>) {
-                if (response.isSuccessful) {
-                    response.body()?.let { worker ->
-                        fullName.setText(worker.workerName)
-                        phoneNumber.setText(worker.phoneNumber)
-                        email.setText(worker.email)
-                        workStartTime.text = worker.startWorkTime
-                        workEndTime.text = worker.endWorkTime
-                    }
-                } else {
-                    Log.e("ProfileActivity", "Error: ${response.code()} ${response.message()}")
-                }
-            }
-
-            override fun onFailure(call: Call<Worker>, t: Throwable) {
-                Log.e("ProfileActivity", "Network error")
-                t.printStackTrace()
-            }
+        profileService.fetchWorkerProfile(workerId, { worker ->
+            fullName.setText(worker.workerName)
+            phoneNumber.setText(worker.phoneNumber)
+            email.setText(worker.email)
+            workStartTime.text = worker.startWorkTime
+            workEndTime.text = worker.endWorkTime
+        }, { errorMsg ->
+            Log.e("ProfileActivity", errorMsg)
         })
     }
 
     private fun fetchWorkerSchedule(workerId: Int) {
-        apiService.getWorkerSchedule(workerId).enqueue(object : Callback<WorkerSchedule> {
-            override fun onResponse(call: Call<WorkerSchedule>, response: Response<WorkerSchedule>) {
-                if (response.isSuccessful) {
-                    response.body()?.let { schedule ->
-                        monday.isChecked = schedule.monday
-                        tuesday.isChecked = schedule.tuesday
-                        wednesday.isChecked = schedule.wednesday
-                        thursday.isChecked = schedule.thursday
-                        friday.isChecked = schedule.friday
-                        saturday.isChecked = schedule.saturday
-                        sunday.isChecked = schedule.sunday
-                    }
-                } else {
-                    Log.e("ProfileActivity", "Error: ${response.code()} ${response.message()}")
-                }
-            }
-
-            override fun onFailure(call: Call<WorkerSchedule>, t: Throwable) {
-                Log.e("ProfileActivity", "Network error")
-                t.printStackTrace()
-            }
+        profileService.fetchWorkerSchedule(workerId, { schedule ->
+            monday.isChecked = schedule.monday
+            tuesday.isChecked = schedule.tuesday
+            wednesday.isChecked = schedule.wednesday
+            thursday.isChecked = schedule.thursday
+            friday.isChecked = schedule.friday
+            saturday.isChecked = schedule.saturday
+            sunday.isChecked = schedule.sunday
+        }, { errorMsg ->
+            Log.e("ProfileActivity", errorMsg)
         })
     }
 
     private fun calculateSalary(workerId: Int) {
-        apiService.calculateSalary(workerId).enqueue(object : Callback<Double> {
-            override fun onResponse(call: Call<Double>, response: Response<Double>) {
-                if (response.isSuccessful) {
-                    response.body()?.let { salary ->
-                        showSalaryPopup(salary)
-                    }
-                } else {
-                    Log.e("ProfileActivity", "Error: ${response.code()} ${response.message()}")
-                }
-            }
-
-            override fun onFailure(call: Call<Double>, t: Throwable) {
-                Log.e("ProfileActivity", "Network error")
-                t.printStackTrace()
-            }
+        profileService.calculateSalary(workerId, { salary ->
+            showSalaryPopup(salary)
+        }, { errorMsg ->
+            Log.e("ProfileActivity", errorMsg)
         })
     }
 

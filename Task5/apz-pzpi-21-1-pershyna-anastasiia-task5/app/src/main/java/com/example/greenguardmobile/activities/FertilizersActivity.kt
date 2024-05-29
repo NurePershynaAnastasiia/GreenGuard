@@ -8,27 +8,24 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.LinearLayout
 import android.widget.PopupWindow
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.greenguardmobile.R
-import com.example.greenguardmobile.adapter.FertilizerAdapter
-import com.example.greenguardmobile.api.ApiService
-import com.example.greenguardmobile.api.NetworkModule
-import com.example.greenguardmobile.model.Fertilizer
-import com.example.greenguardmobile.model.AddFertilizer
-import com.example.greenguardmobile.model.UpdateFertilizerQuantity
+import com.example.greenguardmobile.adapters.FertilizerAdapter
+import com.example.greenguardmobile.network.ApiService
+import com.example.greenguardmobile.network.NetworkModule
+import com.example.greenguardmobile.models.fertilizer.Fertilizer
+import com.example.greenguardmobile.models.fertilizer.AddFertilizer
+import com.example.greenguardmobile.service.FertilizersService
 import com.example.greenguardmobile.util.NavigationUtils
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 class FertilizersActivity : AppCompatActivity() {
 
     private lateinit var apiService: ApiService
+    private lateinit var fertilizersService: FertilizersService
     private lateinit var recyclerView: RecyclerView
     private lateinit var fertilizerAdapter: FertilizerAdapter
 
@@ -48,11 +45,12 @@ class FertilizersActivity : AppCompatActivity() {
 
         fertilizerAdapter = FertilizerAdapter(mutableListOf(),
             onDeleteClick = { fertilizer -> deleteFertilizer(fertilizer) },
-            onUpdateQuantityClick = { fertilizer -> updateFertilizerQuantity(fertilizer) })
+            onUpdateQuantityClick = { fertilizer -> showUpdateFertilizerPopup(fertilizer) })
 
         recyclerView.adapter = fertilizerAdapter
 
         apiService = NetworkModule.provideApiService(this)
+        fertilizersService = FertilizersService(apiService, this)
 
         fetchFertilizers()
 
@@ -62,19 +60,13 @@ class FertilizersActivity : AppCompatActivity() {
     }
 
     private fun fetchFertilizers() {
-        apiService.getFertilizers().enqueue(object : Callback<List<Fertilizer>> {
-            override fun onResponse(call: Call<List<Fertilizer>>, response: Response<List<Fertilizer>>) {
-                if (response.isSuccessful) {
-                    response.body()?.let { fertilizers ->
-                        fertilizerAdapter.setFertilizers(fertilizers)
-                    }
-                }
-            }
+        fertilizersService.fetchFertilizers { fertilizers ->
+            updateFertilizerList(fertilizers)
+        }
+    }
 
-            override fun onFailure(call: Call<List<Fertilizer>>, t: Throwable) {
-                t.printStackTrace()
-            }
-        })
+    fun updateFertilizerList(fertilizers: List<Fertilizer>) {
+        fertilizerAdapter.setFertilizers(fertilizers)
     }
 
     private fun showAddFertilizerPopup() {
@@ -97,7 +89,7 @@ class FertilizersActivity : AppCompatActivity() {
 
             if (name.isNotBlank() && quantity != null) {
                 val newFertilizer = AddFertilizer(name, quantity)
-                addFertilizer(newFertilizer)
+                fertilizersService.addFertilizer(newFertilizer)
                 popupWindow.dismiss()
             } else {
                 Log.d("AddFertilizerPopup", "Invalid input")
@@ -107,44 +99,11 @@ class FertilizersActivity : AppCompatActivity() {
         popupWindow.showAtLocation(window.decorView, Gravity.CENTER, 0, 0)
     }
 
-    private fun addFertilizer(fertilizer: AddFertilizer) {
-        apiService.addFertilizer(fertilizer).enqueue(object : Callback<Void> {
-            override fun onResponse(call: Call<Void>, response: Response<Void>) {
-                if (response.isSuccessful) {
-                    fetchFertilizers()
-                    Log.d("AddFertilizer", "Fertilizer added successfully")
-                } else {
-                    Log.e("AddFertilizer", "Error: ${response.code()} ${response.message()}")
-                }
-            }
-
-            override fun onFailure(call: Call<Void>, t: Throwable) {
-                Log.e("AddFertilizer", "Network error")
-                t.printStackTrace()
-            }
-        })
-    }
-
     private fun deleteFertilizer(fertilizer: Fertilizer) {
-        apiService.deleteFertilizer(fertilizer.fertilizerId).enqueue(object : Callback<Void> {
-            override fun onResponse(call: Call<Void>, response: Response<Void>) {
-                if (response.isSuccessful) {
-                    fetchFertilizers()
-                    Log.d("DeleteFertilizer", "Fertilizer deleted successfully")
-                    Toast.makeText(this@FertilizersActivity, "Fertilizer deleted successfully", Toast.LENGTH_SHORT).show()
-                } else {
-                    Log.e("DeleteFertilizer", "Error: ${response.code()} ${response.message()}")
-                }
-            }
-
-            override fun onFailure(call: Call<Void>, t: Throwable) {
-                Log.e("DeleteFertilizer", "Network error")
-                t.printStackTrace()
-            }
-        })
+        fertilizersService.deleteFertilizer(fertilizer)
     }
 
-    private fun updateFertilizerQuantity(fertilizer: Fertilizer) {
+    private fun showUpdateFertilizerPopup(fertilizer: Fertilizer) {
         val inflater = getSystemService(LAYOUT_INFLATER_SERVICE) as LayoutInflater
         val popupView = inflater.inflate(R.layout.popup_update_fertilizer_quantity, null)
 
@@ -161,24 +120,7 @@ class FertilizersActivity : AppCompatActivity() {
             val newQuantity = quantityEditText.text.toString().toIntOrNull()
 
             if (newQuantity != null) {
-                apiService.updateFertilizerQuantity(fertilizer.fertilizerId, UpdateFertilizerQuantity(newQuantity)).enqueue(object : Callback<Void> {
-                    override fun onResponse(call: Call<Void>, response: Response<Void>) {
-                        if (response.isSuccessful) {
-                            fetchFertilizers()
-                            Log.d("UpdateFertilizer", "Fertilizer quantity updated successfully")
-                            Toast.makeText(this@FertilizersActivity, "Fertilizer quantity updated successfully", Toast.LENGTH_SHORT).show()
-                        } else {
-                            Log.e("UpdateFertilizer", "Error: ${response.code()} ${response.message()}")
-                            // Handle error
-                        }
-                    }
-
-                    override fun onFailure(call: Call<Void>, t: Throwable) {
-                        Log.e("UpdateFertilizer", "Network error")
-                        t.printStackTrace()
-                        // Handle error
-                    }
-                })
+                fertilizersService.updateFertilizerQuantity(fertilizer, newQuantity)
                 popupWindow.dismiss()
             } else {
                 Log.d("UpdateFertilizer", "Invalid input")
@@ -187,5 +129,4 @@ class FertilizersActivity : AppCompatActivity() {
 
         popupWindow.showAtLocation(window.decorView, Gravity.CENTER, 0, 0)
     }
-
 }

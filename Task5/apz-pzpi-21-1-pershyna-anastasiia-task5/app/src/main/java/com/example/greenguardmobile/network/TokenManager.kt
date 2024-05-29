@@ -1,4 +1,4 @@
-package com.example.greenguardmobile.api
+package com.example.greenguardmobile.network
 
 import android.content.Context
 import android.util.Log

@@ -7,22 +7,18 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.greenguardmobile.R
-import com.example.greenguardmobile.adapter.TaskAdapter
-import com.example.greenguardmobile.api.ApiService
-import com.example.greenguardmobile.api.NetworkModule
-import com.example.greenguardmobile.api.TokenManager
-import com.example.greenguardmobile.model.Task
+import com.example.greenguardmobile.adapters.TaskAdapter
+import com.example.greenguardmobile.network.NetworkModule
+import com.example.greenguardmobile.network.TokenManager
+import com.example.greenguardmobile.service.TasksService
 import com.example.greenguardmobile.util.NavigationUtils
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 class TasksActivity : AppCompatActivity() {
 
-    private lateinit var apiService: ApiService
     private lateinit var tokenManager: TokenManager
+    private lateinit var tasksService: TasksService
     private lateinit var taskAdapter: TaskAdapter
     private var workerId: Int? = null
 
@@ -38,7 +34,8 @@ class TasksActivity : AppCompatActivity() {
         NavigationUtils.setupTopMenu(toolbar, this)
 
         tokenManager = TokenManager(this)
-        apiService = NetworkModule.provideApiService(this)
+        val apiService = NetworkModule.provideApiService(this)
+        tasksService = TasksService(apiService)
 
         workerId = tokenManager.getWorkerIdFromToken()
         if (workerId != null) {
@@ -63,40 +60,18 @@ class TasksActivity : AppCompatActivity() {
     }
 
     private fun fetchWorkerTasks(workerId: Int) {
-        apiService.getWorkerTasks(workerId).enqueue(object : Callback<List<Task>> {
-            override fun onResponse(call: Call<List<Task>>, response: Response<List<Task>>) {
-                if (response.isSuccessful) {
-                    response.body()?.let { tasks ->
-                        taskAdapter.setTasks(tasks)
-                    }
-                } else {
-                    Log.d("TasksActivity", "Error: ${response.errorBody()}")
-                }
-            }
-
-            override fun onFailure(call: Call<List<Task>>, t: Throwable) {
-                Log.d("TasksActivity", "Network error")
-                t.printStackTrace()
-            }
+        tasksService.fetchWorkerTasks(workerId, { tasks ->
+            taskAdapter.setTasks(tasks)
+        }, { errorMsg ->
+            Log.d("TasksActivity", errorMsg)
         })
     }
 
     private fun fetchWorkerTasksToday(workerId: Int) {
-        apiService.getWorkerTasksToday(workerId).enqueue(object : Callback<List<Task>> {
-            override fun onResponse(call: Call<List<Task>>, response: Response<List<Task>>) {
-                if (response.isSuccessful) {
-                    response.body()?.let { tasks ->
-                        taskAdapter.setTasks(tasks)
-                    }
-                } else {
-                    Log.d("TasksActivity", "Error: ${response.errorBody()}")
-                }
-            }
-
-            override fun onFailure(call: Call<List<Task>>, t: Throwable) {
-                Log.d("TasksActivity", "Network error")
-                t.printStackTrace()
-            }
+        tasksService.fetchWorkerTasksToday(workerId, { tasks ->
+            taskAdapter.setTasks(tasks)
+        }, { errorMsg ->
+            Log.d("TasksActivity", errorMsg)
         })
     }
 }
