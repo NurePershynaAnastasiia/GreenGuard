@@ -73,19 +73,25 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/plant_pests"
-        android:text="Редагувати"
-        android:layout_margin="5dp"
-        android:textColor="@color/white"
-        android:background="@color/dark_green"/>
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginBottom="5dp"
+        android:background="@color/dark_green"
+        android:text="@string/edit"
+        android:textColor="@color/white" />
 
     <Button
         android:id="@+id/btn_delete"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/btn_edit"
-        android:layout_margin="5dp"
-        android:text="Видалити"
-        android:textColor="@color/white"
-        android:background="@color/dark_red"/>
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginBottom="5dp"
+        android:background="@color/dark_red"
+        android:text="@string/delete"
+        android:textColor="@color/white" />
 
 </RelativeLayout>

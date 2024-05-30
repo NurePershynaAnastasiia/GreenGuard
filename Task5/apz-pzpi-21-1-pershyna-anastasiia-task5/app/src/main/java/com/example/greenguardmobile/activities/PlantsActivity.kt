@@ -29,23 +29,59 @@ class PlantsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_plants)
+    }
 
+    override fun onStart() {
+        super.onStart()
+        setupNavigation()
+        initializeServices()
+        setupRecyclerView()
+        setupAddButton()
+
+        fetchPlants()
+        fetchPlantTypes()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        // Можна додати код для відновлення анімацій або інших ресурсів, що були зупинені
+    }
+
+    override fun onPause() {
+        super.onPause()
+        // Зупинити будь-які довготривалі ресурси або зберегти стан
+    }
+
+    override fun onStop() {
+        super.onStop()
+        // Зупинити або звільнити ресурси, що не потрібні, коли активність не видима
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        // Виконати очищення ресурсів, таких як зупинка сервісів
+    }
+
+    private fun setupNavigation() {
         val bottomNavMenu = findViewById<BottomNavigationView>(R.id.bottom_navigation)
         NavigationUtils.setupBottomNavigation(bottomNavMenu, this)
         bottomNavMenu.menu.findItem(R.id.plants).isChecked = true
 
         val toolbar = findViewById<MaterialToolbar>(R.id.toolbar)
         NavigationUtils.setupTopMenu(toolbar, this)
+    }
 
-        plantsRecyclerView = findViewById(R.id.plants_recycler_view)
-        plantsRecyclerView.layoutManager = LinearLayoutManager(this)
-
+    private fun initializeServices() {
         val apiService = NetworkModule.provideApiService(this)
         plantsService = PlantsService(apiService, this)
+    }
 
-        fetchPlants()
-        fetchPlantTypes()
+    private fun setupRecyclerView() {
+        plantsRecyclerView = findViewById(R.id.plants_recycler_view)
+        plantsRecyclerView.layoutManager = LinearLayoutManager(this)
+    }
 
+    private fun setupAddButton() {
         findViewById<Button>(R.id.addButton).setOnClickListener {
             showAddPlantPopup()
         }

@@ -95,7 +95,6 @@ class TaskAdapter(
 
             val spinner = popupView.findViewById<Spinner>(R.id.spinner_status)
             val btnOk = popupView.findViewById<Button>(R.id.btn_ok)
-            val btnCancel = popupView.findViewById<Button>(R.id.btn_cancel)
 
             val statusOptions = arrayOf("не розпочато", "в процесі", "закінчено", "відмінено")
             val statusValues = arrayOf("pending", "in process", "finished", "cancelled")
@@ -124,11 +123,6 @@ class TaskAdapter(
                         Log.e("TaskAdapter update", "Network error", t)
                     }
                 })
-            }
-
-
-            btnCancel.setOnClickListener {
-                popupWindow.dismiss()
             }
 
             popupWindow.showAtLocation(itemView, android.view.Gravity.CENTER, 0, 0)

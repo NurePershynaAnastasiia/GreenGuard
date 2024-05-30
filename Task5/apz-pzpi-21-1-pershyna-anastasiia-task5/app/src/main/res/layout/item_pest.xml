@@ -24,7 +24,7 @@
         android:id="@+id/addToPlantButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Додати до рослини"
+        android:text="@string/add_to_plant"
         android:textColor="@color/white"
         android:backgroundTint="@color/dark_green" />
 
@@ -32,7 +32,7 @@
         android:id="@+id/removeFromPlantButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Видалити з рослини"
+        android:text="@string/remove_from_plant"
         android:textColor="@color/white"
         android:backgroundTint="@color/dark_red"
        />

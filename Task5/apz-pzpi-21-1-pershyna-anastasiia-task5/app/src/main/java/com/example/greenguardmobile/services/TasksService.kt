@@ -6,7 +6,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class TasksService(private val apiService: ApiService) {
+class TasksService(val apiService: ApiService) {
 
     fun fetchWorkerTasks(workerId: Int, onSuccess: (List<Task>) -> Unit, onError: (String) -> Unit) {
         apiService.getWorkerTasks(workerId).enqueue(object : Callback<List<Task>> {

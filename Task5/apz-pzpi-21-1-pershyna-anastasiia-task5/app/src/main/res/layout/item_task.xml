@@ -34,7 +34,7 @@
         android:id="@+id/btn_change_status"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Змінити статус"
+        android:text="@string/update_status"
         android:textColor="@color/white"
         android:backgroundTint="@color/dark_green" />
 </LinearLayout>

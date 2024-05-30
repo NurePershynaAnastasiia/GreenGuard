@@ -30,15 +30,32 @@ class PestsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_pests)
+    }
 
+    override fun onStart() {
+        super.onStart()
+        initViews()
+        setupNavigation()
+        setupRecyclerView()
+        initializeServices()
+        fetchPests()
+        fetchPlants()
+    }
+
+    private fun initViews() {
+        recyclerView = findViewById(R.id.recyclerView)
+    }
+
+    private fun setupNavigation() {
         val bottomNavMenu = findViewById<BottomNavigationView>(R.id.bottom_navigation)
         NavigationUtils.setupBottomNavigation(bottomNavMenu, this)
         bottomNavMenu.menu.findItem(R.id.pests).isChecked = true
 
         val toolbar = findViewById<MaterialToolbar>(R.id.toolbar)
         NavigationUtils.setupTopMenu(toolbar, this)
+    }
 
-        recyclerView = findViewById(R.id.recyclerView)
+    private fun setupRecyclerView() {
         recyclerView.layoutManager = LinearLayoutManager(this)
         pestAdapter = PestAdapter(mutableListOf(), { pest ->
             showAddToPlantPopup(pest)
@@ -46,12 +63,23 @@ class PestsActivity : AppCompatActivity() {
             showRemoveFromPlantPopup(pest)
         })
         recyclerView.adapter = pestAdapter
+    }
 
+    private fun initializeServices() {
         apiService = NetworkModule.provideApiService(this)
         pestsService = PestsService(apiService, this)
+    }
 
-        fetchPests()
-        fetchPlants()
+    private fun fetchPests() {
+        pestsService.fetchPests { pests ->
+            pestAdapter.setPests(pests)
+        }
+    }
+
+    private fun fetchPlants() {
+        pestsService.fetchPlants { plantsList ->
+            plants = plantsList
+        }
     }
 
     private fun showAddToPlantPopup(pest: Pest) {
@@ -80,7 +108,7 @@ class PestsActivity : AppCompatActivity() {
 
             pestsService.addPestToPlant(pest.pestId, selectedPlantId, {
                 popupWindow.dismiss()
-                Log.d("AddToPlant", "Pest added to plant successfully")
+                Log.d("AddToPlant", getResources().getString(R.string.pest_added_success))
                 Toast.makeText(this@PestsActivity, "Pest added to plant successfully", Toast.LENGTH_SHORT).show()
             }, { errorMsg ->
                 Log.e("AddToPlant", errorMsg)
@@ -118,25 +146,13 @@ class PestsActivity : AppCompatActivity() {
             pestsService.deletePestFromPlant(pest.pestId, selectedPlantId, {
                 popupWindow.dismiss()
                 Log.d("RemoveFromPlant", "Pest removed from plant successfully")
-                Toast.makeText(this@PestsActivity, "Pest removed from plant successfully", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@PestsActivity, getResources().getString(R.string.pest_removed_success), Toast.LENGTH_SHORT).show()
             }, { errorMsg ->
                 Log.e("RemoveFromPlant", errorMsg)
-                Toast.makeText(this@PestsActivity, "Pest is not associated with selected plant", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@PestsActivity, getResources().getString(R.string.no_pest_in_plant), Toast.LENGTH_SHORT).show()
             })
         }
 
         popupWindow.showAtLocation(window.decorView, Gravity.CENTER, 0, 0)
-    }
-
-    private fun fetchPests() {
-        pestsService.fetchPests { pests ->
-            pestAdapter.setPests(pests)
-        }
-    }
-
-    private fun fetchPlants() {
-        pestsService.fetchPlants { plantsList ->
-            plants = plantsList
-        }
     }
 }

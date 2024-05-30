@@ -32,31 +32,67 @@ class FertilizersActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_fertilizers)
+    }
 
-        val bottomNavMenu = findViewById<BottomNavigationView>(R.id.bottom_navigation)
-        NavigationUtils.setupBottomNavigation(bottomNavMenu, this)
-        bottomNavMenu.menu.findItem(R.id.fertilizers).setChecked(true)
-
-        val toolbar = findViewById<MaterialToolbar>(R.id.toolbar)
-        NavigationUtils.setupTopMenu(toolbar, this)
-
-        recyclerView = findViewById(R.id.recyclerView)
-        recyclerView.layoutManager = LinearLayoutManager(this)
-
-        fertilizerAdapter = FertilizerAdapter(mutableListOf(),
-            onDeleteClick = { fertilizer -> deleteFertilizer(fertilizer) },
-            onUpdateQuantityClick = { fertilizer -> showUpdateFertilizerPopup(fertilizer) })
-
-        recyclerView.adapter = fertilizerAdapter
-
-        apiService = NetworkModule.provideApiService(this)
-        fertilizersService = FertilizersService(apiService, this)
-
+    override fun onStart() {
+        super.onStart()
+        initializeViews()
+        initializeServices()
+        setupRecyclerView()
+        setupNavigation()
         fetchFertilizers()
 
         findViewById<Button>(R.id.addButton).setOnClickListener {
             showAddFertilizerPopup()
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        Log.d("FertilizersActivity", "onResume called")
+    }
+
+    override fun onPause() {
+        super.onPause()
+        Log.d("FertilizersActivity", "onPause called")
+    }
+
+    override fun onStop() {
+        super.onStop()
+        Log.d("FertilizersActivity", "onStop called")
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        Log.d("FertilizersActivity", "onDestroy called")
+    }
+
+    private fun initializeViews() {
+        recyclerView = findViewById(R.id.recyclerView)
+    }
+
+    private fun initializeServices() {
+        apiService = NetworkModule.provideApiService(this)
+        fertilizersService = FertilizersService(apiService, this)
+    }
+
+    private fun setupRecyclerView() {
+        recyclerView.layoutManager = LinearLayoutManager(this)
+        fertilizerAdapter = FertilizerAdapter(
+            mutableListOf(),
+            onDeleteClick = { fertilizer -> deleteFertilizer(fertilizer) },
+            onUpdateQuantityClick = { fertilizer -> showUpdateFertilizerPopup(fertilizer) }
+        )
+        recyclerView.adapter = fertilizerAdapter
+    }
+
+    private fun setupNavigation() {
+        val bottomNavMenu = findViewById<BottomNavigationView>(R.id.bottom_navigation)
+        NavigationUtils.setupBottomNavigation(bottomNavMenu, this)
+        bottomNavMenu.menu.findItem(R.id.fertilizers).isChecked = true
+
+        val toolbar = findViewById<MaterialToolbar>(R.id.toolbar)
+        NavigationUtils.setupTopMenu(toolbar, this)
     }
 
     private fun fetchFertilizers() {
@@ -73,11 +109,12 @@ class FertilizersActivity : AppCompatActivity() {
         val inflater = getSystemService(LAYOUT_INFLATER_SERVICE) as LayoutInflater
         val popupView = inflater.inflate(R.layout.popup_add_fertilizer, null)
 
-        val width = LinearLayout.LayoutParams.WRAP_CONTENT
-        val height = LinearLayout.LayoutParams.WRAP_CONTENT
-        val focusable = true
-
-        val popupWindow = PopupWindow(popupView, width, height, focusable)
+        val popupWindow = PopupWindow(
+            popupView,
+            LinearLayout.LayoutParams.WRAP_CONTENT,
+            LinearLayout.LayoutParams.WRAP_CONTENT,
+            true
+        )
 
         val addButtonPopup = popupView.findViewById<Button>(R.id.addButtonPopup)
         val nameEditText = popupView.findViewById<EditText>(R.id.et_fertilizer_name)
@@ -107,23 +144,24 @@ class FertilizersActivity : AppCompatActivity() {
         val inflater = getSystemService(LAYOUT_INFLATER_SERVICE) as LayoutInflater
         val popupView = inflater.inflate(R.layout.popup_update_fertilizer_quantity, null)
 
-        val width = LinearLayout.LayoutParams.WRAP_CONTENT
-        val height = LinearLayout.LayoutParams.WRAP_CONTENT
-        val focusable = true
+        val popupWindow = PopupWindow(
+            popupView,
+            LinearLayout.LayoutParams.WRAP_CONTENT,
+            LinearLayout.LayoutParams.WRAP_CONTENT,
+            true
+        )
 
-        val popupWindow = PopupWindow(popupView, width, height, focusable)
-
-        val addButtonPopup = popupView.findViewById<Button>(R.id.addButtonPopup)
+        val updateButtonPopup = popupView.findViewById<Button>(R.id.updateButtonPopup)
         val quantityEditText = popupView.findViewById<EditText>(R.id.et_fertilizer_quantity)
 
-        addButtonPopup.setOnClickListener {
+        updateButtonPopup.setOnClickListener {
             val newQuantity = quantityEditText.text.toString().toIntOrNull()
 
             if (newQuantity != null) {
                 fertilizersService.updateFertilizerQuantity(fertilizer, newQuantity)
                 popupWindow.dismiss()
             } else {
-                Log.d("UpdateFertilizer", "Invalid input")
+                Log.d("UpdateFertilizerPopup", "Invalid input")
             }
         }
 

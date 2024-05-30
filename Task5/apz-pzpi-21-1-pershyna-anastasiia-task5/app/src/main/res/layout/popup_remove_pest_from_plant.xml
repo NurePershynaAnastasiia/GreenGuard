@@ -21,7 +21,7 @@
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
             android:layout_marginTop="20dp"
-            android:text="Виберіть рослину для видалення шкідника"
+            android:text="@string/remove_pest_from_plant"
             android:textColor="@color/white"
             android:layout_gravity="center"
             android:textSize="25dp"

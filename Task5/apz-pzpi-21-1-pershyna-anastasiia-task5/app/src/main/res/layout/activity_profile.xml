@@ -80,7 +80,7 @@
             android:id="@+id/work_start_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Початок робочого дня"
+            android:text="@string/start_work_time"
             android:textSize="15sp"
             android:layout_weight="1"
             android:textColor="@android:color/black" />
@@ -98,7 +98,7 @@
             android:id="@+id/edit_start_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Редагувати"
+            android:text="@string/edit"
             android:onClick="showTimePickerStart"
             android:backgroundTint="#275362"
             android:textColor="#FFFFFF"/>
@@ -119,7 +119,7 @@
             android:id="@+id/work_end_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Кінець робочого дня"
+            android:text="@string/end_work_time"
             android:textSize="15sp"
             android:layout_weight="1"
             android:textColor="@android:color/black" />
@@ -137,7 +137,7 @@
             android:id="@+id/edit_end_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Редагувати"
+            android:text="@string/edit"
             android:onClick="showTimePickerEnd"
             android:backgroundTint="#275362"
             android:textColor="#FFFFFF"/>
@@ -151,7 +151,7 @@
         android:layout_below="@id/work_end_layout"
         android:layout_marginTop="10dp"
         android:layout_marginStart="20dp"
-        android:text="Робочі дні:"
+        android:text="@string/working_days"
         android:textSize="20sp"
         android:textColor="@android:color/black" />
 
@@ -171,49 +171,49 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Пн" />
+            android:text="@string/monday" />
 
         <CheckBox
             android:id="@+id/tuesday"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Вт" />
+            android:text="@string/tuesday" />
 
         <CheckBox
             android:id="@+id/wednesday"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Ср" />
+            android:text="@string/wednesday" />
 
         <CheckBox
             android:id="@+id/thursday"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Чт" />
+            android:text="@string/thursday" />
 
         <CheckBox
             android:id="@+id/friday"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Пт" />
+            android:text="@string/friday" />
 
         <CheckBox
             android:id="@+id/saturday"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Сб"/>
+            android:text="@string/saturday"/>
 
         <CheckBox
             android:id="@+id/sunday"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Нд"/>
+            android:text="@string/sunday"/>
     </LinearLayout>
 
     <Button
@@ -223,7 +223,7 @@
         android:layout_below="@id/working_days"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"
-        android:text="Зберегти зміни"
+        android:text="@string/save"
         android:backgroundTint="#275362"
         android:textColor="#FFFFFF"
         android:layout_alignParentRight="true"/>
@@ -235,7 +235,7 @@
         android:layout_below="@id/working_days"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"
-        android:text="Розрахувати зарплатню"
+        android:text="@string/calculate_salary"
         android:backgroundTint="#275362"
         android:textColor="#FFFFFF"
         android:layout_alignParentLeft="true"/>

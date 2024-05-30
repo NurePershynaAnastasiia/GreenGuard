@@ -3,6 +3,7 @@ package com.example.greenguardmobile.activities
 import android.app.AlertDialog
 import android.app.TimePickerDialog
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
@@ -40,10 +41,46 @@ class ProfileActivity : AppCompatActivity() {
     private lateinit var saturday: CheckBox
     private lateinit var sunday: CheckBox
 
+    private lateinit var sharedPreferences: SharedPreferences
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile)
 
+        initViews()
+        setupNavigation()
+        setupListeners()
+        initializeServices()
+
+        if (savedInstanceState != null) {
+            restoreSavedInstanceState(savedInstanceState)
+        }
+
+        val workerId = tokenManager.getWorkerIdFromToken()
+        if (workerId != null) {
+            fetchWorkerProfile(workerId)
+            fetchWorkerSchedule(workerId)
+        } else {
+            Log.d("ProfileActivity", "Worker ID not found")
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        restorePreferences()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        savePreferences()
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        saveInstanceState(outState)
+    }
+
+    private fun initViews() {
         workStartTime = findViewById(R.id.work_start_time)
         workEndTime = findViewById(R.id.work_end_time)
         fullName = findViewById(R.id.full_name)
@@ -58,10 +95,17 @@ class ProfileActivity : AppCompatActivity() {
         saturday = findViewById(R.id.saturday)
         sunday = findViewById(R.id.sunday)
 
+        sharedPreferences = getPreferences(MODE_PRIVATE)
+    }
+
+    private fun setupNavigation() {
+        val bottomNavMenu = findViewById<BottomNavigationView>(R.id.bottom_navigation)
+        NavigationUtils.setupBottomNavigation(bottomNavMenu, this)
+    }
+
+    private fun setupListeners() {
         findViewById<ImageButton>(R.id.exit_btn).setOnClickListener {
-            val myIntent = Intent(this, LoginActivity::class.java)
-            startActivity(myIntent)
-            finish()
+            navigateToLogin()
         }
 
         findViewById<Button>(R.id.save_button).setOnClickListener {
@@ -83,20 +127,25 @@ class ProfileActivity : AppCompatActivity() {
             }
         }
 
-        val bottomNavMenu = findViewById<BottomNavigationView>(R.id.bottom_navigation)
-        NavigationUtils.setupBottomNavigation(bottomNavMenu, this)
+        workStartTime.setOnClickListener {
+            showTimePickerDialog(workStartTime)
+        }
 
+        workEndTime.setOnClickListener {
+            showTimePickerDialog(workEndTime)
+        }
+    }
+
+    private fun initializeServices() {
         tokenManager = TokenManager(this)
         val apiService = NetworkModule.provideApiService(this)
         profileService = ProfileService(apiService, this)
+    }
 
-        val workerId = tokenManager.getWorkerIdFromToken()
-        if (workerId != null) {
-            fetchWorkerProfile(workerId)
-            fetchWorkerSchedule(workerId)
-        } else {
-            Log.d("ProfileActivity", "Worker ID not found")
-        }
+    private fun navigateToLogin() {
+        val myIntent = Intent(this, LoginActivity::class.java)
+        startActivity(myIntent)
+        finish()
     }
 
     private fun updateWorkerProfile(workerId: Int) {
@@ -169,21 +218,13 @@ class ProfileActivity : AppCompatActivity() {
 
     private fun showSalaryPopup(salary: Double) {
         val builder = AlertDialog.Builder(this)
-        builder.setTitle("Розрахована зарплатня")
-        builder.setMessage("Ваша зарплатня: $salary грн")
+        builder.setTitle(getResources().getString(R.string.calculated_salary))
+        builder.setMessage(getResources().getString(R.string.your_salary) + ": $salary " + getResources().getString(R.string.grn))
         builder.setPositiveButton("OK") { dialog, _ ->
             dialog.dismiss()
         }
         val dialog = builder.create()
         dialog.show()
-    }
-
-    fun showTimePickerStart(view: android.view.View) {
-        showTimePickerDialog(workStartTime)
-    }
-
-    fun showTimePickerEnd(view: android.view.View) {
-        showTimePickerDialog(workEndTime)
     }
 
     private fun showTimePickerDialog(timeTextView: TextView) {
@@ -196,5 +237,67 @@ class ProfileActivity : AppCompatActivity() {
                 timeTextView.text = String.format("%02d:%02d", hourOfDay, minuteOfHour)
             }, hour, minute, true)
         timePickerDialog.show()
+    }
+
+    private fun saveInstanceState(outState: Bundle) {
+        outState.putString("fullName", fullName.text.toString())
+        outState.putString("phoneNumber", phoneNumber.text.toString())
+        outState.putString("email", email.text.toString())
+        outState.putString("workStartTime", workStartTime.text.toString())
+        outState.putString("workEndTime", workEndTime.text.toString())
+        outState.putBoolean("monday", monday.isChecked)
+        outState.putBoolean("tuesday", tuesday.isChecked)
+        outState.putBoolean("wednesday", wednesday.isChecked)
+        outState.putBoolean("thursday", thursday.isChecked)
+        outState.putBoolean("friday", friday.isChecked)
+        outState.putBoolean("saturday", saturday.isChecked)
+        outState.putBoolean("sunday", sunday.isChecked)
+    }
+
+    private fun restoreSavedInstanceState(savedInstanceState: Bundle) {
+        fullName.setText(savedInstanceState.getString("fullName"))
+        phoneNumber.setText(savedInstanceState.getString("phoneNumber"))
+        email.setText(savedInstanceState.getString("email"))
+        workStartTime.text = savedInstanceState.getString("workStartTime")
+        workEndTime.text = savedInstanceState.getString("workEndTime")
+        monday.isChecked = savedInstanceState.getBoolean("monday")
+        tuesday.isChecked = savedInstanceState.getBoolean("tuesday")
+        wednesday.isChecked = savedInstanceState.getBoolean("wednesday")
+        thursday.isChecked = savedInstanceState.getBoolean("thursday")
+        friday.isChecked = savedInstanceState.getBoolean("friday")
+        saturday.isChecked = savedInstanceState.getBoolean("saturday")
+        sunday.isChecked = savedInstanceState.getBoolean("sunday")
+    }
+
+    private fun savePreferences() {
+        val editor = sharedPreferences.edit()
+        editor.putString("fullName", fullName.text.toString())
+        editor.putString("phoneNumber", phoneNumber.text.toString())
+        editor.putString("email", email.text.toString())
+        editor.putString("workStartTime", workStartTime.text.toString())
+        editor.putString("workEndTime", workEndTime.text.toString())
+        editor.putBoolean("monday", monday.isChecked)
+        editor.putBoolean("tuesday", tuesday.isChecked)
+        editor.putBoolean("wednesday", wednesday.isChecked)
+        editor.putBoolean("thursday", thursday.isChecked)
+        editor.putBoolean("friday", friday.isChecked)
+        editor.putBoolean("saturday", saturday.isChecked)
+        editor.putBoolean("sunday", sunday.isChecked)
+        editor.apply()
+    }
+
+    private fun restorePreferences() {
+        fullName.setText(sharedPreferences.getString("fullName", ""))
+        phoneNumber.setText(sharedPreferences.getString("phoneNumber", ""))
+        email.setText(sharedPreferences.getString("email", ""))
+        workStartTime.text = sharedPreferences.getString("workStartTime", "")
+        workEndTime.text = sharedPreferences.getString("workEndTime", "")
+        monday.isChecked = sharedPreferences.getBoolean("monday", false)
+        tuesday.isChecked = sharedPreferences.getBoolean("tuesday", false)
+        wednesday.isChecked = sharedPreferences.getBoolean("wednesday", false)
+        thursday.isChecked = sharedPreferences.getBoolean("thursday", false)
+        friday.isChecked = sharedPreferences.getBoolean("friday", false)
+        saturday.isChecked = sharedPreferences.getBoolean("saturday", false)
+        sunday.isChecked = sharedPreferences.getBoolean("sunday", false)
     }
 }

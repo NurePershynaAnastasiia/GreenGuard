@@ -10,7 +10,6 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.greenguardmobile.R
 import com.example.greenguardmobile.network.NetworkModule
 import com.example.greenguardmobile.service.LoginService
-import java.util.Locale
 
 class LoginActivity : AppCompatActivity() {
 
@@ -23,26 +22,74 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
+        savedInstanceState?.let {
+            restoreSavedInstanceState(it)
+        }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        initializeViews()
+        initializeServices()
+
+        loginButton.setOnClickListener {
+            handleLoginButtonClick()
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        emailEditText.setText(getPreferences(MODE_PRIVATE).getString("email", ""))
+        passwordEditText.setText(getPreferences(MODE_PRIVATE).getString("password", ""))
+    }
+
+    override fun onPause() {
+        super.onPause()
+        val preferences = getPreferences(MODE_PRIVATE).edit()
+        preferences.putString("email", emailEditText.text.toString())
+        preferences.putString("password", passwordEditText.text.toString())
+        preferences.apply()
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        Log.d("LoginActivity", "onSaveInstanceState called")
+        saveInstanceState(outState)
+    }
+
+    private fun initializeViews() {
         emailEditText = findViewById(R.id.emailEditText)
         passwordEditText = findViewById(R.id.passwordEditText)
         loginButton = findViewById(R.id.loginButton)
+    }
 
+    private fun initializeServices() {
         val apiService = NetworkModule.provideApiService(this)
         loginService = LoginService(apiService, this)
+    }
 
-        loginButton.setOnClickListener {
-            val email = emailEditText.text.toString()
-            val password = passwordEditText.text.toString()
-            if (email.isNotBlank() && password.isNotBlank()) {
-                loginService.login(email, password, { token ->
-                    navigateToMainScreen()
-                }, { errorMsg ->
-                    Toast.makeText(this, errorMsg, Toast.LENGTH_SHORT).show()
-                })
-            } else {
-                Toast.makeText(this, "Please enter email and password", Toast.LENGTH_SHORT).show()
-            }
+    private fun handleLoginButtonClick() {
+        val email = emailEditText.text.toString()
+        val password = passwordEditText.text.toString()
+        if (email.isNotBlank() && password.isNotBlank()) {
+            loginService.login(email, password, { token ->
+                navigateToMainScreen()
+            }, { errorMsg ->
+                Toast.makeText(this, errorMsg, Toast.LENGTH_SHORT).show()
+            })
+        } else {
+            Toast.makeText(this, getResources().getString(R.string.login_toast), Toast.LENGTH_SHORT).show()
         }
+    }
+
+    private fun saveInstanceState(outState: Bundle) {
+        outState.putString("email", emailEditText.text.toString())
+        outState.putString("password", passwordEditText.text.toString())
+    }
+
+    private fun restoreSavedInstanceState(savedInstanceState: Bundle) {
+        emailEditText.setText(savedInstanceState.getString("email"))
+        passwordEditText.setText(savedInstanceState.getString("password"))
     }
 
     private fun navigateToMainScreen() {
