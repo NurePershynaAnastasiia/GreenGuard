@@ -29,6 +29,12 @@ class FertilizersActivity : AppCompatActivity() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var fertilizerAdapter: FertilizerAdapter
 
+    private var addFertilizerPopupState: Bundle? = null
+    private var updateFertilizerPopupState: Bundle? = null
+    private var currentFertilizerId: Int? = null
+    private var currentFertilizerName: String? = null
+    private var currentFertilizerQuantity: Int? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_fertilizers)
@@ -43,28 +49,56 @@ class FertilizersActivity : AppCompatActivity() {
         fetchFertilizers()
 
         findViewById<Button>(R.id.addButton).setOnClickListener {
-            showAddFertilizerPopup()
+            showAddFertilizerPopup(addFertilizerPopupState)
         }
     }
 
     override fun onResume() {
         super.onResume()
         Log.d("FertilizersActivity", "onResume called")
+        onRestoreInstanceState(Bundle().apply {
+            addFertilizerPopupState?.let { putBundle("addFertilizerPopupState", it) }
+            updateFertilizerPopupState?.let { putBundle("updateFertilizerPopupState", it) }
+            currentFertilizerId?.let { putInt("currentFertilizerId", it) }
+            currentFertilizerName?.let { putString("currentFertilizerName", it) }
+            currentFertilizerQuantity?.let { putInt("currentFertilizerQuantity", it) }
+        })
     }
 
     override fun onPause() {
         super.onPause()
         Log.d("FertilizersActivity", "onPause called")
+        onSaveInstanceState(Bundle())
     }
 
-    override fun onStop() {
-        super.onStop()
-        Log.d("FertilizersActivity", "onStop called")
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+
+        addFertilizerPopupState?.let {
+            outState.putBundle("addFertilizerPopupState", it)
+        }
+        updateFertilizerPopupState?.let {
+            outState.putBundle("updateFertilizerPopupState", it)
+        }
+        currentFertilizerId?.let {
+            outState.putInt("currentFertilizerId", it)
+        }
+        currentFertilizerName?.let {
+            outState.putString("currentFertilizerName", it)
+        }
+        currentFertilizerQuantity?.let {
+            outState.putInt("currentFertilizerQuantity", it)
+        }
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        Log.d("FertilizersActivity", "onDestroy called")
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        super.onRestoreInstanceState(savedInstanceState)
+
+        addFertilizerPopupState = savedInstanceState.getBundle("addFertilizerPopupState")
+        updateFertilizerPopupState = savedInstanceState.getBundle("updateFertilizerPopupState")
+        currentFertilizerId = savedInstanceState.getInt("currentFertilizerId")
+        currentFertilizerName = savedInstanceState.getString("currentFertilizerName")
+        currentFertilizerQuantity = savedInstanceState.getInt("currentFertilizerQuantity")
     }
 
     private fun initializeViews() {
@@ -81,7 +115,7 @@ class FertilizersActivity : AppCompatActivity() {
         fertilizerAdapter = FertilizerAdapter(
             mutableListOf(),
             onDeleteClick = { fertilizer -> deleteFertilizer(fertilizer) },
-            onUpdateQuantityClick = { fertilizer -> showUpdateFertilizerPopup(fertilizer) }
+            onUpdateQuantityClick = { fertilizer -> showUpdateFertilizerPopup(fertilizer, updateFertilizerPopupState) }
         )
         recyclerView.adapter = fertilizerAdapter
     }
@@ -105,7 +139,7 @@ class FertilizersActivity : AppCompatActivity() {
         fertilizerAdapter.setFertilizers(fertilizers)
     }
 
-    private fun showAddFertilizerPopup() {
+    private fun showAddFertilizerPopup(savedState: Bundle? = null) {
         val inflater = getSystemService(LAYOUT_INFLATER_SERVICE) as LayoutInflater
         val popupView = inflater.inflate(R.layout.popup_add_fertilizer, null)
 
@@ -120,6 +154,11 @@ class FertilizersActivity : AppCompatActivity() {
         val nameEditText = popupView.findViewById<EditText>(R.id.et_fertilizer_name)
         val quantityEditText = popupView.findViewById<EditText>(R.id.et_fertilizer_quantity)
 
+        savedState?.let {
+            nameEditText.setText(it.getString("name"))
+            quantityEditText.setText(it.getString("quantity"))
+        }
+
         addButtonPopup.setOnClickListener {
             val name = nameEditText.text.toString()
             val quantity = quantityEditText.text.toString().toIntOrNull()
@@ -133,6 +172,13 @@ class FertilizersActivity : AppCompatActivity() {
             }
         }
 
+        popupWindow.setOnDismissListener {
+            addFertilizerPopupState = Bundle().apply {
+                putString("name", nameEditText.text.toString())
+                putString("quantity", quantityEditText.text.toString())
+            }
+        }
+
         popupWindow.showAtLocation(window.decorView, Gravity.CENTER, 0, 0)
     }
 
@@ -140,7 +186,11 @@ class FertilizersActivity : AppCompatActivity() {
         fertilizersService.deleteFertilizer(fertilizer)
     }
 
-    private fun showUpdateFertilizerPopup(fertilizer: Fertilizer) {
+    private fun showUpdateFertilizerPopup(fertilizer: Fertilizer, savedState: Bundle? = null) {
+        currentFertilizerId = fertilizer.fertilizerId
+        currentFertilizerName = fertilizer.fertilizerName
+        currentFertilizerQuantity = fertilizer.fertilizerQuantity
+
         val inflater = getSystemService(LAYOUT_INFLATER_SERVICE) as LayoutInflater
         val popupView = inflater.inflate(R.layout.popup_update_fertilizer_quantity, null)
 
@@ -154,6 +204,12 @@ class FertilizersActivity : AppCompatActivity() {
         val updateButtonPopup = popupView.findViewById<Button>(R.id.updateButtonPopup)
         val quantityEditText = popupView.findViewById<EditText>(R.id.et_fertilizer_quantity)
 
+        savedState?.let {
+            quantityEditText.setText(it.getString("quantity"))
+        } ?: run {
+            quantityEditText.setText(fertilizer.fertilizerQuantity.toString())
+        }
+
         updateButtonPopup.setOnClickListener {
             val newQuantity = quantityEditText.text.toString().toIntOrNull()
 
@@ -162,6 +218,12 @@ class FertilizersActivity : AppCompatActivity() {
                 popupWindow.dismiss()
             } else {
                 Log.d("UpdateFertilizerPopup", "Invalid input")
+            }
+        }
+
+        popupWindow.setOnDismissListener {
+            updateFertilizerPopupState = Bundle().apply {
+                putString("quantity", quantityEditText.text.toString())
             }
         }
 
