@@ -11,6 +11,7 @@ import com.example.greenguardmobile.models.plant.PlantType
 import com.example.greenguardmobile.models.task.Task
 import com.example.greenguardmobile.models.task.TaskStatus
 import com.example.greenguardmobile.models.fertilizer.UpdateFertilizerQuantity
+import com.example.greenguardmobile.models.plant.UpdatePlant
 import com.example.greenguardmobile.models.worker.UpdateWorker
 import com.example.greenguardmobile.models.worker.Worker
 import com.example.greenguardmobile.models.worker.WorkerSchedule
@@ -100,4 +101,10 @@ interface ApiService {
         @Path("workerId") workerId: Int,
         @Query("taskStatus") taskStatus: String
     ): Call<Void>
+
+    @PUT("api/Plants/update/{plantId}")
+    fun updatePlant(@Path("plantId") plantId: Int, @Body updatedPlant: UpdatePlant): Call<Void>
+
+    @DELETE("api/Plants/delete/{plantId}")
+    fun deletePlant(@Path("plantId") plantId: Int): Call<Void>
 }

@@ -2,7 +2,6 @@ package com.example.greenguardmobile.service
 
 import android.content.Context
 import android.util.Log
-import android.widget.Toast
 import com.example.greenguardmobile.models.login.LoginRequest
 import com.example.greenguardmobile.models.login.LoginResponse
 import com.example.greenguardmobile.network.ApiService

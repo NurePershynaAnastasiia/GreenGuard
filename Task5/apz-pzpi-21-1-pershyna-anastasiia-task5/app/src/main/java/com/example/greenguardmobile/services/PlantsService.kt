@@ -4,6 +4,7 @@ import android.content.Context
 import com.example.greenguardmobile.models.plant.AddPlant
 import com.example.greenguardmobile.models.plant.Plant
 import com.example.greenguardmobile.models.plant.PlantType
+import com.example.greenguardmobile.models.plant.UpdatePlant
 import com.example.greenguardmobile.network.ApiService
 import retrofit2.Call
 import retrofit2.Callback
@@ -51,6 +52,40 @@ class PlantsService(private val apiService: ApiService, private val context: Con
 
     fun addPlant(plant: AddPlant, onSuccess: () -> Unit, onError: (String) -> Unit) {
         apiService.addPlant(plant).enqueue(object : Callback<Void> {
+            override fun onResponse(call: Call<Void>, response: Response<Void>) {
+                if (response.isSuccessful) {
+                    onSuccess()
+                } else {
+                    onError("Error: ${response.code()} ${response.message()}")
+                }
+            }
+
+            override fun onFailure(call: Call<Void>, t: Throwable) {
+                onError("Network error")
+                t.printStackTrace()
+            }
+        })
+    }
+
+    fun updatePlant(plantId: Int, updatedPlant: UpdatePlant, onSuccess: () -> Unit, onError: (String) -> Unit) {
+        apiService.updatePlant(plantId, updatedPlant).enqueue(object : Callback<Void> {
+            override fun onResponse(call: Call<Void>, response: Response<Void>) {
+                if (response.isSuccessful) {
+                    onSuccess()
+                } else {
+                    onError("Error: ${response.code()} ${response.message()}")
+                }
+            }
+
+            override fun onFailure(call: Call<Void>, t: Throwable) {
+                onError("Network error")
+                t.printStackTrace()
+            }
+        })
+    }
+
+    fun deletePlant(plantId: Int, onSuccess: () -> Unit, onError: (String) -> Unit) {
+        apiService.deletePlant(plantId).enqueue(object : Callback<Void> {
             override fun onResponse(call: Call<Void>, response: Response<Void>) {
                 if (response.isSuccessful) {
                     onSuccess()

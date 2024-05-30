@@ -1,4 +1,4 @@
-package com.example.greenguardmobile.domain.models.pest
+package com.example.greenguardmobile.models.pest
 
 data class Pest (
     val pestId: Int,

@@ -7,16 +7,29 @@
     android:background="@drawable/background_login"
     tools:context=".activities.LoginActivity">
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="300dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
+        android:gravity="center"
+        android:textSize="20dp"
+        android:padding="20dp"
+        android:text="@string/login"
+        android:textColor="#27353C" />
+
     <EditText
         android:id="@+id/emailEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="350dp"
+        android:layout_marginTop="370dp"
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="10dp"
         android:background="#F8F1F4"
-        android:hint="Адреса електронної пошти"
+        android:hint="@string/email"
         android:padding="20dp"
         android:textColor="#27353C" />
 
@@ -30,7 +43,7 @@
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="10dp"
         android:background="#F8F1F4"
-        android:hint="Пароль"
+        android:hint="@string/password"
         android:inputType="textPassword"
         android:padding="20dp"
         android:textColor="#27353C" />
@@ -46,7 +59,7 @@
         android:layout_marginEnd="15dp"
         android:layout_marginBottom="15dp"
         android:backgroundTint="#275362"
-        android:text="Увійти"
+        android:text="@string/enter"
         android:textSize="20sp"
         android:textColor="#FFFFFF"
         />

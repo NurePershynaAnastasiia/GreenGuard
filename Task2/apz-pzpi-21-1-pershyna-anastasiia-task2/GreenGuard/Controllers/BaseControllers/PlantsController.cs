@@ -82,7 +82,7 @@ namespace GreenGuard.Controllers.BaseControllers
         /// If there is no plant with the provided ID, it will return a 404 Not Found response.
         /// If an error occurs, it will return a 500 Internal Server Error response.
         /// </returns>
-        [Authorize(Roles = Roles.Administrator)]
+        [Authorize(Roles = Roles.Administrator + "," + Roles.User)]
         [HttpPut("update/{id}")]
         public async Task<IActionResult> UpdatePlant(int id, UpdatePlant model)
         {
@@ -108,7 +108,7 @@ namespace GreenGuard.Controllers.BaseControllers
         /// If there is no plant with the provided ID, it will return a 400 Bad Request response.
         /// If an error occurs, it will return a 500 Internal Server Error response.
         /// </returns>
-        [Authorize(Roles = Roles.Administrator)]
+        [Authorize(Roles = Roles.Administrator + "," + Roles.User)]
         [HttpDelete("delete/{id}")]
         public async Task<IActionResult> DeletePlant(int id)
         {

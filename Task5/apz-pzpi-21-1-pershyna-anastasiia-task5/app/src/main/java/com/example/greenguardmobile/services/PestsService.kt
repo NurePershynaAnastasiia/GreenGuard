@@ -1,7 +1,6 @@
 package com.example.greenguardmobile.service
 
 import android.util.Log
-import android.widget.Toast
 import com.example.greenguardmobile.activities.PestsActivity
 import com.example.greenguardmobile.models.plant.Plant
 import com.example.greenguardmobile.models.pest.Pest

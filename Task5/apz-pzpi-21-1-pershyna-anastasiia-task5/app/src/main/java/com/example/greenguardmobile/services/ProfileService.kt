@@ -1,7 +1,6 @@
 package com.example.greenguardmobile.service
 
 import android.content.Context
-import android.util.Log
 import android.widget.Toast
 import com.example.greenguardmobile.models.worker.UpdateWorker
 import com.example.greenguardmobile.models.worker.Worker

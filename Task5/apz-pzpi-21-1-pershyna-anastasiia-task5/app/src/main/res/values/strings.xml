@@ -1,3 +1,26 @@
 <resources>
     <string name="app_name">GreenGuardMobile</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="enter">Enter</string>
+    <string name="login">Sign in account</string>
+    <string name="fertilizers">Fertilizers</string>
+    <string name="pests">Pests</string>
+    <string name="plants">Plants</string>
+    <string name="tasks">Tasks</string>
+    <string name="edit">Edit</string>
+    <string name="delete">Delete</string>
+    <string name="start_work_time">Start work time</string>
+    <string name="end_work_time">End work time</string>
+    <string name="working_days">Working days</string>
+    <string name="monday">Mon</string>
+    <string name="tuesday">Tue</string>
+    <string name="wednesday">Wed</string>
+    <string name="thursday">Thu</string>
+    <string name="friday">Fri</string>
+    <string name="saturday">Sat</string>
+    <string name="sunday">Sun</string>
+    <string name="save">Save</string>
+    <string name="calculate_salary">Calculate salary</string>
+    <string name="login_toast">Please enter email and password</string>
 </resources>

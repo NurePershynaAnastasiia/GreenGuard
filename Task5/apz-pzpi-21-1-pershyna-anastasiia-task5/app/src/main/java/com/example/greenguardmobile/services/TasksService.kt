@@ -1,6 +1,5 @@
 package com.example.greenguardmobile.service
 
-import android.util.Log
 import com.example.greenguardmobile.models.task.Task
 import com.example.greenguardmobile.network.ApiService
 import retrofit2.Call

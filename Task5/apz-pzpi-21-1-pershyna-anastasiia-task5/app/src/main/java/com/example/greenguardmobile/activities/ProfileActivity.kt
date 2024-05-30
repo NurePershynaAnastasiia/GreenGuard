@@ -1,4 +1,4 @@
-package com.example.greenguardmobile.presentation.activities
+package com.example.greenguardmobile.activities
 
 import android.app.AlertDialog
 import android.app.TimePickerDialog
@@ -14,10 +14,10 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.greenguardmobile.R
 import com.example.greenguardmobile.network.NetworkModule
 import com.example.greenguardmobile.network.TokenManager
-import com.example.greenguardmobile.domain.models.worker.UpdateWorker
-import com.example.greenguardmobile.domain.models.worker.WorkerSchedule
+import com.example.greenguardmobile.models.worker.UpdateWorker
+import com.example.greenguardmobile.models.worker.WorkerSchedule
 import com.example.greenguardmobile.service.ProfileService
-import com.example.greenguardmobile.presentation.util.NavigationUtils
+import com.example.greenguardmobile.util.NavigationUtils
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import java.util.*
 

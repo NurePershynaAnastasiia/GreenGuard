@@ -1,14 +1,19 @@
-package com.example.greenguardmobile.presentation.adapters
+package com.example.greenguardmobile.adapters
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.greenguardmobile.R
-import com.example.greenguardmobile.domain.models.plant.Plant
+import com.example.greenguardmobile.models.plant.Plant
 
-class PlantAdapter(private val plants: List<Plant>) : RecyclerView.Adapter<PlantAdapter.PlantViewHolder>() {
+class PlantAdapter(
+    private val plants: List<Plant>,
+    private val onEditClick: (Plant) -> Unit,
+    private val onDeleteClick: (Plant) -> Unit
+) : RecyclerView.Adapter<PlantAdapter.PlantViewHolder>() {
 
     class PlantViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val plantType: TextView = view.findViewById(R.id.plant_type)
@@ -19,6 +24,8 @@ class PlantAdapter(private val plants: List<Plant>) : RecyclerView.Adapter<Plant
         val plantLight: TextView = view.findViewById(R.id.plant_light)
         val plantAdditionalInfo: TextView = view.findViewById(R.id.plant_additional_info)
         val plantPests: TextView = view.findViewById(R.id.plant_pests)
+        val btnEdit: Button = view.findViewById(R.id.btn_edit)
+        val btnDelete: Button = view.findViewById(R.id.btn_delete)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PlantViewHolder {
@@ -36,6 +43,14 @@ class PlantAdapter(private val plants: List<Plant>) : RecyclerView.Adapter<Plant
         holder.plantLight.text = "Освітлення: ${plant.light}"
         holder.plantAdditionalInfo.text = "Додаткова інформація: ${plant.additionalInfo ?: "Немає"}"
         holder.plantPests.text = "Шкідники: ${plant.pests.joinToString(", ")}"
+
+        holder.btnEdit.setOnClickListener {
+            onEditClick(plant)
+        }
+
+        holder.btnDelete.setOnClickListener {
+            onDeleteClick(plant)
+        }
     }
 
     override fun getItemCount(): Int = plants.size

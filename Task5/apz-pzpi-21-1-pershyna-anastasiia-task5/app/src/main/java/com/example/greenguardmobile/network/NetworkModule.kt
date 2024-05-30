@@ -1,7 +1,7 @@
 package com.example.greenguardmobile.network
 
 import android.content.Context
-import com.example.greenguardmobile.util.DateTypeAdapter
+import com.example.greenguardmobile.util.DateTypeUtil
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import retrofit2.Retrofit
@@ -24,7 +24,7 @@ object NetworkModule {
         }.build()
 
         val gson = GsonBuilder()
-            .registerTypeAdapter(Date::class.java, DateTypeAdapter())
+            .registerTypeAdapter(Date::class.java, DateTypeUtil())
             .setLenient()
             .create()
 

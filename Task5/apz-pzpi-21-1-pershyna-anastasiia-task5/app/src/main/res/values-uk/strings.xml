@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">GreenGuardMobile</string>
+    <string name="email">Адреса електронної пошти</string>
+    <string name="password">Пароль</string>
+    <string name="enter">Увійти</string>
+    <string name="login">Вхід в обліковий запис</string>
+    <string name="fertilizers">Добрива</string>
+    <string name="pests">Шкідники</string>
+    <string name="plants">Рослини</string>
+    <string name="tasks">Завдання</string>
+    <string name="edit">Редагувати</string>
+    <string name="delete">Видалити</string>
+    <string name="start_work_time">Початок робочого дня</string>
+    <string name="end_work_time">Кінець робочого дня</string>
+    <string name="working_days">Робочі дні</string>
+    <string name="monday">Пн</string>
+    <string name="tuesday">Вт</string>
+    <string name="wednesday">Ср</string>
+    <string name="thursday">Чт</string>
+    <string name="friday">Пт</string>
+    <string name="saturday">Сб</string>
+    <string name="sunday">Нд</string>
+    <string name="save">Зберегти</string>
+    <string name="calculate_salary">Розрахувати зарплатню</string>
+    <string name="login_toast">Будь ласка, введіть адресу електронної пошти та пароль</string>
+</resources>

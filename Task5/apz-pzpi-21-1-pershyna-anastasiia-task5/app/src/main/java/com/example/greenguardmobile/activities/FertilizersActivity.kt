@@ -1,4 +1,4 @@
-package com.example.greenguardmobile.presentation.activities
+package com.example.greenguardmobile.activities
 
 import android.os.Bundle
 import android.util.Log
@@ -12,13 +12,13 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.greenguardmobile.R
-import com.example.greenguardmobile.presentation.adapters.FertilizerAdapter
+import com.example.greenguardmobile.adapters.FertilizerAdapter
 import com.example.greenguardmobile.network.ApiService
 import com.example.greenguardmobile.network.NetworkModule
-import com.example.greenguardmobile.domain.models.fertilizer.Fertilizer
-import com.example.greenguardmobile.domain.models.fertilizer.AddFertilizer
+import com.example.greenguardmobile.models.fertilizer.Fertilizer
+import com.example.greenguardmobile.models.fertilizer.AddFertilizer
 import com.example.greenguardmobile.service.FertilizersService
-import com.example.greenguardmobile.presentation.util.NavigationUtils
+import com.example.greenguardmobile.util.NavigationUtils
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.bottomnavigation.BottomNavigationView
 

@@ -1,4 +1,4 @@
-package com.example.greenguardmobile.domain.models.fertilizer
+package com.example.greenguardmobile.models.fertilizer
 
 data class UpdateFertilizerQuantity(
     val fertilizerQuantity: Int

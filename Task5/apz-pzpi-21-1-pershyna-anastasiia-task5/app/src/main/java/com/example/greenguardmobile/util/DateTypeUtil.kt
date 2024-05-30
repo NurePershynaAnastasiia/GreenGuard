@@ -6,7 +6,7 @@ import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
 
-class DateTypeAdapter : JsonDeserializer<Date>, JsonSerializer<Date> {
+class DateTypeUtil : JsonDeserializer<Date>, JsonSerializer<Date> {
     private val dateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.getDefault())
 
     override fun deserialize(json: JsonElement, typeOfT: Type, context: JsonDeserializationContext): Date {

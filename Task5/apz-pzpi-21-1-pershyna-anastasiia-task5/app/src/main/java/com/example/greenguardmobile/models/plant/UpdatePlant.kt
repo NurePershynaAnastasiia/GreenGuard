@@ -1,7 +1,6 @@
 package com.example.greenguardmobile.models.plant
 
-data class AddPlant (
-    val plantTypeId : Int,
+data class UpdatePlant (
     val plantLocation: String?,
     val light : Float,
     val humidity : Float,

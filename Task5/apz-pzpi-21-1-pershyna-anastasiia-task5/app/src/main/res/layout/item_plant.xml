@@ -68,4 +68,24 @@
         android:text="Шкідники"
         android:textAppearance="?android:attr/textAppearanceSmall" />
 
+    <Button
+        android:id="@+id/btn_edit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/plant_pests"
+        android:text="Редагувати"
+        android:layout_margin="5dp"
+        android:textColor="@color/white"
+        android:background="@color/dark_green"/>
+
+    <Button
+        android:id="@+id/btn_delete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/btn_edit"
+        android:layout_margin="5dp"
+        android:text="Видалити"
+        android:textColor="@color/white"
+        android:background="@color/dark_red"/>
+
 </RelativeLayout>
