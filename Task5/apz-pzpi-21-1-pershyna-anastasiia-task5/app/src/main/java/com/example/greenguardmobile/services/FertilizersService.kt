@@ -57,7 +57,6 @@ class FertilizersService(private val apiService: ApiService, private val activit
                         activity.updateFertilizerList(fertilizers)
                     }
                     Log.d("DeleteFertilizer", "Fertilizer deleted successfully")
-                    Toast.makeText(activity, "Fertilizer deleted successfully", Toast.LENGTH_SHORT).show()
                 } else {
                     Log.e("DeleteFertilizer", "Error: ${response.code()} ${response.message()}")
                 }
@@ -78,7 +77,6 @@ class FertilizersService(private val apiService: ApiService, private val activit
                         activity.updateFertilizerList(fertilizers)
                     }
                     Log.d("UpdateFertilizer", "Fertilizer quantity updated successfully")
-                    Toast.makeText(activity, "Fertilizer quantity updated successfully", Toast.LENGTH_SHORT).show()
                 } else {
                     Log.e("UpdateFertilizer", "Error: ${response.code()} ${response.message()}")
                 }

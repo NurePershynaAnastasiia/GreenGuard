@@ -59,7 +59,7 @@ interface ApiService {
     @PUT("api/Workers/update/{workerId}")
     fun updateWorker(@Path("workerId") workerId: Int, @Body updatedWorker: UpdateWorker): Call<Void>
 
-    @PUT("api/Workers/updateSchedule/{workerId}")
+    @PUT("api/WorkingSchedule/update/{workerId}")
     fun updateWorkingSchedule(
         @Path("workerId") workerId: Int,
         @Body updatedSchedule: WorkerSchedule

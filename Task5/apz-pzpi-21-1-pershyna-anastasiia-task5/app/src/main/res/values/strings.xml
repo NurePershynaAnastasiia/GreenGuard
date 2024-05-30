@@ -48,4 +48,6 @@
     <string name="pest_added_success">Pest added to plant successfully</string>
     <string name="pest_removed_success">Pest removed from plant successfully</string>
     <string name="no_pest_in_plant">Pest is not associated with selected plant</string>
+    <string name="information_updated">Worker information updated successfully</string>
+    <string name="login_error">Incorrect email or password</string>
 </resources>

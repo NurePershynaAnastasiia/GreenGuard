@@ -54,7 +54,6 @@ class ProfileService(private val apiService: ApiService, private val context: Co
                 } else {
                     onError("Error: ${response.code()} ${response.message()}")
                 }
-                Toast.makeText(context, "Information updated successfully", Toast.LENGTH_SHORT).show()
             }
 
             override fun onFailure(call: Call<Void>, t: Throwable) {
@@ -70,7 +69,7 @@ class ProfileService(private val apiService: ApiService, private val context: Co
                 if (response.isSuccessful) {
                     onSuccess()
                 } else {
-                    onError("Error: ${response.code()} ${response.message()}")
+                    onError("updateWorkerSchedule: ${response.code()} ${response.message()}")
                 }
             }
 

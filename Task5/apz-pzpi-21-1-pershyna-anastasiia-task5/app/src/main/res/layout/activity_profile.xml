@@ -99,7 +99,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/edit"
-            android:onClick="showTimePickerStart"
             android:backgroundTint="#275362"
             android:textColor="#FFFFFF"/>
     </LinearLayout>
@@ -138,7 +137,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/edit"
-            android:onClick="showTimePickerEnd"
             android:backgroundTint="#275362"
             android:textColor="#FFFFFF"/>
     </LinearLayout>

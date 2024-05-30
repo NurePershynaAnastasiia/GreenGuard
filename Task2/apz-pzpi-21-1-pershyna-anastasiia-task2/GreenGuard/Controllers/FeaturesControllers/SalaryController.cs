@@ -35,7 +35,7 @@ namespace GreenGuard.Controllers.FeaturesControllers
         {
             try
             {
-                var weeklySalary = await _salaryService.CalculateWeeklySalary(workerId);
+                var weeklySalary = await _salaryService.CalculateMonthlySalary(workerId);
                 return Ok(weeklySalary);
 
             }

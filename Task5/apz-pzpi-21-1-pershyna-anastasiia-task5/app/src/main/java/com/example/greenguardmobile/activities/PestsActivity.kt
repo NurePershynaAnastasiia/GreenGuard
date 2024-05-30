@@ -109,7 +109,7 @@ class PestsActivity : AppCompatActivity() {
             pestsService.addPestToPlant(pest.pestId, selectedPlantId, {
                 popupWindow.dismiss()
                 Log.d("AddToPlant", getResources().getString(R.string.pest_added_success))
-                Toast.makeText(this@PestsActivity, "Pest added to plant successfully", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@PestsActivity, getResources().getString(R.string.pest_added_success), Toast.LENGTH_SHORT).show()
             }, { errorMsg ->
                 Log.e("AddToPlant", errorMsg)
                 Toast.makeText(this@PestsActivity, errorMsg, Toast.LENGTH_SHORT).show()

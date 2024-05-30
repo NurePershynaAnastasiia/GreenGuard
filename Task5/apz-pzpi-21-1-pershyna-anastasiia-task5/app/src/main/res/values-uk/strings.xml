@@ -49,4 +49,6 @@
     <string name="pest_added_success">Шкідника успішно додано до рослини</string>
     <string name="pest_removed_success">Шкідника успішно видалено з рослини</string>
     <string name="no_pest_in_plant">Обрана рослина не має даного шкідника</string>
+    <string name="information_updated">Дані працівника було успішно оновлено</string>
+    <string name="login_error">Некоректна адреса електронної пошти чи пароль</string>
 </resources>

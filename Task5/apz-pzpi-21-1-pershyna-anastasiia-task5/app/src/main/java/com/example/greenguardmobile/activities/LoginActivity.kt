@@ -37,24 +37,22 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
-    override fun onResume() {
-        super.onResume()
-        emailEditText.setText(getPreferences(MODE_PRIVATE).getString("email", ""))
-        passwordEditText.setText(getPreferences(MODE_PRIVATE).getString("password", ""))
-    }
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        saveInstanceState(outState)
 
-    override fun onPause() {
-        super.onPause()
         val preferences = getPreferences(MODE_PRIVATE).edit()
         preferences.putString("email", emailEditText.text.toString())
         preferences.putString("password", passwordEditText.text.toString())
         preferences.apply()
     }
 
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-        Log.d("LoginActivity", "onSaveInstanceState called")
+    override fun onRestoreInstanceState(outState: Bundle) {
+        super.onRestoreInstanceState(outState)
         saveInstanceState(outState)
+
+        emailEditText.setText(getPreferences(MODE_PRIVATE).getString("email", ""))
+        passwordEditText.setText(getPreferences(MODE_PRIVATE).getString("password", ""))
     }
 
     private fun initializeViews() {
@@ -75,7 +73,7 @@ class LoginActivity : AppCompatActivity() {
             loginService.login(email, password, { token ->
                 navigateToMainScreen()
             }, { errorMsg ->
-                Toast.makeText(this, errorMsg, Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, getResources().getString(R.string.login_error), Toast.LENGTH_SHORT).show()
             })
         } else {
             Toast.makeText(this, getResources().getString(R.string.login_toast), Toast.LENGTH_SHORT).show()

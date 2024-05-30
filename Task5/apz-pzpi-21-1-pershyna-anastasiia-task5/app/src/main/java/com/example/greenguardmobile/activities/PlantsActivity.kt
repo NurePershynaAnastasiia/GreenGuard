@@ -51,21 +51,6 @@ class PlantsActivity : AppCompatActivity() {
         fetchPlantTypes()
     }
 
-    override fun onResume() {
-        super.onResume()
-        Log.d("PlantsActivity", "onResume called")
-        onRestoreInstanceState(Bundle().apply {
-            addPlantPopupState?.let { putBundle("addPlantPopupState", it) }
-            updatePlantPopupState?.let { putBundle("updatePlantPopupState", it) }
-            currentPlantId?.let { putInt("currentPlantId", it) }
-            currentPlantLocation?.let { putString("currentPlantLocation", it) }
-            currentPlantLight?.let { putFloat("currentPlantLight", it) }
-            currentPlantHumidity?.let { putFloat("currentPlantHumidity", it) }
-            currentPlantTemp?.let { putFloat("currentPlantTemp", it) }
-            currentPlantAdditionalInfo?.let { putString("currentPlantAdditionalInfo", it) }
-        })
-    }
-
     override fun onPause() {
         super.onPause()
         Log.d("PlantsActivity", "onPause called")

@@ -1,4 +1,5 @@
-﻿using GreenGuard.Data;
+﻿using GreenGuard.Controllers.BaseControllers;
+using GreenGuard.Data;
 
 using Microsoft.EntityFrameworkCore;
 
@@ -11,7 +12,7 @@ public class SalaryService
         _context = context;
     }
 
-    public async Task<double> CalculateWeeklySalary(int workerId)
+    public async Task<double> CalculateMonthlySalary(int workerId)
     {
         try
         {

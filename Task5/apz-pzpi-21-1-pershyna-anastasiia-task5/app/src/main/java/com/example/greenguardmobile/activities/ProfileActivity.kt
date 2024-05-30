@@ -11,6 +11,7 @@ import android.widget.CheckBox
 import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.greenguardmobile.R
 import com.example.greenguardmobile.network.NetworkModule
@@ -52,10 +53,6 @@ class ProfileActivity : AppCompatActivity() {
         setupListeners()
         initializeServices()
 
-        if (savedInstanceState != null) {
-            restoreSavedInstanceState(savedInstanceState)
-        }
-
         val workerId = tokenManager.getWorkerIdFromToken()
         if (workerId != null) {
             fetchWorkerProfile(workerId)
@@ -65,18 +62,13 @@ class ProfileActivity : AppCompatActivity() {
         }
     }
 
-    override fun onResume() {
-        super.onResume()
-        restorePreferences()
-    }
-
-    override fun onPause() {
-        super.onPause()
-        savePreferences()
-    }
-
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
+        saveInstanceState(outState)
+    }
+
+    override fun onRestoreInstanceState(outState: Bundle) {
+        super.onRestoreInstanceState(outState)
         saveInstanceState(outState)
     }
 
@@ -127,11 +119,11 @@ class ProfileActivity : AppCompatActivity() {
             }
         }
 
-        workStartTime.setOnClickListener {
+        findViewById<Button>(R.id.edit_start_time).setOnClickListener {
             showTimePickerDialog(workStartTime)
         }
 
-        workEndTime.setOnClickListener {
+        findViewById<Button>(R.id.edit_end_time).setOnClickListener {
             showTimePickerDialog(workEndTime)
         }
     }
@@ -158,7 +150,8 @@ class ProfileActivity : AppCompatActivity() {
         )
 
         profileService.updateWorkerProfile(workerId, updatedWorker, {
-            Log.d("ProfileActivity", "Worker information updated successfully")
+            Log.d("ProfileActivity", getResources().getString(R.string.information_updated))
+            Toast.makeText(this@ProfileActivity, getResources().getString(R.string.information_updated), Toast.LENGTH_SHORT).show()
         }, { errorMsg ->
             Log.e("ProfileActivity", errorMsg)
         })
@@ -176,7 +169,7 @@ class ProfileActivity : AppCompatActivity() {
         )
 
         profileService.updateWorkerSchedule(workerId, updatedSchedule, {
-            Log.d("ProfileActivity", "Working schedule updated successfully")
+            Log.d("ProfileActivity", getResources().getString(R.string.information_updated))
         }, { errorMsg ->
             Log.e("ProfileActivity", errorMsg)
         })
@@ -269,35 +262,4 @@ class ProfileActivity : AppCompatActivity() {
         sunday.isChecked = savedInstanceState.getBoolean("sunday")
     }
 
-    private fun savePreferences() {
-        val editor = sharedPreferences.edit()
-        editor.putString("fullName", fullName.text.toString())
-        editor.putString("phoneNumber", phoneNumber.text.toString())
-        editor.putString("email", email.text.toString())
-        editor.putString("workStartTime", workStartTime.text.toString())
-        editor.putString("workEndTime", workEndTime.text.toString())
-        editor.putBoolean("monday", monday.isChecked)
-        editor.putBoolean("tuesday", tuesday.isChecked)
-        editor.putBoolean("wednesday", wednesday.isChecked)
-        editor.putBoolean("thursday", thursday.isChecked)
-        editor.putBoolean("friday", friday.isChecked)
-        editor.putBoolean("saturday", saturday.isChecked)
-        editor.putBoolean("sunday", sunday.isChecked)
-        editor.apply()
-    }
-
-    private fun restorePreferences() {
-        fullName.setText(sharedPreferences.getString("fullName", ""))
-        phoneNumber.setText(sharedPreferences.getString("phoneNumber", ""))
-        email.setText(sharedPreferences.getString("email", ""))
-        workStartTime.text = sharedPreferences.getString("workStartTime", "")
-        workEndTime.text = sharedPreferences.getString("workEndTime", "")
-        monday.isChecked = sharedPreferences.getBoolean("monday", false)
-        tuesday.isChecked = sharedPreferences.getBoolean("tuesday", false)
-        wednesday.isChecked = sharedPreferences.getBoolean("wednesday", false)
-        thursday.isChecked = sharedPreferences.getBoolean("thursday", false)
-        friday.isChecked = sharedPreferences.getBoolean("friday", false)
-        saturday.isChecked = sharedPreferences.getBoolean("saturday", false)
-        sunday.isChecked = sharedPreferences.getBoolean("sunday", false)
-    }
 }

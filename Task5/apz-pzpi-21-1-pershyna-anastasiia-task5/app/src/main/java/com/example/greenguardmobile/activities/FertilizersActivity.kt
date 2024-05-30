@@ -53,24 +53,6 @@ class FertilizersActivity : AppCompatActivity() {
         }
     }
 
-    override fun onResume() {
-        super.onResume()
-        Log.d("FertilizersActivity", "onResume called")
-        onRestoreInstanceState(Bundle().apply {
-            addFertilizerPopupState?.let { putBundle("addFertilizerPopupState", it) }
-            updateFertilizerPopupState?.let { putBundle("updateFertilizerPopupState", it) }
-            currentFertilizerId?.let { putInt("currentFertilizerId", it) }
-            currentFertilizerName?.let { putString("currentFertilizerName", it) }
-            currentFertilizerQuantity?.let { putInt("currentFertilizerQuantity", it) }
-        })
-    }
-
-    override fun onPause() {
-        super.onPause()
-        Log.d("FertilizersActivity", "onPause called")
-        onSaveInstanceState(Bundle())
-    }
-
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
 
@@ -182,10 +164,6 @@ class FertilizersActivity : AppCompatActivity() {
         popupWindow.showAtLocation(window.decorView, Gravity.CENTER, 0, 0)
     }
 
-    private fun deleteFertilizer(fertilizer: Fertilizer) {
-        fertilizersService.deleteFertilizer(fertilizer)
-    }
-
     private fun showUpdateFertilizerPopup(fertilizer: Fertilizer, savedState: Bundle? = null) {
         currentFertilizerId = fertilizer.fertilizerId
         currentFertilizerName = fertilizer.fertilizerName
@@ -228,5 +206,9 @@ class FertilizersActivity : AppCompatActivity() {
         }
 
         popupWindow.showAtLocation(window.decorView, Gravity.CENTER, 0, 0)
+    }
+
+    private fun deleteFertilizer(fertilizer: Fertilizer) {
+        fertilizersService.deleteFertilizer(fertilizer)
     }
 }
