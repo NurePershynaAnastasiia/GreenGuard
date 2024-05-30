@@ -1,4 +1,4 @@
-package com.example.greenguardmobile.adapters
+package com.example.greenguardmobile.presentation.adapters
 
 import android.util.Log
 import android.view.LayoutInflater
@@ -12,8 +12,8 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.greenguardmobile.R
 import com.example.greenguardmobile.network.ApiService
-import com.example.greenguardmobile.models.task.Task
-import com.example.greenguardmobile.models.task.TaskStatus
+import com.example.greenguardmobile.domain.models.task.Task
+import com.example.greenguardmobile.domain.models.task.TaskStatus
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

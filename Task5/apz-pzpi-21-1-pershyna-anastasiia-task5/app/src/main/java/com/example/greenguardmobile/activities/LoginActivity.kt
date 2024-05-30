@@ -1,4 +1,4 @@
-package com.example.greenguardmobile.activities
+package com.example.greenguardmobile.presentation.activities
 
 import android.content.Intent
 import android.os.Bundle

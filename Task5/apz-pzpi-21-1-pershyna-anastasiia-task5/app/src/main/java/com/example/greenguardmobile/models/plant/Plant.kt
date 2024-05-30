@@ -1,4 +1,4 @@
-package com.example.greenguardmobile.models.plant
+package com.example.greenguardmobile.domain.models.plant
 
 data class Plant (
     val plantId : Int,

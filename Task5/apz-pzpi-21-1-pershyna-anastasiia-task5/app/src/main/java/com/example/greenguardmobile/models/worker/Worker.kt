@@ -1,4 +1,4 @@
-package com.example.greenguardmobile.models.worker
+package com.example.greenguardmobile.domain.models.worker
 
 data class Worker(
     val workerId: Int,

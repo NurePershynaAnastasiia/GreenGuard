@@ -1,4 +1,4 @@
-package com.example.greenguardmobile.models.fertilizer
+package com.example.greenguardmobile.domain.models.fertilizer
 
 data class Fertilizer(
     val fertilizerId: Int,

@@ -1,4 +1,4 @@
-package com.example.greenguardmobile.adapters
+package com.example.greenguardmobile.presentation.adapters
 
 import android.view.LayoutInflater
 import android.view.View
@@ -7,7 +7,7 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.greenguardmobile.R
-import com.example.greenguardmobile.models.pest.Pest
+import com.example.greenguardmobile.domain.models.pest.Pest
 
 class PestAdapter(
     private val pests: MutableList<Pest>,

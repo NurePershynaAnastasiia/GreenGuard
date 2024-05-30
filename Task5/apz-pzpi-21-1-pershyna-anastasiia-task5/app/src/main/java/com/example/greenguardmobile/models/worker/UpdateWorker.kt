@@ -1,4 +1,4 @@
-package com.example.greenguardmobile.models.worker
+package com.example.greenguardmobile.domain.models.worker
 
 data class UpdateWorker(
     val workerName: String,

@@ -1,17 +1,13 @@
-package com.example.greenguardmobile.util
+package com.example.greenguardmobile.presentation.util
 
 import android.content.Context
 import android.content.Intent
-import android.app.Activity
-import android.view.MenuItem
-import android.widget.Toolbar
-import androidx.appcompat.app.AppCompatActivity
 import com.example.greenguardmobile.R
-import com.example.greenguardmobile.activities.FertilizersActivity
-import com.example.greenguardmobile.activities.PestsActivity
-import com.example.greenguardmobile.activities.PlantsActivity
-import com.example.greenguardmobile.activities.ProfileActivity
-import com.example.greenguardmobile.activities.TasksActivity
+import com.example.greenguardmobile.presentation.activities.FertilizersActivity
+import com.example.greenguardmobile.presentation.activities.PestsActivity
+import com.example.greenguardmobile.presentation.activities.PlantsActivity
+import com.example.greenguardmobile.presentation.activities.ProfileActivity
+import com.example.greenguardmobile.presentation.activities.TasksActivity
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
