@@ -1,0 +1,41 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Green Guard</title>
+    <link rel="stylesheet" href="../App.css">
+</head>
+<body>
+    <div class="nav">
+        <img src="../../public/images/GreenGuard_logo.png" class="logo">
+        <ul>
+            <li id="profile"  class="nav-selected" data-translate="workers"><a href="./UserProfilePage.html">My profile</a></li>
+            <li id="backups" data-translate="backups"><a href="./BackupPage.html">Backups</a></li>
+            <li id="plants" data-translate="plants"><a href="./PlantPage.html">Plants</a></li>
+            <li id="tasks" data-translate="tasks"><a href="./TaskPage.html">Tasks</a></li>
+            <li id="profile" data-translate="workers"><a href="./UserProfilePage.html">Workers</a></li>
+            <li id="logout" data-translate="logout"><a href="./LoginPage.html">Log out</a></li>
+            <div class="language-selector">
+                <select id="language-select">
+                    <option value="en">English</option>
+                    <option value="ua">Ukrainian</option>
+                </select>
+            </div>
+        </ul>
+    </div>
+    <div class="content">
+        <div class="header">
+            <h1>My profile</h1>
+        </div>
+        <div id="worker-info">
+            <!-- Information about the authorizated worker will be displayed here -->
+        </div>
+        <button class="edit-button" id="edit-button">Edit</button>
+        <button class="save-button" id="save-button" style="display: none;">Save</button>
+    </div>
+    <script src="../components/Profile.js"></script>
+    <script src="../../App.js"></script>
+</body>
+</html>

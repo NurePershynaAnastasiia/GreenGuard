@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Green Guard</title>
+    <link rel="stylesheet" href="../App.css">
+</head>
+<body>
+    <div class="nav">
+        <img src="../../public/images/GreenGuard_logo.png" class="logo">
+        <ul>
+            <li id="workers" data-translate="workers"><a href="./WorkerPage.html">Worker</a></li>
+            <li id="backups" data-translate="backups"><a href="./BackupPage.html">Backups</a></li>
+            <li id="plants" class="nav-selected" data-translate="plants"><a href="./PlantPage.html">Plants</a></li>
+            <li id="tasks" data-translate="tasks"><a href="./TaskPage.html">Tasks</a></li>
+            <li id="logout" data-translate="logout"><a href="./LoginPage.html">Log out</a></li>
+            <div class="language-selector">
+                <select id="language-select">
+                    <option value="en">English</option>
+                    <option value="ua">Ukrainian</option>
+                </select>
+            </div>
+        </ul>
+    </div>
+    <div class="content">
+        <div class="header">
+            <h1>All information about plants</h1>
+        </div>
+        <div class="plants-container">
+            <table id="plants-table">
+                <thead>
+                    <tr>
+                        <th>Type</th>
+                        <th>Temperature</th>
+                        <th>Humidity</th>
+                        <th>Lighting</th>
+                        <th>Additional Info</th>
+                        <th>State</th>
+                        <th>Watering</th>
+                        <th>Edit</th>
+                        <th>Delete</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Rows will be populated by JavaScript -->
+                </tbody>
+                <tfoot>
+                    <tr class="fill-in-fields">
+                        <td><select id="input-plant-type"><!-- Table numbers will be populated by JavaScript --></select></td>
+                        <td><input type="number" placeholder="Humidity" id="input-humidity" step="0"></td>
+                        <td><input type="number" placeholder="Light" id="input-lighting" step="0"></td>
+                        <td><input type="number" placeholder="Additional info" id="input-text" step="0"></td>
+                        <td><input type="text" placeholder="Comment" id="input-text"></td>
+
+                        <td colspan="2"><button class="add-button">Add New</button></td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    <script src="../../components/Plant.js"></script>
+    <script src="../../App.js"></script>
+</body>
+</html>

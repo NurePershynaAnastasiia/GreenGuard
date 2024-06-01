@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Green Guard</title>
+    <link rel="stylesheet" href="../App.css">
+</head>
+<body>
+    <div class="nav">
+        <img src="../../public/images/GreenGuard_logo.png" class="logo">
+        <ul>
+            <li id="profile" data-translate="workers"><a href="./UserProfilePage.html">My profile</a></li>
+            <li id="backups" data-translate="backups"><a href="./BackupPage.html">Backups</a></li>
+            <li id="plants" data-translate="plants"><a href="./PlantPage.html">Plants</a></li>
+            <li id="tasks" class="nav-selected" data-translate="tasks"><a href="./TaskPage.html">Tasks</a></li>
+            <li id="profile" data-translate="workers"><a href="./UserProfilePage.html">Workers</a></li>
+            <li id="logout" data-translate="logout"><a href="./LoginPage.html">Log out</a></li>
+            <div class="language-selector">
+                <select id="language-select">
+                    <option value="en">English</option>
+                    <option value="ua">Ukrainian</option>
+                </select>
+            </div>
+        </ul>
+    </div>
+    <div class="content">
+        <div class="header">
+            <h1>Here you can manage all tasks</h1>
+        </div>
+        <div class="tasks-container">
+            <table id="tasks-table">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Type</th>
+                        <th>Fertilizer</th>
+                        <th>Details</th>
+                        <th>State</th>
+                        <th>Workers</th>
+                        <th>Plants</th>
+                        <th>Edit</th>
+                        <th>Delete</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Rows will be populated by JavaScript -->
+                </tbody>
+                <tfoot>
+                    <tr class="fill-in-fields">
+            
+                        <td colspan="2"><button class="add-button">Add New</button></td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    <script src="../../components/Plant.js"></script>
+    <script src="../../App.js"></script>
+</body>
+</html>

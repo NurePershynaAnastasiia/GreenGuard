@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Green Guard</title>
+    <link rel="stylesheet" href="../App.css">
+</head>
+<body>
+    <div class="nav">
+        <img src="../../public/images/GreenGuard_logo.png" class="logo">
+        <ul>
+            <li id="profile" data-translate="profile"><a href="./UserProfilePage.html">My profile</a></li>
+            <li id="backups" data-translate="backups"><a href="./BackupPage.html">Backups</a></li>
+            <li id="plants" class="nav-selected" data-translate="plants"><a href="./PlantPage.html">Plants</a></li>
+            <li id="tasks" data-translate="tasks"><a href="./TaskPage.html">Tasks</a></li>
+            <li id="profile" data-translate="workers"><a href="./UserProfilePage.html">Workers</a></li>
+            <li id="logout" data-translate="logout"><a href="./LoginPage.html">Log out</a></li>
+            <div class="language-selector">
+                <select id="language-select">
+                    <option value="en">English</option>
+                    <option value="ua">Ukrainian</option>
+                </select>
+            </div>
+        </ul>
+    </div>
+    <div class="content">
+        <div class="header">
+            <h1>All information about workers</h1>
+        </div>
+        <div class="workers-container">
+            <table id="workers-table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Phohe</th>
+                        <th>Email</th>
+                        <th>Start work time</th>
+                        <th>End work time</th>
+                        <th>Position</th>
+                        <th>Salary</th>
+                        <th>Edit</th>
+                        <th>Delete</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Rows will be populated by JavaScript -->
+                </tbody>
+                <tfoot>
+                    <tr class="fill-in-fields">
+
+                        <td colspan="2"><button class="add-button">Add New</button></td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    <script src="../../components/Worker.js"></script>
+    <script src="../../App.js"></script>
+</body>
+</html>
