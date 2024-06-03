@@ -5,16 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Green Guard</title>
     <link rel="stylesheet" href="../App.css">
+    <link rel="stylesheet" href="../css/Task.css">
 </head>
 <body>
     <div class="nav">
         <img src="../../public/images/GreenGuard_logo.png" class="logo">
         <ul>
-            <li id="profile" data-translate="workers"><a href="./UserProfilePage.html">My profile</a></li>
+            <li id="profile" data-translate="profile"><a href="./UserProfilePage.html">My profile</a></li>
             <li id="backups" data-translate="backups"><a href="./BackupPage.html">Backups</a></li>
             <li id="plants" data-translate="plants"><a href="./PlantPage.html">Plants</a></li>
             <li id="tasks" class="nav-selected" data-translate="tasks"><a href="./TaskPage.html">Tasks</a></li>
-            <li id="profile" data-translate="workers"><a href="./UserProfilePage.html">Workers</a></li>
+            <li id="workers" data-translate="workers"><a href="./WorkersPage.html">Workers</a></li>
             <li id="logout" data-translate="logout"><a href="./LoginPage.html">Log out</a></li>
             <div class="language-selector">
                 <select id="language-select">
@@ -26,21 +27,21 @@
     </div>
     <div class="content">
         <div class="header">
-            <h1>Here you can manage all tasks</h1>
+            <h1 data-translate="manage_tasks">Here you can manage all tasks</h1>
         </div>
         <div class="tasks-container">
             <table id="tasks-table">
                 <thead>
                     <tr>
-                        <th>Date</th>
-                        <th>Type</th>
-                        <th>Fertilizer</th>
-                        <th>Details</th>
-                        <th>State</th>
-                        <th>Workers</th>
-                        <th>Plants</th>
-                        <th>Edit</th>
-                        <th>Delete</th>
+                        <th data-translate="date">Date</th>
+                        <th data-translate="type">Type</th>
+                        <th data-translate="fertilizer">Fertilizer</th>
+                        <th data-translate="details">Details</th>
+                        <th data-translate="state">State</th>
+                        <th data-translate="workers">Workers</th>
+                        <th data-translate="plants">Plants</th>
+                        <th data-translate="edit">Edit</th>
+                        <th data-translate="delete">Delete</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -48,13 +49,33 @@
                 </tbody>
                 <tfoot>
                     <tr class="fill-in-fields">
-            
-                        <td colspan="2"><button class="add-button">Add New</button></td>
                     </tr>
                 </tfoot>
             </table>
         </div>
-    <script src="../../components/Plant.js"></script>
-    <script src="../../App.js"></script>
+        <div class="new-task-form">
+            <h2 data-translate="register_new_task">Register New Task</h2>
+            <form id="new-task-form">
+                <label for="new-task-date" data-translate="date">Date:</label>
+                <input id="new-task-date" type="datetime-local" placeholder="Date">
+
+                <label for="new-task-type" data-translate="type">Type:</label>
+                <input id="new-task-type" type="text" placeholder="Type">
+
+                <label for="new-task-details" data-translate="details">Details:</label>
+                <input id="new-task-details" type="text" placeholder="Details">
+
+                <label for="new-task-state" data-translate="state">State:</label>
+                <input id="new-task-state" type="text" placeholder="State">
+
+                <label for="new-task-fertilizer" data-translate="fertilizer">Fertilizer:</label>
+                <select id="new-task-fertilizer"></select>
+                
+                <button id="add-button-form" class="add-button" type="button" data-translate="add_new">Add New</button>
+            </form>
+        </div>
+    </div>
+    <script src="../components/Task.js"></script>
+    <script src="../App.js"></script>
 </body>
 </html>

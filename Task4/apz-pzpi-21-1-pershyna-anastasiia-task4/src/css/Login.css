@@ -15,7 +15,6 @@
     font-family: "Raleway-ExtraBold";
     src: local("Raleway-ExtraBold"), url(../public/fonts/Raleway/static/Raleway-ExtraBold.ttf) format("truetype");
 }
-
 :root {
     --color-bg: #ECEBE2;
     --color-primary: #366459;

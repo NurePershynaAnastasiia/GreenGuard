@@ -1,0 +1,231 @@
+@font-face {
+    font-family: "Raleway-LightItalic";
+    src: local("Raleway-LightItalic"), url(../public/fonts/Raleway/static/Raleway-LightItalic.ttf) format("truetype");
+}
+
+
+@font-face {
+    font-family: "Raleway";
+    src: local("Raleway"), url(../public/fonts/Raleway/Raleway-Italic-VariableFont_wght.ttf) format("truetype");
+}
+
+
+@font-face {
+    font-family: "Raleway-ExtraBold";
+    src: local("Raleway-ExtraBold"), url(../public/fonts/Raleway/static/Raleway-ExtraBold.ttf) format("truetype");
+}
+
+body {
+    font-family: "Raleway", sans-serif;
+    font-weight: 400;
+    color: #2e3d29; 
+    margin: 0;
+    padding: 0;
+    background-color: #f0f4f1;
+    line-height: 1.6;
+}
+
+.nav {
+    width: 100%;
+    font-family: "Raleway", sans-serif;
+    background-color: #4CAF50;
+    overflow: hidden;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+}
+
+.nav .logo {
+    width: 20px;
+}
+
+.nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.nav ul li {
+    float: left;
+}
+
+.nav ul li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 18px;
+    transition: background-color 0.3s;
+}
+
+.nav ul li a:hover {
+    background-color: #3e8e41;
+}
+
+.nav-selected{
+    background-color: #3e8e41;
+}
+
+.content {
+    padding: 20px;
+    margin-top: 60px;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.header h1 {
+    color: #366459;
+    font-size: 2em;
+}
+
+.header .language-selector {
+    display: flex;
+    align-items: center;
+}
+
+.header .language-selector select {
+    padding: 5px 10px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    background-color: #fff;
+    color: #2e3d29;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.header .language-selector select:hover {
+    background-color: #f0f4f1;
+}
+
+.table-container {
+    margin-top: 20px;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+table, th, td {
+    border: 1px solid #ddd;
+}
+
+th, td {
+    padding: 15px;
+    text-align: left;
+}
+
+th {
+    background-color: #366459;
+    color: #fff;
+    font-family: "Raleway";
+    font-weight: 800;
+}
+
+th:last-child, 
+th:nth-last-child(2),
+th:nth-last-child(3) {
+    background-color: #9FBCAC;
+}
+
+td {
+    background-color: #f9f9f9;
+}
+
+input, select, option {
+    font-family: "Raleway-LightItalic", sans-serif;
+    font-weight: 700;
+    color: #366459;
+}
+
+input[type="text"], 
+input[type="number"], 
+input[type="datetime-local"], 
+input[type="date"], 
+#input-type, 
+#input-status, 
+#input-datetime, 
+#input-guest, 
+#language-select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+    background-color: #f0f4f1;
+    box-sizing: border-box;
+}
+
+.edit-button, .restore-button {
+    background-color: #ffde4c;
+    font-family: "Raleway-ExtraBold", "Raleway";
+    font-weight: bolder;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.save-button, 
+.watering-date-button, 
+.add-button {
+    background-color: #126412;
+    color:white;
+    font-family: "Raleway-ExtraBold", "Raleway";
+    font-weight: bolder;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.edit-button:hover,
+.delete-button:hover, 
+.add-button:hover, 
+.cancel-button:hover, 
+.save-button:hover,
+.restore-button:hover {
+    background-color: #2e3d29;
+    color: white;
+}
+
+.delete-button, .cancel-button {
+    background-color: #ff6666;
+    font-family: "Raleway-ExtraBold";
+    border: none;
+    color: white;
+    padding: 10px 15px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.logo {
+    position: fixed;
+    bottom: 20px;
+    left: 1%;
+    width: 100px;
+}
+
+#worker-info{
+    font-weight: 900;
+}

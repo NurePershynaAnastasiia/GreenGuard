@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Green Guard</title>
     <link rel="stylesheet" href="../App.css">
-    <link rel="stylesheet" href="../Backup.css">
 </head>
 <body>
     <div class="nav">
@@ -16,7 +14,7 @@
             <li id="backups" class="nav-selected" data-translate="backups"><a href="./BackupPage.html">Backups</a></li>
             <li id="plants" data-translate="plants"><a href="./PlantPage.html">Plants</a></li>
             <li id="tasks" data-translate="tasks"><a href="./TaskPage.html">Tasks</a></li>
-            <li id="profile" data-translate="workers"><a href="./UserProfilePage.html">Workers</a></li>
+            <li id="workers" data-translate="workers"><a href="./WorkersPage.html">Workers</a></li>
             <li id="logout" data-translate="logout"><a href="./LoginPage.html">Log out</a></li>
             <div class="language-selector">
                 <select id="language-select">
@@ -28,20 +26,14 @@
     </div>
     <div class="content">
         <div class="header">
-            <h1>Here you can manage your database data</h1>
-            <div class="language-selector">
-                <select id="language-select">
-                    <option value="en">English</option>
-                    <option value="ua">Українська</option>
-                </select>
-            </div>
+            <h1 data-translate="manage_database">Here you can manage your database data</h1>
         </div>
         <div class="backups-container">
             <table id="backups-table">
                 <thead>
                     <tr>
-                        <th>Name</th>
-                        <th>Restore database</th>
+                        <th data-translate="name">Name</th>
+                        <th data-translate="restore_database">Restore database</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -49,13 +41,13 @@
                 </tbody>
                 <tfoot>
                     <td colspan="2">
-                        <button class="add-button" id="make-backup-button">Make database backup</button>
+                        <button class="add-button" id="make-backup-button" data-translate="make_backup">Make database backup</button>
                     </td>
                 </tfoot>
             </table>
         </div>
     </div>
-    <script src="../../components/Backup.js"></script>
-    <script src="../../App.js"></script>
+    <script src="../components/Backup.js"></script>
+    <script src="../App.js"></script>
 </body>
 </html>

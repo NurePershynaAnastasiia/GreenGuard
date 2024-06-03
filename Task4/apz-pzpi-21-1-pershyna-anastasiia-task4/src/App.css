@@ -3,12 +3,10 @@
     src: local("Raleway-LightItalic"), url(../public/fonts/Raleway/static/Raleway-LightItalic.ttf) format("truetype");
 }
 
-
 @font-face {
     font-family: "Raleway";
     src: local("Raleway"), url(../public/fonts/Raleway/Raleway-Italic-VariableFont_wght.ttf) format("truetype");
 }
-
 
 @font-face {
     font-family: "Raleway-ExtraBold";
@@ -17,8 +15,8 @@
 
 body {
     font-family: "Raleway", sans-serif;
-    font-weight: 400;
-    color: #2e3d29; 
+    font-weight: 900;
+    color: #000000; 
     margin: 0;
     padding: 0;
     background-color: #f0f4f1;
@@ -35,10 +33,6 @@ body {
     top: 0;
     left: 0;
     z-index: 1000;
-}
-
-.nav .logo {
-    width: 20px;
 }
 
 .nav ul {
@@ -64,11 +58,9 @@ body {
     transition: background-color 0.3s;
 }
 
-.nav ul li a:hover {
-    background-color: #3e8e41;
-}
-
-.nav-selected{
+.nav ul li a:hover,
+.nav-selected
+ {
     background-color: #3e8e41;
 }
 
@@ -147,6 +139,7 @@ th:nth-last-child(3) {
 
 td {
     background-color: #f9f9f9;
+    color: #000;
 }
 
 input, select, option {
@@ -174,7 +167,7 @@ input[type="date"],
 }
 
 .edit-button, .restore-button {
-    background-color: #ffeb99;
+    background-color: #ffd67f;
     font-family: "Raleway-ExtraBold";
     border: none;
     padding: 10px 15px;
@@ -186,8 +179,9 @@ input[type="date"],
 .save-button, 
 .watering-date-button, 
 .add-button {
-    background-color: #39e07f;
+    background-color: #115f14;
     font-family: "Raleway-ExtraBold";
+    color: white;
     border: none;
     padding: 10px 15px;
     cursor: pointer;
@@ -199,13 +193,14 @@ input[type="date"],
 .delete-button:hover, 
 .add-button:hover, 
 .cancel-button:hover, 
-.save-button:hover {
+.save-button:hover,
+.restore-button:hover {
     background-color: #2e3d29;
     color: white;
 }
 
 .delete-button, .cancel-button {
-    background-color: #ff6666;
+    background-color: #c91111;
     font-family: "Raleway-ExtraBold";
     border: none;
     color: white;
@@ -218,6 +213,10 @@ input[type="date"],
 .logo {
     position: fixed;
     bottom: 20px;
-    left: 1%;
-    width: 100px;
+    right: 1%;
+    width: 150px;
+}
+
+#worker-info {
+    font-weight: 900;
 }

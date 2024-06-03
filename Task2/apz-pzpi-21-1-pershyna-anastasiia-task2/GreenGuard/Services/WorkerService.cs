@@ -168,6 +168,7 @@ namespace GreenGuard.Services
                 existingWorker.PhoneNumber = updatedWorker.PhoneNumber;
                 existingWorker.StartWorkTime = updatedWorker.StartWorkTime;
                 existingWorker.EndWorkTime = updatedWorker.EndWorkTime;
+                existingWorker.IsAdmin = updatedWorker.isAdmin;
 
                 await _context.SaveChangesAsync();
             }

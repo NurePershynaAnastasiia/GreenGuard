@@ -3,21 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GreenGuard</title>
-    <link rel="stylesheet" href="../src/App.css">
+    <title>Green Guard</title>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const token = localStorage.getItem('token');
             if (!token) {
-                window.location.href = 'pages/LoginPage.html';
+                window.location.href = '../src/pages/LoginPage.html';
             } else {
-                window.location.href = 'pages/WorkerPage.html';
+                window.location.href = '../src/pages/UserProfilePage.html';
             }
         });
     </script>
 </head>
 <body>
-    <script src="../src/App.js"></script>
 </body>
 </html>
 

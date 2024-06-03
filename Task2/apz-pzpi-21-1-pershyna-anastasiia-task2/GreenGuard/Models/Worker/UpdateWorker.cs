@@ -19,5 +19,7 @@ namespace GreenGuard.Models.Worker
         public TimeOnly StartWorkTime { get; set; }
 
         public TimeOnly EndWorkTime { get; set; }
+
+        public bool isAdmin { get; set; }
     }
 }

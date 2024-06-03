@@ -199,7 +199,8 @@ input[type="date"],
 .delete-button:hover, 
 .add-button:hover, 
 .cancel-button:hover, 
-.save-button:hover {
+.save-button:hover,
+.restore-button:hover {
     background-color: #2e3d29;
     color: white;
 }
@@ -220,4 +221,8 @@ input[type="date"],
     bottom: 20px;
     left: 1%;
     width: 100px;
+}
+
+#worker-info{
+    font-weight: 900;
 }

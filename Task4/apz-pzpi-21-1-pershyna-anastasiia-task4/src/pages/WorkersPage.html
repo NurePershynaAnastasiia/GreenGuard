@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Green Guard</title>
+    <link rel="stylesheet" href="../css/Worker.css">
     <link rel="stylesheet" href="../App.css">
 </head>
 <body>
@@ -12,9 +13,9 @@
         <ul>
             <li id="profile" data-translate="profile"><a href="./UserProfilePage.html">My profile</a></li>
             <li id="backups" data-translate="backups"><a href="./BackupPage.html">Backups</a></li>
-            <li id="plants" class="nav-selected" data-translate="plants"><a href="./PlantPage.html">Plants</a></li>
+            <li id="plants" data-translate="plants"><a href="./PlantPage.html">Plants</a></li>
             <li id="tasks" data-translate="tasks"><a href="./TaskPage.html">Tasks</a></li>
-            <li id="profile" data-translate="workers"><a href="./UserProfilePage.html">Workers</a></li>
+            <li id="workers" class="nav-selected" data-translate="workers"><a href="./WorkersPage.html">Workers</a></li>
             <li id="logout" data-translate="logout"><a href="./LoginPage.html">Log out</a></li>
             <div class="language-selector">
                 <select id="language-select">
@@ -26,35 +27,54 @@
     </div>
     <div class="content">
         <div class="header">
-            <h1>All information about workers</h1>
+            <h1 data-translate="all_workers_info">All information about workers</h1>
         </div>
         <div class="workers-container">
             <table id="workers-table">
                 <thead>
                     <tr>
-                        <th>Name</th>
-                        <th>Phohe</th>
-                        <th>Email</th>
-                        <th>Start work time</th>
-                        <th>End work time</th>
-                        <th>Position</th>
-                        <th>Salary</th>
-                        <th>Edit</th>
-                        <th>Delete</th>
+                        <th data-translate="name">Name</th>
+                        <th data-translate="phone">Phone</th>
+                        <th data-translate="email">Email</th>
+                        <th data-translate="start_work_time">Start work time</th>
+                        <th data-translate="end_work_time">End work time</th>
+                        <th data-translate="position">Position</th>
+                        <th data-translate="salary">Salary</th>
+                        <th data-translate="edit">Edit</th>
+                        <th data-translate="delete">Delete</th>
                     </tr>
                 </thead>
                 <tbody>
                     <!-- Rows will be populated by JavaScript -->
                 </tbody>
-                <tfoot>
-                    <tr class="fill-in-fields">
-
-                        <td colspan="2"><button class="add-button">Add New</button></td>
-                    </tr>
-                </tfoot>
             </table>
         </div>
-    <script src="../../components/Worker.js"></script>
-    <script src="../../App.js"></script>
+        <div class="new-worker-form">
+            <h2 data-translate="register_new_worker">Register New Worker</h2>
+            <form id="new-worker-form">
+                <label for="new-worker-name" data-translate="name">Name:</label>
+                <input id="new-worker-name" type="text" placeholder="Name">
+
+                <label for="new-worker-phone" data-translate="phone">Phone:</label>
+                <input id="new-worker-phone" type="text" placeholder="Phone">
+
+                <label for="new-worker-email" data-translate="email">Email:</label>
+                <input id="new-worker-email" type="email" placeholder="Email">
+
+                <label for="new-worker-password" data-translate="password">Password:</label>
+                <input id="new-worker-password" type="password" placeholder="Password">
+
+                <label for="new-worker-isAdmin" data-translate="position">Position:</label>
+                <select id="new-worker-isAdmin">
+                    <option value="true" data-translate="admin">Admin</option>
+                    <option value="false" data-translate="worker" selected>Worker</option>
+                </select>
+                
+                <button type="button" class="register-button" data-translate="register">Register</button>
+            </form>
+        </div>
+    </div>
+    <script src="../components/Workers.js"></script>
+    <script src="../App.js"></script>
 </body>
 </html>
