@@ -172,7 +172,7 @@ class PlantUI {
 
     async fetchTranslations(lang) {
         try {
-            const response = await fetch(`../locales/${lang}.json`);
+            const response = await fetch(`../../public/locales/${lang}/${lang}.json`);
             if (!response.ok) {
                 throw new Error(`Error fetching translations: ${response.statusText}`);
             }

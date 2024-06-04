@@ -73,8 +73,8 @@ class WorkerService {
         }
     }
 
-    async loadTranslations(language) {
-        const response = await fetch(`./translations/${language}.json`);
+    async loadTranslations(lang) {
+        const response = await fetch(`../../public/locales/${lang}/${lang}.json`);
         if (!response.ok) {
             throw new Error(`Error loading translations: ${response.statusText}`);
         }

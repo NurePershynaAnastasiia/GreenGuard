@@ -5,13 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Green Guard</title>
     <link rel="stylesheet" href="../App.css">
+    
 </head>
 <body>
     <div class="nav">
         <img src="../../public/images/GreenGuard_logo.png" class="logo">
         <ul>
-            <li id="profile" data-translate="profile"><a href="../pages/UserProfilePage.html">My profile</a></li>
-            <li id="backups" class="nav-selected" data-translate="backups"><a href="../pages/BackupPage.html">Backups</a></li>
+            <li id="profile" class="nav-selected" data-translate="profile"><a href="../pages/UserProfilePage.html">My profile</a></li>
+            <li id="backups"  data-translate="backups"><a href="../pages/BackupPage.html">Backups</a></li>
             <li id="plants" data-translate="plants"><a href="../pages/PlantPage.html">Plants</a></li>
             <li id="tasks" data-translate="tasks"><a href="../pages/TaskPage.html">Tasks</a></li>
             <li id="workers" data-translate="workers"><a href="../pages/WorkersPage.html">Workers</a></li>
@@ -35,6 +36,7 @@
         <button class="save-button" id="save-button" style="display: none;" data-translate="save">Save</button>
         <button class="cancel-button" id="cancel-button" style="display: none;" data-translate="cancel">Cancel</button>
     </div>
+    
     <script src="../services/ProfileService.js"></script>
     <script src="../ui/ProfileUI.js"></script>
 </body>

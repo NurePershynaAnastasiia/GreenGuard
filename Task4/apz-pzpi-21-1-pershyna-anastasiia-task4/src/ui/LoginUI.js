@@ -37,10 +37,12 @@ document.addEventListener('DOMContentLoaded', function() {
         const email = document.getElementById('email').value;
         const password = document.getElementById('password').value;
 
+        /*
         if (!email || !password) {
             console.error('Error: Email and password fields cannot be empty');
             return;
         }
+        */
 
         try {
             const data = await loginService.login(email, password);
