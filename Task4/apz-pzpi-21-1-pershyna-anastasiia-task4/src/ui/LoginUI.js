@@ -1,5 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
     const localizedText = {};
+    const loginService = new LoginService('https://localhost:7042/api/Workers');
 
     const loadLanguage = async (lang) => {
         try {
@@ -11,7 +12,7 @@ document.addEventListener('DOMContentLoaded', function() {
             console.error('Error loading language file:', error);
         }
     };
-    
+
     const applyTranslations = () => {
         document.querySelectorAll('[data-translate]').forEach(element => {
             const key = element.getAttribute('data-translate');
@@ -20,47 +21,32 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     };
-    
+
     const languageSelect = document.getElementById('language-select');
     languageSelect.addEventListener('change', (event) => {
         const selectedLanguage = event.target.value;
         loadLanguage(selectedLanguage);
     });
-    
+
     // Load default language
     loadLanguage(languageSelect.value);
 
     document.getElementById('loginForm').addEventListener('submit', async function(event) {
         event.preventDefault();
-    
+
         const email = document.getElementById('email').value;
         const password = document.getElementById('password').value;
-    
+
         if (!email || !password) {
             console.error('Error: Email and password fields cannot be empty');
             return;
         }
-    
+
         try {
-            const response = await fetch('https://localhost:7042/api/Workers/login', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ email, password })
-            });
-    
-            if (!response.ok) {
-                const error = await response.text();
-                console.error('Error:', error);
-                document.getElementById('error-message').textContent = localizedText['error_message'] || 'Login failed. Please check your credentials and try again.';
-                return;
-            }
-    
-            const data = await response.json();
+            const data = await loginService.login(email, password);
             if (data && data.token) {
                 localStorage.setItem('token', data.token);
-    
+
                 const decodedToken = jwt_decode(data.token);
                 localStorage.setItem('userData', JSON.stringify(decodedToken));
                 window.location.href = './UserProfilePage.html';

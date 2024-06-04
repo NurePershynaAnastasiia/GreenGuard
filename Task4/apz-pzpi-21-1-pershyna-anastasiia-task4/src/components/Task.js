@@ -2,10 +2,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const tasksTable = document.getElementById('tasks-table').querySelector('tbody');
     const newTaskForm = document.getElementById('new-task-form');
     const addButtonForm = document.getElementById('add-button-form');
-    const apiUrl = 'http://localhost:5159/api/Tasks';
-    const fertilizersUrl = 'http://localhost:5159/api/Fertilizers/fertilizers';
-    const plantsUrl = 'http://localhost:5159/api/Plants/plants';
-    const workersUrl = 'http://localhost:5159/api/Workers/workers';
+    const apiUrl = 'https://localhost:7042/api/Tasks';
+    const fertilizersUrl = 'https://localhost:7042/api/Fertilizers/fertilizers';
+    const plantsUrl = 'https://localhost:7042/api/Plants/plants';
+    const workersUrl = 'https://localhost:7042/api/Workers/workers';
     const token = localStorage.getItem('token');
 
     const headers = {

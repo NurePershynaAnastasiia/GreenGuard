@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', async () => {
-    const apiUrl = 'http://localhost:5159/api/Workers/workers/';
-    const updateUrl = 'http://localhost:5159/api/Workers/update/';
+    const apiUrl = 'https://localhost:7042/api/Workers/workers/';
+    const updateUrl = 'https://localhost:7042/api/Workers/update/';
     const workerContainer = document.getElementById('worker-info');
     const editButton = document.getElementById('edit-button');
     const saveButton = document.getElementById('save-button');

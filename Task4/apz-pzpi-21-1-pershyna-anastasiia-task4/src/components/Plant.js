@@ -1,8 +1,8 @@
 document.addEventListener('DOMContentLoaded', () => {
     const plantsTable = document.getElementById('plants-table').getElementsByTagName('tbody')[0];
-    const apiUrl = 'http://localhost:5159/api/Plants';
-    const wateringUrl = 'http://localhost:5159/api/Watering';
-    const plantTypesUrl = 'http://localhost:5159/api/PlantTypes/plantTypes';
+    const apiUrl = 'https://localhost:7042/api/Plants';
+    const wateringUrl = 'https://localhost:7042/api/Watering';
+    const plantTypesUrl = 'https://localhost:7042/api/PlantTypes/plantTypes';
     const plantTypeSelect = document.getElementById('input-plant-type');
     const localizedText = {};
     let plantTypes = [];

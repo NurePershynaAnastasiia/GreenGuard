@@ -1,8 +1,8 @@
 document.addEventListener('DOMContentLoaded', async () => {
     const workersTable = document.getElementById('workers-table').getElementsByTagName('tbody')[0];
-    const apiUrl = 'http://localhost:5159/api/Workers';
-    const registerUrl = 'http://localhost:5159/api/Workers/register';
-    const salaryUrl = 'http://localhost:5159/api/Salary';
+    const apiUrl = 'https://localhost:7042/api/Workers';
+    const registerUrl = 'https://localhost:7042/api/Workers/register';
+    const salaryUrl = 'https://localhost:7042/api/Salary';
     const localizedText = {};
 
     async function fetchWorkers() {

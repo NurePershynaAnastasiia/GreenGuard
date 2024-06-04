@@ -1,6 +1,7 @@
 using GreenGuard.BuildInjections;
 using GreenGuard.Data;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.FileProviders;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -14,7 +15,7 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowSpecificOrigin", builder =>
     {
-        builder.WithOrigins("http://localhost:5159")
+        builder.WithOrigins("http://localhost:7042", "http://127.0.0.1:5500")
             .AllowAnyMethod()
             .AllowAnyHeader()
             .SetIsOriginAllowed(_ => true)
@@ -64,8 +65,7 @@ if (app.Environment.IsDevelopment())
 }
 
 
-//app.UseHttpsRedirection();
-//app.UseHttpRedirection();
+app.UseHttpsRedirection();
 
 app.UseStaticFiles();
 
